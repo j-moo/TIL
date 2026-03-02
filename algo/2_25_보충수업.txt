@@ -1,0 +1,46 @@
+1.
+SSAFY 1학기 2026-02-25 오후 7:20 • N = int(input())
+A = list(map(int, input().split()))
+res = 0
+
+for i in range(N):
+for j in range(i + 1, N):
+for k in range(j + 1, N):
+# A[i]: 첫 번째 소의 키
+# A[j]: 두 번째 소의 키
+# A[k]: 세 번째 소의 키
+
+if A[i] <= A[j] <= A[k]:
+res += 1 
+
+print(res)
+
+2.
+SSAFY 1학기 2026-02-25 오후 7:30 • n = int(input())
+grid = [list(map(int, input().split())) for _ in range(n)]
+res = 0
+
+for y in range(n):
+for x in range(n - 2):
+# (y, x), (y, x + 1), (y, x + 2)
+coins = grid[y][x] + grid[y][x + 1] + grid[y][x + 2]
+res = max(res, coins)
+
+print(res)
+
+실습문제
+
+1.
+SSAFY 1학기 2026-02-25 오후 7:30 • n = int(input())
+grid = [list(map(int, input().split())) for _ in range(n)]
+res = 0
+
+for y in range(n):
+for x in range(n - 2):
+# (y, x), (y, x + 1), (y, x + 2)
+coins = grid[y][x] + grid[y][x + 1] + grid[y][x + 2]
+res = max(res, coins)
+
+print(res)
+
+2.
