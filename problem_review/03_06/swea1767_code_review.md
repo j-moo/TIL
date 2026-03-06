@@ -1,5 +1,8 @@
 # 1767. 프로세서 연결하기 - 내 코드 분석 / 코드 리뷰용 🔍
 
+
+- 📚 문제 출처: SWEA 1767. [SW Test 샘플문제] 프로세서 연결하기
+- 🔗 문제 링크: <https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4suNtaXFEDFAUf&categoryId=AV4suNtaXFEDFAUf&categoryType=CODE&problemTitle=1767&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1>
 - 🎯 목표: SWEA 1767 풀이 코드의 흐름을 이해하고, 왜 이 백트래킹 구조가 맞는지 분석한다.
 - 🧩 키워드: DFS, 백트래킹, 가지치기, 상태복구, 재귀
 - ⭐ 난이도: 상
