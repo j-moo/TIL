@@ -1,7 +1,7 @@
 # 두 가지로 열리는 자물쇠
 
 - 📚 **문제 출처:** 코드트리
-- 🔗 **문제 링크:** <https://www.codetree.ai/ko/external-connection/classes/176/lectures/1752/curated-cards/challenge-a-two-way-lock/description>
+- 🔗 **문제 링크:** 
 - 🧭 **문제 유형:** 브루트포스, 구현, 원형 거리 계산
 - 🎯 **목표:** 두 개의 기준 조합 중 하나에 대해 **모든 자리의 원형 거리가 2 이내**인 3자리 조합의 개수를 구한다.
 - 🧩 **키워드:** `3중 for문`, `완전탐색`, `원형 거리`, `조건 판별`
