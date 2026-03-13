@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>organized_lecture_note_binary_tree_heap_inline_code.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC-%EC%9D%B4%EC%A7%84%ED%83%90%EC%83%89%ED%8A%B8%EB%A6%AC-%ED%9E%99-%EC%A0%95%EB%A6%AC">백트래킹, 이진 트리, 이진탐색트리, 힙 정리</h1>
+<ul>
+<li>🎯 글의 목표: 백트래킹과 트리 자료구조의 흐름을 한 번에 정리하고, 특히 <strong>이진탐색트리(BST)의 삽입·삭제</strong>와 <strong>힙의 삽입·삭제</strong>가 왜 그렇게 동작하는지까지 이해하는 데 있다.</li>
+<li>🧩 핵심 키워드: 백트래킹, 가지치기, 상태 공간 트리, 트리, 이진 트리, 순회, 배열 표현, 연결 리스트, 이진탐색트리, BST 삽입, BST 삭제, 힙, 최대 힙, 최소 힙, 우선순위 큐</li>
+<li>⭐ 중요도: 매우 높음 — 코딩 테스트와 자료구조 기초를 연결하는 핵심 주제</li>
+<li>📝 한눈에 보는 내용: 이 글에서는 먼저 백트래킹이 왜 필요한지 N-Queen 예시로 정리하고, 이어서 트리와 이진 트리의 구조를 살펴본다. 그 다음 이진탐색트리의 탐색·삽입·삭제를 이해하고, 마지막으로 힙의 구조와 삽입·삭제 연산을 <strong>개념이 나오는 자리에서 바로 코드와 함께</strong> 정리한다.</li>
+<li>🔗 관련 문제 / 주제(있다면): N-Queen, 트리 순회, BST 탐색/삽입/삭제, 우선순위 큐, 힙 정렬</li>
+</ul>
+<hr>
+<h2 id="1-%EB%93%A4%EC%96%B4%EA%B0%80%EB%A9%B0">1. 들어가며</h2>
+<p>이 글에서는 강의 노트의 흐름을 따라 <strong>백트래킹 → 트리 → 이진 트리 → 이진탐색트리 → 힙</strong>까지 한 번에 정리한다. 각각 따로 배우는 것처럼 보여도, 실제로는 “문제를 트리처럼 보고 필요한 경로만 탐색하는 사고”와 “트리 구조를 효율적으로 저장하고 다루는 방법”이라는 한 줄기로 연결된다.</p>
+<p>이번 재정리에서는 코드 배치도 바꿨다. 자료구조 노트는 <strong>개념 설명을 읽고 난 뒤 바로 그 위치에서 코드를 보는 것</strong>이 훨씬 이해가 잘 된다. 그래서 이번 버전은 코드가 별도 섹션에 몰리지 않고, <strong>해당 개념 아래에 바로 등장</strong>하도록 구성했다.</p>
+<p>특히 강의 노트에서 조금 짧게 지나간 <strong>BST 삭제</strong>와 <strong>힙 삽입·삭제</strong>는 설명과 코드 해설을 더 촘촘하게 보강했다. 이 부분은 시험과 문제풀이에서 자주 헷갈리는 포인트라서, “정의”보다 “왜 그렇게 하는지”를 이해하는 것이 중요하다.</p>
+<hr>
+<h2 id="2-%ED%95%B5%EC%8B%AC-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC">2. 핵심 개념 정리</h2>
+<p>이 섹션에서는 강의 전체의 큰 흐름을 먼저 잡는다. 세부 코드로 들어가기 전에, 각각의 자료구조와 알고리즘이 <strong>어떤 문제를 해결하려고 등장했는지</strong>를 이해하면 훨씬 오래 기억에 남는다.</p>
+<h3 id="%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EB%AA%A8%EB%93%A0-%EA%B2%BD%EC%9A%B0%EB%A5%BC-%EB%B3%B4%EB%90%98-%ED%95%84%EC%9A%94-%EC%97%86%EB%8A%94-%EA%B8%B8%EC%9D%80-%EB%B9%A8%EB%A6%AC-%ED%8F%AC%EA%B8%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95">백트래킹: 모든 경우를 보되, 필요 없는 길은 빨리 포기하는 방법</h3>
+<p>백트래킹은 여러 선택지가 있는 문제에서 가능한 경우를 탐색하되, <strong>답이 될 수 없는 경로는 중간에 잘라내는 방식</strong>이다. 그냥 깊이 우선 탐색(DFS)으로 끝까지 내려가면 경우의 수가 너무 커지기 때문에, 중간중간 “이 길은 더 가도 답이 안 나온다”는 판단을 해 주는 것이 핵심이다.</p>
+<p>여기서 자주 나오는 말이 <strong>가지치기(pruning)</strong> 이다. 말 그대로 나무의 가지를 잘라내듯, 유망하지 않은 선택을 빨리 버리는 것이다. N-Queen 문제처럼 배치 가능한 경우가 폭발적으로 늘어나는 문제에서 특히 강력하다.</p>
+<h3 id="%ED%8A%B8%EB%A6%AC-%EA%B3%84%EC%B8%B5-%EA%B5%AC%EC%A1%B0%EB%A5%BC-%ED%91%9C%ED%98%84%ED%95%98%EB%8A%94-%EA%B0%80%EC%9E%A5-%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9D%B8-%ED%8B%80">트리: 계층 구조를 표현하는 가장 기본적인 틀</h3>
+<p>트리는 사이클이 없는 연결 구조이며, 부모-자식 관계가 있는 <strong>계층형 자료구조</strong>다. 폴더 구조, 조직도, DOM 구조처럼 현실에서도 자주 등장한다. 그래프와 비슷해 보여도, 트리는 <strong>두 노드 사이의 경로가 유일</strong>하고 <strong>사이클이 없다</strong>는 특징 덕분에 조금 더 단순하게 다룰 수 있다.</p>
+<h3 id="%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC-%EC%9E%90%EC%8B%9D%EC%9D%B4-%EC%B5%9C%EB%8C%80-%EB%91%90-%EA%B0%9C%EA%B9%8C%EC%A7%80%EC%9D%B8-%ED%8A%B8%EB%A6%AC">이진 트리: 자식이 최대 두 개까지인 트리</h3>
+<p>이진 트리는 각 노드가 왼쪽 자식과 오른쪽 자식, 최대 두 개만 가질 수 있는 트리다. 자식 수가 제한되기 때문에 구조가 단순해지고, 순회(preorder / inorder / postorder)나 배열 표현 같은 기법을 배우기 좋다.</p>
+<h3 id="%EC%9D%B4%EC%A7%84%ED%83%90%EC%83%89%ED%8A%B8%EB%A6%ACbst-%ED%83%90%EC%83%89%EC%9D%84-%EB%B9%A0%EB%A5%B4%EA%B2%8C-%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-%EA%B7%9C%EC%B9%99-%EC%9E%88%EB%8A%94-%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC">이진탐색트리(BST): 탐색을 빠르게 하기 위한 규칙 있는 이진 트리</h3>
+<p>BST는 단순히 “자식이 둘 이하인 트리”가 아니라, 여기에 <strong>정렬 규칙</strong>이 추가된 구조다.</p>
+<ul>
+<li>왼쪽 서브트리의 모든 값 &lt; 루트 값</li>
+<li>오른쪽 서브트리의 모든 값 &gt; 루트 값</li>
+</ul>
+<p>이 규칙 덕분에 탐색 방향을 절반씩 줄여 갈 수 있다. 그래서 평균적으로는 <code>O(log n)</code>에 탐색, 삽입, 삭제가 가능하다. 다만 한쪽으로 치우치면 <code>O(n)</code>까지 나빠질 수 있다.</p>
+<h3 id="%ED%9E%99-%EC%B5%9C%EB%8C%93%EA%B0%92-%EB%98%90%EB%8A%94-%EC%B5%9C%EC%86%9F%EA%B0%92%EC%9D%84-%EB%B9%A8%EB%A6%AC-%EA%BA%BC%EB%82%B4%EA%B8%B0-%EC%9C%84%ED%95%9C-%EC%99%84%EC%A0%84-%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC">힙: 최댓값 또는 최솟값을 빨리 꺼내기 위한 완전 이진 트리</h3>
+<p>힙은 정렬된 트리가 아니다. 대신 <strong>부모와 자식 사이의 대소 관계만 유지</strong>한다. 최대 힙에서는 부모가 자식보다 크고, 최소 힙에서는 부모가 자식보다 작다. 그래서 전체가 오름차순/내림차순으로 정렬되어 있지는 않지만, 루트에는 항상 가장 큰 값 또는 가장 작은 값이 온다.</p>
+<p>이게 왜 중요할까? 우선순위 큐처럼 “가장 급한 것 하나를 빨리 꺼내야 하는 상황”에서는 전체 정렬보다 <strong>루트 하나를 빨리 찾는 능력</strong>이 더 중요하기 때문이다.</p>
+<h3 id="%ED%95%9C-%EB%B2%88%EC%97%90-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0">한 번에 비교하기</h3>
+<table>
+<thead>
+<tr>
+<th>구조</th>
+<th>핵심 목적</th>
+<th>중요한 규칙</th>
+<th>잘하는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>백트래킹</td>
+<td>경우의 수 탐색 최적화</td>
+<td>유망하지 않으면 중단</td>
+<td>조합, 배치, 완전탐색 가지치기</td>
+</tr>
+<tr>
+<td>이진 트리</td>
+<td>계층 구조 표현</td>
+<td>자식이 최대 2개</td>
+<td>순회, 구조적 표현</td>
+</tr>
+<tr>
+<td>BST</td>
+<td>빠른 탐색</td>
+<td>왼쪽 &lt; 루트 &lt; 오른쪽</td>
+<td>탐색, 삽입, 삭제</td>
+</tr>
+<tr>
+<td>힙</td>
+<td>최대/최소값 빠른 추출</td>
+<td>부모-자식 대소 관계</td>
+<td>우선순위 큐, 힙 정렬</td>
+</tr>
+</tbody>
+</table>
+<p>💡 <strong>포인트</strong><br>
+트리라고 해서 다 같은 트리가 아니다. <strong>BST는 “탐색”에 강한 트리</strong>, <strong>힙은 “최댓값/최솟값 꺼내기”에 강한 트리</strong>라고 기억하면 구분이 쉬워진다.</p>
+<hr>
+<h2 id="3-%EB%B3%B8%EB%AC%B8-%EC%A0%95%EB%A6%AC">3. 본문 정리</h2>
+<p>이 섹션에서는 강의 내용을 순서대로 따라가며 개념을 풀어쓴다. 이번 버전에서는 <strong>개념이 등장하면 그 자리에서 바로 코드와 해설이 따라오도록</strong> 배치했다.</p>
+<h3 id="3-1-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9%EA%B3%BC-n-queen">3-1. 백트래킹과 N-Queen</h3>
+<p>이 부분에서는 백트래킹이 실제로 어떤 문제에서 빛을 발하는지 본다. 대표 예시가 바로 <strong>N-Queen</strong> 문제다.</p>
+<p>N-Queen은 <code>N x N</code> 체스판에 퀸 N개를 서로 공격하지 않게 놓는 문제다. 퀸은 가로, 세로, 대각선으로 모두 움직일 수 있으므로, 단순히 빈 칸을 찾는 문제가 아니라 “지금 놓는 위치가 이후까지 안전한가?”를 계속 판단해야 한다.</p>
+<p>예를 들어 4-Queen을 생각해 보면, 아무 생각 없이 각 행마다 4칸 중 하나를 고르면 경우의 수는 <code>4 x 4 x 4 x 4 = 256</code>개다. 하지만 실제로는 같은 열에 이미 퀸이 있거나, 대각선에서 충돌하는 경우가 많기 때문에 대부분은 중간에 버려도 된다.</p>
+<p>백트래킹의 흐름은 다음과 같다.</p>
+<ol>
+<li>현재 행에서 퀸을 놓을 열을 하나 고른다.</li>
+<li>이전 퀸들과 충돌하는지 검사한다.</li>
+<li>충돌하면 바로 다음 열로 넘어간다.</li>
+<li>충돌하지 않으면 다음 행으로 재귀 호출한다.</li>
+<li>끝까지 갔으면 정답 하나를 찾은 것이다.</li>
+</ol>
+<p>이 코드는 “현재 자리가 유망한지 검사하고, 가능하면 다음 행으로 내려가는” 가장 전형적인 백트래킹 형태를 보여 준다.</p>
+<pre class="hljs"><code><div>N = <span class="hljs-number">4</span>
+visited = [[<span class="hljs-literal">False</span>] * N <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(N)]  <span class="hljs-comment"># 체스판 방문 여부</span>
+path = [<span class="hljs-number">-1</span>] * N                            <span class="hljs-comment"># path[row] = row행에서 선택한 col</span>
+answer = <span class="hljs-number">0</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check</span><span class="hljs-params">(row, col)</span>:</span>
+    <span class="hljs-comment"># 1) 같은 열에 이미 퀸이 있는지 확인</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(row):
+        <span class="hljs-keyword">if</span> visited[i][col]:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-comment"># 2) 좌상단 대각선 확인</span>
+    i, j = row - <span class="hljs-number">1</span>, col - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> i &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> j &gt;= <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">if</span> visited[i][j]:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+        i -= <span class="hljs-number">1</span>
+        j -= <span class="hljs-number">1</span>
+
+    <span class="hljs-comment"># 3) 우상단 대각선 확인</span>
+    i, j = row - <span class="hljs-number">1</span>, col + <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> i &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> j &lt; N:
+        <span class="hljs-keyword">if</span> visited[i][j]:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+        i -= <span class="hljs-number">1</span>
+        j += <span class="hljs-number">1</span>
+
+    <span class="hljs-comment"># 충돌이 없으면 놓을 수 있는 자리</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">recur</span><span class="hljs-params">(row)</span>:</span>
+    <span class="hljs-keyword">global</span> answer
+
+    <span class="hljs-comment"># 모든 행에 퀸을 다 놓았으면 정답 1개 완성</span>
+    <span class="hljs-keyword">if</span> row == N:
+        answer += <span class="hljs-number">1</span>
+        print(path)
+        <span class="hljs-keyword">return</span>
+
+    <span class="hljs-comment"># 현재 행에서 가능한 모든 열 시도</span>
+    <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> range(N):
+        <span class="hljs-comment"># 유망하지 않으면 가지치기</span>
+        <span class="hljs-keyword">if</span> check(row, col):
+            <span class="hljs-keyword">continue</span>
+
+        <span class="hljs-comment"># 퀸 배치</span>
+        visited[row][col] = <span class="hljs-literal">True</span>
+        path[row] = col
+
+        <span class="hljs-comment"># 다음 행으로 이동</span>
+        recur(row + <span class="hljs-number">1</span>)
+
+        <span class="hljs-comment"># 원상 복구(backtracking)</span>
+        visited[row][col] = <span class="hljs-literal">False</span>
+        path[row] = <span class="hljs-number">-1</span>
+
+
+recur(<span class="hljs-number">0</span>)
+print(<span class="hljs-string">"정답 개수:"</span>, answer)
+</div></code></pre>
+<h4 id="%EC%BD%94%EB%93%9C-%ED%95%B4%EC%84%A4">코드 해설</h4>
+<ul>
+<li>한 행에는 퀸을 하나만 놓는다고 가정하고 <code>row</code>를 기준으로 재귀를 돈다.</li>
+<li>각 행마다 모든 <code>col</code>을 시도한다.</li>
+<li><code>check()</code>에서 같은 열, 왼쪽 위 대각선, 오른쪽 위 대각선을 검사한다.</li>
+<li>놓을 수 없으면 <code>continue</code>로 바로 가지치기한다.</li>
+<li>놓을 수 있으면 배치하고 다음 행으로 내려간다.</li>
+<li>재귀가 끝나면 다시 지워서 다른 경우를 시도한다.</li>
+</ul>
+<p>⚠️ <strong>자주 하는 실수</strong></p>
+<ul>
+<li>재귀 호출 뒤에 원상 복구를 안 해서 다른 경우의 수가 오염되는 경우</li>
+<li><code>check()</code>가 “가능 여부”가 아니라 “충돌 여부”를 반환한다는 점을 헷갈리는 경우</li>
+<li>같은 행까지 검사해서 자기 자신과 충돌 처리하는 경우</li>
+</ul>
+<p>📌 <strong>핵심</strong><br>
+백트래킹은 “모든 경우를 보는 탐색”이지만, <strong>유망하지 않은 경로를 중간에 버리는 DFS</strong>라고 이해하면 된다.</p>
+<hr>
+<h3 id="3-2-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EA%B0%9C%EB%85%90">3-2. 트리의 기본 개념</h3>
+<p>이 부분에서는 트리의 용어를 먼저 정확히 정리한다. 이후 이진 트리, BST, 힙으로 갈수록 같은 용어가 계속 반복되기 때문이다.</p>
+<ul>
+<li><strong>루트(root)</strong>: 가장 위의 시작 노드</li>
+<li><strong>부모(parent)</strong>: 어떤 노드를 가리키는 상위 노드</li>
+<li><strong>자식(child)</strong>: 부모 아래에 연결된 하위 노드</li>
+<li><strong>리프(leaf)</strong>: 자식이 없는 노드</li>
+<li><strong>형제(sibling)</strong>: 같은 부모를 가진 노드</li>
+<li><strong>서브트리(subtree)</strong>: 특정 노드를 루트로 보는 작은 트리</li>
+<li><strong>조상 / 자손</strong>: 위쪽으로 이어지는 노드 / 아래쪽으로 이어지는 노드</li>
+<li><strong>높이(height)</strong>: 트리 또는 노드가 가지는 깊이 정보</li>
+</ul>
+<p>🧠 <strong>기억할 것</strong><br>
+트리는 재귀적으로 정의된다. 즉, 큰 트리 안의 각 서브트리도 결국 또 하나의 트리다. 그래서 트리 문제에서는 재귀가 자연스럽게 잘 어울린다.</p>
+<hr>
+<h3 id="3-3-%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC%EC%99%80-%EC%88%9C%ED%9A%8C">3-3. 이진 트리와 순회</h3>
+<p>이 부분에서는 이진 트리의 구조적 특징과 순회를 정리한다. 이진 트리는 자식이 최대 두 개뿐이어서, 왼쪽과 오른쪽을 기준으로 탐색 순서를 정의하기 쉽다.</p>
+<h4 id="%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EC%84%B1%EC%A7%88">이진 트리의 기본 성질</h4>
+<ul>
+<li>레벨 <code>i</code>에서 가질 수 있는 최대 노드 수는 <code>2^i</code></li>
+<li>높이 <code>h</code>인 이진 트리의 최대 노드 수는 <code>2^(h+1) - 1</code></li>
+<li>모든 레벨이 가득 찬 형태를 <strong>포화 이진 트리</strong></li>
+<li>마지막 레벨만 덜 찰 수 있고 왼쪽부터 채워지는 형태를 <strong>완전 이진 트리</strong></li>
+<li>한쪽으로만 늘어선 형태를 <strong>편향 이진 트리</strong>라고 한다</li>
+</ul>
+<h4 id="%EC%88%9C%ED%9A%8C-%EB%B0%A9%EB%B2%95-3%EA%B0%80%EC%A7%80">순회 방법 3가지</h4>
+<ol>
+<li><strong>전위 순회 (VLR)</strong>: 루트 → 왼쪽 → 오른쪽</li>
+<li><strong>중위 순회 (LVR)</strong>: 왼쪽 → 루트 → 오른쪽</li>
+<li><strong>후위 순회 (LRV)</strong>: 왼쪽 → 오른쪽 → 루트</li>
+</ol>
+<p>중위 순회는 특히 BST와 연결될 때 중요하다. BST를 중위 순회하면 값이 <strong>오름차순</strong>으로 나오기 때문이다.</p>
+<p>이 코드는 연결 리스트 방식의 노드 클래스와 세 가지 순회를 함께 보여 준다.</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, key)</span>:</span>
+        self.key = key      <span class="hljs-comment"># 현재 노드가 저장하는 값</span>
+        self.left = <span class="hljs-literal">None</span>    <span class="hljs-comment"># 왼쪽 자식</span>
+        self.right = <span class="hljs-literal">None</span>   <span class="hljs-comment"># 오른쪽 자식</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorder</span><span class="hljs-params">(node)</span>:</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span>
+    print(node.key, end=<span class="hljs-string">' '</span>)   <span class="hljs-comment"># V: 루트를 먼저 방문</span>
+    preorder(node.left)        <span class="hljs-comment"># L: 왼쪽 서브트리</span>
+    preorder(node.right)       <span class="hljs-comment"># R: 오른쪽 서브트리</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inorder</span><span class="hljs-params">(node)</span>:</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span>
+    inorder(node.left)         <span class="hljs-comment"># L</span>
+    print(node.key, end=<span class="hljs-string">' '</span>)   <span class="hljs-comment"># V</span>
+    inorder(node.right)        <span class="hljs-comment"># R</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postorder</span><span class="hljs-params">(node)</span>:</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span>
+    postorder(node.left)       <span class="hljs-comment"># L</span>
+    postorder(node.right)      <span class="hljs-comment"># R</span>
+    print(node.key, end=<span class="hljs-string">' '</span>)   <span class="hljs-comment"># V: 마지막에 루트 방문</span>
+</div></code></pre>
+<h4 id="%EC%BD%94%EB%93%9C-%ED%95%B4%EC%84%A4">코드 해설</h4>
+<ul>
+<li>전위 순회는 루트를 먼저 처리하므로 “구조를 먼저 본다”는 느낌이다.</li>
+<li>중위 순회는 BST에서 정렬 결과를 확인할 때 중요하다.</li>
+<li>후위 순회는 자식부터 처리하므로 삭제나 계산 누적과 잘 맞는다.</li>
+</ul>
+<p>💡 <strong>쉽게 기억하는 법</strong></p>
+<ul>
+<li>전위: <strong>부모 먼저</strong></li>
+<li>중위: <strong>부모 가운데</strong></li>
+<li>후위: <strong>부모 나중</strong></li>
+</ul>
+<hr>
+<h3 id="3-4-%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC%EB%A5%BC-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95">3-4. 이진 트리를 저장하는 방법</h3>
+<p>이 부분에서는 이진 트리를 코드에서 어떻게 표현하는지 정리한다. 강의 노트에서는 배열, 연결 리스트, 그래프 방식이 소개되었다.</p>
+<h4 id="1-%EB%B0%B0%EC%97%B4-%ED%91%9C%ED%98%84">1) 배열 표현</h4>
+<p>완전 이진 트리처럼 빈칸이 거의 없는 구조에서는 배열 표현이 아주 편하다.</p>
+<ul>
+<li>
+<p>인덱스를 1부터 시작하면</p>
+<ul>
+<li>왼쪽 자식: <code>i * 2</code></li>
+<li>오른쪽 자식: <code>i * 2 + 1</code></li>
+</ul>
+</li>
+<li>
+<p>인덱스를 0부터 시작하면</p>
+<ul>
+<li>왼쪽 자식: <code>i * 2 + 1</code></li>
+<li>오른쪽 자식: <code>i * 2 + 2</code></li>
+</ul>
+</li>
+</ul>
+<p>아래 코드는 0-based 배열에서 부모와 자식을 계산하는 가장 기본적인 형태다.</p>
+<pre class="hljs"><code><div>arr = [<span class="hljs-number">50</span>, <span class="hljs-number">30</span>, <span class="hljs-number">70</span>, <span class="hljs-number">20</span>, <span class="hljs-number">40</span>, <span class="hljs-number">60</span>, <span class="hljs-number">80</span>]
+
+idx = <span class="hljs-number">1</span>                      <span class="hljs-comment"># 값 30의 인덱스</span>
+left = idx * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>          <span class="hljs-comment"># 왼쪽 자식 인덱스</span>
+right = idx * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>         <span class="hljs-comment"># 오른쪽 자식 인덱스</span>
+parent = (idx - <span class="hljs-number">1</span>) // <span class="hljs-number">2</span>     <span class="hljs-comment"># 부모 인덱스</span>
+
+print(arr[idx])             <span class="hljs-comment"># 30</span>
+print(arr[left], arr[right])<span class="hljs-comment"># 20 40</span>
+print(arr[parent])          <span class="hljs-comment"># 50</span>
+</div></code></pre>
+<h4 id="2-%EC%97%B0%EA%B2%B0-%EB%A6%AC%EC%8A%A4%ED%8A%B8-%ED%91%9C%ED%98%84">2) 연결 리스트 표현</h4>
+<p>일반적인 트리 구현에서는 노드마다 왼쪽, 오른쪽 자식을 참조하는 방식이 더 유연하다. 중간에 노드를 삽입하거나 삭제하기도 편하다. BST 구현에서 많이 보는 방식이 바로 이것이다.</p>
+<h4 id="3-%EA%B7%B8%EB%9E%98%ED%94%84%EC%B2%98%EB%9F%BC-%ED%91%9C%ED%98%84">3) 그래프처럼 표현</h4>
+<p>인접 리스트나 인접 행렬로도 표현할 수 있지만, 순수 이진 트리 구현에서는 보통 배열 또는 노드 클래스를 더 많이 사용한다.</p>
+<p>⚠️ <strong>배열 표현의 단점</strong></p>
+<ul>
+<li>편향 이진 트리에서는 중간이 많이 비어서 메모리 낭비가 크다.</li>
+<li>트리 중간 삽입·삭제가 생기면 구조 유지가 불편하다.</li>
+</ul>
+<hr>
+<h3 id="3-5-%EC%9D%B4%EC%A7%84%ED%83%90%EC%83%89%ED%8A%B8%EB%A6%ACbst">3-5. 이진탐색트리(BST)</h3>
+<p>이 부분에서는 BST의 핵심 규칙과 연산을 자세히 본다. 강의 노트에서 탐색·삽입·삭제가 간단히 소개되었는데, 실제로는 <strong>삭제 연산</strong>이 가장 많이 헷갈린다.</p>
+<h4 id="bst-%ED%83%90%EC%83%89">BST 탐색</h4>
+<p>루트에서 시작해서 찾고 싶은 값 <code>x</code>를 현재 노드 값과 비교한다.</p>
+<ul>
+<li>같으면 찾기 성공</li>
+<li>작으면 왼쪽으로 이동</li>
+<li>크면 오른쪽으로 이동</li>
+</ul>
+<p>즉, 배열 이진 탐색처럼 “절반씩 버린다”는 느낌을 트리 구조에서 구현한 것이다.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search</span><span class="hljs-params">(node, key)</span>:</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+
+    <span class="hljs-keyword">if</span> key == node.key:
+        <span class="hljs-keyword">return</span> node
+    <span class="hljs-keyword">elif</span> key &lt; node.key:
+        <span class="hljs-keyword">return</span> search(node.left, key)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> search(node.right, key)
+</div></code></pre>
+<h4 id="bst-%EC%82%BD%EC%9E%85">BST 삽입</h4>
+<p>삽입은 사실 탐색의 연장이다.</p>
+<ol>
+<li>삽입할 값과 같은 값이 있는지 찾는다.</li>
+<li>탐색하다가 <code>None</code>을 만나는 위치가 삽입 자리다.</li>
+<li>그 자리에 새 노드를 붙인다.</li>
+</ol>
+<p>이 코드는 BST 삽입의 가장 기본적인 재귀 구현이다.</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BSTNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, key)</span>:</span>
+        self.key = key
+        self.left = <span class="hljs-literal">None</span>
+        self.right = <span class="hljs-literal">None</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insert</span><span class="hljs-params">(node, key)</span>:</span>
+    <span class="hljs-comment"># 비어 있는 위치를 만나면 새 노드 생성</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> BSTNode(key)
+
+    <span class="hljs-comment"># 현재 노드보다 작으면 왼쪽으로</span>
+    <span class="hljs-keyword">if</span> key &lt; node.key:
+        node.left = insert(node.left, key)
+
+    <span class="hljs-comment"># 현재 노드보다 크면 오른쪽으로</span>
+    <span class="hljs-keyword">elif</span> key &gt; node.key:
+        node.right = insert(node.right, key)
+
+    <span class="hljs-comment"># 같은 값이면 중복 삽입하지 않음</span>
+    <span class="hljs-keyword">return</span> node
+</div></code></pre>
+<h4 id="%EC%82%BD%EC%9E%85-%EC%BD%94%EB%93%9C-%ED%95%B4%EC%84%A4">삽입 코드 해설</h4>
+<ul>
+<li><code>node is None</code>인 순간이 바로 삽입 위치다.</li>
+<li>부모가 직접 새 노드를 만드는 게 아니라, <strong>재귀 반환값을 받아 연결</strong>한다.</li>
+<li>그래서 <code>node.left = insert(...)</code> 같은 형태가 꼭 필요하다.</li>
+</ul>
+<p>⚠️ <strong>삽입에서 자주 하는 실수</strong></p>
+<ul>
+<li><code>node.left = ...</code> 또는 <code>node.right = ...</code>를 빼먹어 연결이 안 되는 경우</li>
+<li>중복 값 허용 여부를 정하지 않고 넘어가는 경우</li>
+<li>루트가 <code>None</code>일 때 반환값을 다시 루트에 저장하지 않는 경우</li>
+</ul>
+<h4 id="bst-%EC%82%AD%EC%A0%9C--%EA%B0%80%EC%9E%A5-%ED%97%B7%EA%B0%88%EB%A6%AC%EB%8A%94-%EB%B6%80%EB%B6%84">BST 삭제 — 가장 헷갈리는 부분</h4>
+<p>삭제는 노드의 자식 수에 따라 경우를 나누면 훨씬 쉽다.</p>
+<h5 id="%EA%B2%BD%EC%9A%B0-1-%EC%82%AD%EC%A0%9C%ED%95%A0-%EB%85%B8%EB%93%9C%EA%B0%80-%EB%A6%AC%ED%94%84-%EB%85%B8%EB%93%9C%EC%9D%BC-%EB%95%8C">경우 1) 삭제할 노드가 리프 노드일 때</h5>
+<p>가장 단순하다. 부모가 그 노드를 가리키는 연결만 끊으면 된다.</p>
+<h5 id="%EA%B2%BD%EC%9A%B0-2-%EC%82%AD%EC%A0%9C%ED%95%A0-%EB%85%B8%EB%93%9C%EC%9D%98-%EC%9E%90%EC%8B%9D%EC%9D%B4-1%EA%B0%9C%EC%9D%BC-%EB%95%8C">경우 2) 삭제할 노드의 자식이 1개일 때</h5>
+<p>삭제할 노드를 건너뛰고, <strong>부모와 자식을 바로 연결</strong>하면 된다.</p>
+<ul>
+<li>원래: 부모 → 30 → 40</li>
+<li>삭제 후: 부모 → 40</li>
+</ul>
+<h5 id="%EA%B2%BD%EC%9A%B0-3-%EC%82%AD%EC%A0%9C%ED%95%A0-%EB%85%B8%EB%93%9C%EC%9D%98-%EC%9E%90%EC%8B%9D%EC%9D%B4-2%EA%B0%9C%EC%9D%BC-%EB%95%8C">경우 3) 삭제할 노드의 자식이 2개일 때</h5>
+<p>이 경우 그냥 지워 버리면 BST 규칙이 깨질 수 있다. 그래서 보통 두 방법 중 하나를 사용한다.</p>
+<ul>
+<li><strong>왼쪽 서브트리의 최댓값(중위 순회상 바로 이전 값)</strong> 을 올리기</li>
+<li><strong>오른쪽 서브트리의 최솟값(중위 순회상 바로 다음 값)</strong> 을 올리기</li>
+</ul>
+<p>보통 구현에서는 <strong>오른쪽 서브트리의 최솟값(중위 후속자)</strong> 을 많이 쓴다.</p>
+<p>예를 들어 <code>50</code>을 삭제한다고 하자.</p>
+<ul>
+<li>왼쪽 서브트리: <code>30, 20, 40</code></li>
+<li>오른쪽 서브트리: <code>70, 60, 80</code></li>
+</ul>
+<p>이때 <code>50</code> 대신 올릴 수 있는 값은:</p>
+<ul>
+<li>왼쪽에서 가장 큰 값 <code>40</code>, 또는</li>
+<li>오른쪽에서 가장 작은 값 <code>60</code></li>
+</ul>
+<p>왜 하필 이 둘일까?<br>
+BST 규칙을 깨지 않고 그 자리를 대신할 수 있는 값이기 때문이다.</p>
+<p>아래 코드는 후속자(successor)를 사용하는 삭제 구현이다.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_min</span><span class="hljs-params">(node)</span>:</span>
+    <span class="hljs-comment"># 가장 왼쪽으로 끝까지 내려가면 최솟값</span>
+    <span class="hljs-keyword">while</span> node.left <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        node = node.left
+    <span class="hljs-keyword">return</span> node
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete</span><span class="hljs-params">(node, key)</span>:</span>
+    <span class="hljs-comment"># 삭제할 값을 찾지 못한 경우</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+
+    <span class="hljs-comment"># 삭제할 값이 현재 노드보다 작으면 왼쪽에서 계속 탐색</span>
+    <span class="hljs-keyword">if</span> key &lt; node.key:
+        node.left = delete(node.left, key)
+
+    <span class="hljs-comment"># 삭제할 값이 현재 노드보다 크면 오른쪽에서 계속 탐색</span>
+    <span class="hljs-keyword">elif</span> key &gt; node.key:
+        node.right = delete(node.right, key)
+
+    <span class="hljs-comment"># 현재 노드가 삭제 대상인 경우</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-comment"># 경우 1, 2: 자식이 0개 또는 1개인 경우</span>
+        <span class="hljs-keyword">if</span> node.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> node.right
+        <span class="hljs-keyword">if</span> node.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> node.left
+
+        <span class="hljs-comment"># 경우 3: 자식이 2개인 경우</span>
+        successor = find_min(node.right)   <span class="hljs-comment"># 오른쪽 서브트리에서 가장 작은 값 찾기</span>
+        node.key = successor.key           <span class="hljs-comment"># 후속자 값을 현재 노드에 복사</span>
+        node.right = delete(node.right, successor.key)  <span class="hljs-comment"># 후속자를 원래 자리에서 삭제</span>
+
+    <span class="hljs-keyword">return</span> node
+</div></code></pre>
+<h4 id="%EC%82%AD%EC%A0%9C-%EC%BD%94%EB%93%9C-%ED%95%B4%EC%84%A4">삭제 코드 해설</h4>
+<ul>
+<li>먼저 일반 탐색처럼 삭제할 값을 찾는다.</li>
+<li>찾은 뒤에는 자식 수에 따라 처리한다.</li>
+<li>자식이 0개 또는 1개면 연결만 바꾸면 끝난다.</li>
+<li>자식이 2개면 후속자 값을 복사한 뒤, 후속자를 원래 자리에서 다시 삭제한다.</li>
+</ul>
+<p>💡 <strong>포인트</strong></p>
+<p>“자식이 2개인 노드 삭제”는 사실 2단계다.</p>
+<ol>
+<li>대체할 값을 찾는다.</li>
+<li>그 대체 값을 원래 자리에서 삭제한다.</li>
+</ol>
+<p>즉, 복잡해 보여도 결국 <strong>리프 삭제 또는 자식 1개 삭제 문제로 바뀐다</strong>.</p>
+<p>🧠 <strong>이해를 돕는 한 줄 비유</strong><br>
+자식이 둘인 노드를 바로 없애면 트리 질서가 무너진다. 그래서 <strong>그 자리를 대신해도 질서를 깨지 않는 대표 선수</strong>를 한 명 뽑아 올린다고 생각하면 된다.</p>
+<h4 id="bst-%EC%84%B1%EB%8A%A5">BST 성능</h4>
+<ul>
+<li>평균적으로 균형이 잘 잡혀 있으면 <code>O(log n)</code></li>
+<li>한쪽으로 치우친 편향 트리가 되면 <code>O(n)</code></li>
+</ul>
+<p>즉, BST는 규칙은 좋지만 <strong>항상 균형을 보장하지는 않는다</strong>는 한계가 있다.</p>
+<hr>
+<h3 id="3-6-%ED%9E%99heap">3-6. 힙(Heap)</h3>
+<p>이 부분에서는 힙을 단순한 “트리”가 아니라 <strong>우선순위 큐를 구현하는 핵심 도구</strong>로 이해하는 것이 중요하다.</p>
+<p>힙은 <strong>완전 이진 트리</strong>다. 그리고 중요한 것은 형제 간 정렬이 아니라 <strong>부모-자식 관계</strong>다.</p>
+<ul>
+<li>최대 힙: 부모 ≥ 자식</li>
+<li>최소 힙: 부모 ≤ 자식</li>
+</ul>
+<p>여기서 많이 하는 오해가 하나 있다.</p>
+<blockquote>
+<p>힙은 전체 정렬된 트리가 아니다.</p>
+</blockquote>
+<p>예를 들어 최대 힙에서 루트가 100이고 자식이 80, 70이라고 해서, 80의 자식들이 반드시 70보다 클 필요는 없다. 힙은 <strong>각 부모가 자기 자식보다 크기만 하면 된다.</strong> 그래서 루트의 최대값 보장은 강하지만, BST처럼 임의 원소 탐색에 강하지는 않다.</p>
+<h4 id="%ED%9E%99-%EC%82%BD%EC%9E%85-%EB%A7%A8-%EB%81%9D%EC%97%90-%EB%84%A3%EA%B3%A0-%EC%9C%84%EB%A1%9C-%EC%98%AC%EB%A6%B0%EB%8B%A4">힙 삽입: 맨 끝에 넣고 위로 올린다</h4>
+<p>힙은 완전 이진 트리여야 하므로, 삽입할 때는 먼저 <strong>마지막 빈 자리</strong>에 넣는다. 그리고 그 뒤 부모와 비교하면서 자신의 자리를 찾아간다. 이를 보통 <strong>heapify-up</strong>, <strong>sift-up</strong>, 또는 <strong>bubble-up</strong>이라고 한다.</p>
+<p>왜 이렇게 할까?<br>
+완전 이진 트리 형태는 삽입 순간에 이미 지켜졌고, 이제 깨진 것은 부모-자식 대소 관계뿐이기 때문이다. 따라서 위로 올라가며 그 부분만 고치면 된다.</p>
+<p>이 코드는 배열 기반 최대 힙에 값을 삽입하는 예시다.</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MaxHeap</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.heap = []   <span class="hljs-comment"># 0번 인덱스부터 사용하는 배열 기반 힙</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span><span class="hljs-params">(self, value)</span>:</span>
+        <span class="hljs-comment"># 1) 완전 이진 트리의 마지막 위치에 새 값 추가</span>
+        self.heap.append(value)
+
+        <span class="hljs-comment"># 2) 방금 넣은 값의 인덱스</span>
+        idx = len(self.heap) - <span class="hljs-number">1</span>
+
+        <span class="hljs-comment"># 3) 부모보다 크면 위로 올리기</span>
+        <span class="hljs-keyword">while</span> idx &gt; <span class="hljs-number">0</span>:
+            parent = (idx - <span class="hljs-number">1</span>) // <span class="hljs-number">2</span>
+
+            <span class="hljs-comment"># 부모가 더 크거나 같으면 최대 힙 조건 만족</span>
+            <span class="hljs-keyword">if</span> self.heap[parent] &gt;= self.heap[idx]:
+                <span class="hljs-keyword">break</span>
+
+            <span class="hljs-comment"># 부모보다 크면 swap 후 계속 위로 이동</span>
+            self.heap[parent], self.heap[idx] = self.heap[idx], self.heap[parent]
+            idx = parent
+</div></code></pre>
+<h4 id="%ED%9E%99-%EC%82%BD%EC%9E%85-%EC%BD%94%EB%93%9C-%ED%95%B4%EC%84%A4">힙 삽입 코드 해설</h4>
+<ul>
+<li>삽입은 항상 배열 맨 뒤에서 시작한다.</li>
+<li>완전 이진 트리 모양은 이미 맞췄으니, 이제 대소 관계만 고치면 된다.</li>
+<li>부모와 비교해서 더 크면 위로 올라간다.</li>
+<li>한 번 올라갈 때마다 트리 한 레벨 이동이므로 시간복잡도는 <code>O(log n)</code>이다.</li>
+</ul>
+<p>⚠️ <strong>삽입에서 자주 하는 실수</strong></p>
+<ul>
+<li>부모 인덱스를 <code>(idx // 2)</code>로 써서 0-based 배열과 어긋나는 경우</li>
+<li>힙이 전체 정렬이라고 착각하는 경우</li>
+<li>삽입 뒤에 매번 전체 정렬을 해 버리는 경우</li>
+</ul>
+<h4 id="%ED%9E%99-%EC%82%AD%EC%A0%9C-%EB%A3%A8%ED%8A%B8%EB%A5%BC-%EB%B9%BC%EA%B3%A0-%EB%A7%88%EC%A7%80%EB%A7%89-%EA%B0%92%EC%9D%84-%EC%98%AC%EB%A6%B0-%EB%92%A4-%EC%95%84%EB%9E%98%EB%A1%9C-%EB%82%B4%EB%A6%B0%EB%8B%A4">힙 삭제: 루트를 빼고 마지막 값을 올린 뒤 아래로 내린다</h4>
+<p>힙에서 삭제는 보통 <strong>루트 노드 삭제</strong>만 생각한다. 최대 힙/최소 힙의 목적이 루트의 최댓값/최솟값을 빠르게 꺼내는 것이기 때문이다.</p>
+<p>최대 힙 삭제 과정은 다음과 같다.</p>
+<ol>
+<li>루트 값을 꺼낸다.</li>
+<li>마지막 노드를 루트로 올린다.</li>
+<li>왼쪽/오른쪽 자식 중 더 큰 자식과 비교한다.</li>
+<li>자식이 더 크면 swap 한다.</li>
+<li>제자리를 찾을 때까지 반복한다.</li>
+</ol>
+<p>왜 “더 큰 자식”과 바꿔야 할까?<br>
+최대 힙에서는 부모가 두 자식보다 모두 커야 한다. 그래서 내려갈 때는 두 자식 중 더 큰 쪽과 비교해야 힙 조건을 한 번에 맞출 수 있다.</p>
+<p>아래 코드는 최대 힙의 루트(최댓값)를 꺼내는 구현이다.</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MaxHeap</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.heap = []
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span><span class="hljs-params">(self, value)</span>:</span>
+        self.heap.append(value)
+        idx = len(self.heap) - <span class="hljs-number">1</span>
+
+        <span class="hljs-keyword">while</span> idx &gt; <span class="hljs-number">0</span>:
+            parent = (idx - <span class="hljs-number">1</span>) // <span class="hljs-number">2</span>
+            <span class="hljs-keyword">if</span> self.heap[parent] &gt;= self.heap[idx]:
+                <span class="hljs-keyword">break</span>
+            self.heap[parent], self.heap[idx] = self.heap[idx], self.heap[parent]
+            idx = parent
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-comment"># 힙이 비어 있으면 예외 처리</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.heap:
+            <span class="hljs-keyword">raise</span> IndexError(<span class="hljs-string">"heap is empty"</span>)
+
+        <span class="hljs-comment"># 원소가 하나뿐이면 바로 반환</span>
+        <span class="hljs-keyword">if</span> len(self.heap) == <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> self.heap.pop()
+
+        <span class="hljs-comment"># 1) 루트의 최댓값 저장</span>
+        max_value = self.heap[<span class="hljs-number">0</span>]
+
+        <span class="hljs-comment"># 2) 마지막 값을 루트로 올리고 마지막 칸 제거</span>
+        self.heap[<span class="hljs-number">0</span>] = self.heap.pop()
+
+        <span class="hljs-comment"># 3) 루트에서 시작해 아래로 내려가며 자리 찾기</span>
+        idx = <span class="hljs-number">0</span>
+        size = len(self.heap)
+
+        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+            left = idx * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
+            right = idx * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>
+            largest = idx
+
+            <span class="hljs-comment"># 왼쪽 자식이 더 크면 largest 갱신</span>
+            <span class="hljs-keyword">if</span> left &lt; size <span class="hljs-keyword">and</span> self.heap[left] &gt; self.heap[largest]:
+                largest = left
+
+            <span class="hljs-comment"># 오른쪽 자식이 더 크면 largest 갱신</span>
+            <span class="hljs-keyword">if</span> right &lt; size <span class="hljs-keyword">and</span> self.heap[right] &gt; self.heap[largest]:
+                largest = right
+
+            <span class="hljs-comment"># 더 이상 내려갈 필요가 없으면 종료</span>
+            <span class="hljs-keyword">if</span> largest == idx:
+                <span class="hljs-keyword">break</span>
+
+            <span class="hljs-comment"># 더 큰 자식과 swap</span>
+            self.heap[idx], self.heap[largest] = self.heap[largest], self.heap[idx]
+            idx = largest
+
+        <span class="hljs-keyword">return</span> max_value
+</div></code></pre>
+<h4 id="%ED%9E%99-%EC%82%AD%EC%A0%9C-%EC%BD%94%EB%93%9C-%ED%95%B4%EC%84%A4">힙 삭제 코드 해설</h4>
+<ul>
+<li>루트를 바로 지우면 배열 중간이 비게 되므로 마지막 값을 위로 올린다.</li>
+<li>이제 문제는 루트 한 곳의 힙 조건만 깨졌을 가능성이 높다.</li>
+<li>그래서 아래로 내려가며 더 큰 자식과 교환한다.</li>
+<li>한 번 내려갈 때마다 트리 한 레벨씩 이동하므로 시간복잡도는 <code>O(log n)</code>이다.</li>
+</ul>
+<h4 id="%EC%98%88%EC%8B%9C%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">예시로 이해하기</h4>
+<p>최대 힙 배열이 다음과 같다고 해 보자.</p>
+<pre class="hljs"><code><div>[<span class="hljs-number">90</span>, <span class="hljs-number">70</span>, <span class="hljs-number">80</span>, <span class="hljs-number">20</span>, <span class="hljs-number">40</span>, <span class="hljs-number">60</span>, <span class="hljs-number">50</span>]
+</div></code></pre>
+<p><code>pop()</code>을 하면:</p>
+<ol>
+<li><code>90</code>이 반환될 값이다.</li>
+<li>마지막 값 <code>50</code>을 루트로 올린다.</li>
+<li>배열은 임시로 <code>[50, 70, 80, 20, 40, 60]</code></li>
+<li>루트 <code>50</code>은 자식 <code>70</code>, <code>80</code>보다 작다.</li>
+<li>둘 중 더 큰 <code>80</code>과 교환한다.</li>
+<li>결과는 <code>[80, 70, 50, 20, 40, 60]</code></li>
+<li>다시 내려갈 수 있으면 계속 내려간다.</li>
+</ol>
+<p>🧠 <strong>기억할 것</strong></p>
+<ul>
+<li>힙 삽입: <strong>아래에서 위로 고치기</strong></li>
+<li>힙 삭제: <strong>위에서 아래로 고치기</strong></li>
+</ul>
+<p>이 한 줄로 외우면 헷갈림이 많이 줄어든다.</p>
+<h4 id="%ED%9E%99%EC%9D%98-%ED%99%9C%EC%9A%A9">힙의 활용</h4>
+<ul>
+<li>우선순위 큐 구현</li>
+<li>힙 정렬</li>
+<li>가장 큰 값 / 가장 작은 값을 반복적으로 꺼내는 문제</li>
+</ul>
+<hr>
+<h2 id="4-%EC%A0%81%EC%9A%A9-%ED%8F%AC%EC%9D%B8%ED%8A%B8--%EC%A2%85%ED%95%A9-%EC%98%88%EC%8B%9C">4. 적용 포인트 / 종합 예시</h2>
+<p>이 섹션에서는 중복 코드를 다시 늘어놓기보다, 지금까지 배운 구조를 <strong>언제 어떤 관점으로 써야 하는지</strong>를 정리한다.</p>
+<h3 id="bst%EC%99%80-%ED%9E%99%EC%9D%80-%EB%91%98-%EB%8B%A4-%ED%8A%B8%EB%A6%AC%EC%9D%B8%EB%8D%B0-%EC%99%9C-%EB%8B%A4%EB%A5%B4%EA%B2%8C-%EC%93%B8%EA%B9%8C">BST와 힙은 둘 다 트리인데, 왜 다르게 쓸까?</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>BST</th>
+<th>힙</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>목적</td>
+<td>탐색을 빠르게</td>
+<td>최대/최소를 빠르게</td>
+</tr>
+<tr>
+<td>규칙</td>
+<td>왼쪽 &lt; 루트 &lt; 오른쪽</td>
+<td>부모와 자식만 대소 관계 유지</td>
+</tr>
+<tr>
+<td>루트 의미</td>
+<td>중간 기준점</td>
+<td>항상 최대/최소</td>
+</tr>
+<tr>
+<td>중위 순회 결과</td>
+<td>오름차순</td>
+<td>정렬 결과 아님</td>
+</tr>
+<tr>
+<td>잘하는 일</td>
+<td>값 찾기, 삽입, 삭제</td>
+<td>우선순위 큐, 최대/최소 추출</td>
+</tr>
+</tbody>
+</table>
+<p>📌 <strong>문제풀이에서 떠올리는 법</strong></p>
+<ul>
+<li>“어떤 값을 빨리 찾고 싶다” → <strong>BST 쪽 사고</strong></li>
+<li>“가장 큰 값 / 가장 작은 값을 계속 꺼내야 한다” → <strong>힙 쪽 사고</strong></li>
+<li>“모든 경우를 보되 불필요한 길은 빨리 잘라야 한다” → <strong>백트래킹 사고</strong></li>
+</ul>
+<h3 id="%EA%B0%99%EC%9D%B4-%EB%B3%B4%EB%A9%B4-%EB%8D%94-%EC%9E%98-%EB%B3%B4%EC%9D%B4%EB%8A%94-%EC%97%B0%EA%B2%B0%EC%A0%90">같이 보면 더 잘 보이는 연결점</h3>
+<ul>
+<li>백트래킹은 <strong>상태 공간을 트리처럼 탐색</strong>하는 사고다.</li>
+<li>이진 트리는 <strong>구조 자체</strong>를 배우는 단계다.</li>
+<li>BST와 힙은 이진 트리 위에 <strong>목적별 규칙</strong>을 얹은 구조다.</li>
+</ul>
+<p>즉, 트리 파트는 흩어진 내용이 아니라 <strong>기본 구조 → 규칙 추가 → 목적별 최적화</strong>로 이어진다.</p>
+<hr>
+<h2 id="5-%EB%B0%B0%EC%9A%B4-%EC%A0%90--%EB%8A%90%EB%82%80-%EC%A0%90--%ED%99%95%EC%9E%A5-%ED%8F%AC%EC%9D%B8%ED%8A%B8">5. 배운 점 / 느낀 점 / 확장 포인트</h2>
+<p>이번 강의 흐름에서 가장 중요한 것은 “트리는 모양만 배우는 자료구조가 아니다”라는 점이다. 같은 이진 트리라도 어떤 규칙을 얹느냐에 따라 완전히 다른 역할을 하게 된다.</p>
+<ul>
+<li><strong>백트래킹</strong>은 트리를 실제로 저장하지 않아도, 문제를 트리처럼 바라보며 탐색을 최적화한다.</li>
+<li><strong>BST</strong>는 탐색을 빠르게 하기 위한 구조다.</li>
+<li><strong>힙</strong>은 우선순위를 빠르게 처리하기 위한 구조다.</li>
+</ul>
+<p>여기서 한 단계 더 공부해 볼 만한 주제는 다음과 같다.</p>
+<ul>
+<li>BST의 한계를 보완하는 <strong>균형 이진 탐색 트리(AVL, Red-Black Tree)</strong></li>
+<li>힙을 라이브러리로 다루는 <strong>Python <code>heapq</code></strong></li>
+<li>백트래킹에서 가지치기 조건을 더 강하게 만드는 방법</li>
+</ul>
+<hr>
+<h2 id="6-%EC%9A%94%EC%95%BD-%EC%A0%95%EB%A6%AC">6. 요약 정리</h2>
+<p>📌 <strong>핵심</strong></p>
+<ul>
+<li>백트래킹은 유망하지 않은 경로를 중간에 잘라내는 DFS다.</li>
+<li>트리는 계층 구조를 표현하는 기본 자료구조다.</li>
+<li>이진 트리는 자식이 최대 두 개인 트리다.</li>
+<li>BST는 <strong>왼쪽 &lt; 루트 &lt; 오른쪽</strong> 규칙으로 탐색에 강하다.</li>
+<li>힙은 <strong>부모-자식 대소 관계</strong>만 유지하며 최대/최소 추출에 강하다.</li>
+</ul>
+<p>🧠 <strong>기억할 것</strong></p>
+<ul>
+<li>BST 삭제는 <strong>자식 수 0개 / 1개 / 2개</strong>로 나눠서 본다.</li>
+<li>자식이 2개인 BST 삭제는 <strong>대체 노드를 올리고, 그 노드를 다시 삭제하는 문제</strong>다.</li>
+<li>힙 삽입은 <strong>맨 끝에 넣고 위로 올리기</strong></li>
+<li>힙 삭제는 <strong>루트를 빼고 마지막 값을 올린 뒤 아래로 내리기</strong></li>
+<li>힙은 정렬 트리가 아니라 <strong>루트 우선 구조</strong>다.</li>
+</ul>
+<hr>
+<h2 id="7-%EB%AF%B8%EB%8B%88-%ED%80%B4%EC%A6%88-%EB%98%90%EB%8A%94-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8">7. 미니 퀴즈 또는 체크리스트</h2>
+<h3 id="%EB%AF%B8%EB%8B%88-%ED%80%B4%EC%A6%88">미니 퀴즈</h3>
+<ol>
+<li>백트래킹과 일반 DFS의 가장 큰 차이는 무엇인가?</li>
+<li>BST를 중위 순회하면 왜 오름차순이 될까?</li>
+<li>BST에서 자식이 2개인 노드를 삭제할 때 왜 후속자 또는 전임자를 쓰는가?</li>
+<li>최대 힙 삭제에서 왜 두 자식 중 더 큰 자식과 교환해야 할까?</li>
+<li>힙은 왜 임의 원소 탐색에는 BST보다 불리할까?</li>
+</ol>
+<h3 id="%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8">체크리스트</h3>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">백트래킹의 가지치기 의미를 설명할 수 있다.</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">전위 / 중위 / 후위 순회의 차이를 말할 수 있다.</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">BST 삽입이 왜 탐색의 연장인지 설명할 수 있다.</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">BST 삭제 3가지 경우를 구분할 수 있다.</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">힙 삽입과 힙 삭제의 방향이 서로 반대라는 것을 기억하고 있다.</label></li>
+</ul>
+
+</body>
+</html>
