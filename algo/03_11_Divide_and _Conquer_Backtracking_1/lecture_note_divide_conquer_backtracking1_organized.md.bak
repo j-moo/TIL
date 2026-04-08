@@ -84,7 +84,7 @@
 
 아래 그림은 분할 정복의 가장 기본 구조를 보여 준다.
 
-![alt text](<../assets/images/03_11_Divide_and _Conquer_Backtracking_1/스크린샷 2026-03-11 091657-1.png>)
+![alt text](<스크린샷 2026-03-11 091657-1.png>)
 
 위 그림을 보면 흐름이 아주 선명하다.
 
@@ -166,13 +166,13 @@ Recursive_Power(x, n)
 
 먼저 분할 단계부터 보자.
 
-![alt text](<../assets/images/03_11_Divide_and _Conquer_Backtracking_1/스크린샷 2026-03-11 092802-1.png>)
+![alt text](<스크린샷 2026-03-11 092802-1.png>)
 
 이 그림에서 중요한 것은, 배열을 무작정 쪼개는 것이 아니라 **더 이상 나눌 수 없을 때까지** 계속 반으로 나눈다는 점이다.
 
 그다음은 병합 단계다.
 
-![alt text](<../assets/images/03_11_Divide_and _Conquer_Backtracking_1/스크린샷 2026-03-11 092904-1.png>)
+![alt text](<스크린샷 2026-03-11 092904-1.png>)
 
 여기서는 두 개의 작은 정렬된 배열을 비교하면서, 더 작은 값을 순서대로 꺼내 하나의 큰 정렬된 배열로 만든다.
 
@@ -185,12 +185,12 @@ Recursive_Power(x, n)
 
 ### 의사코드로 보는 병합 정렬
 
-![alt text](<../assets/images/03_11_Divide_and _Conquer_Backtracking_1/스크린샷 2026-03-11 093041-1.png>)  
+![alt text](<스크린샷 2026-03-11 093041-1.png>)  
 
 위 의사코드는 병합 정렬의 “분할” 쪽을 보여 준다.  
 리스트 길이가 1이면 그대로 반환하고, 그렇지 않으면 가운데를 기준으로 반씩 잘라 각각 재귀 호출한다.
 
-![alt text](<../assets/images/03_11_Divide_and _Conquer_Backtracking_1/스크린샷 2026-03-11 093114-1.png>)
+![alt text](<스크린샷 2026-03-11 093114-1.png>)
 
 이 의사코드는 “병합” 쪽이다.  
 왼쪽 리스트와 오른쪽 리스트의 맨 앞을 계속 비교하면서 더 작은 값을 결과 리스트에 넣는다.
