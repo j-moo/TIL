@@ -5,7 +5,7 @@ import shutil
 import argparse
 import filecmp
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote, unquote
 
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".bmp"}
 
@@ -41,7 +41,7 @@ def clean_ref(ref: str) -> str:
 def resolve_local_image(md_file: Path, ref: str) -> Path | None:
     if is_remote_url(ref) or is_data_url(ref):
         return None
-    ref = clean_ref(ref)
+    ref = unquote(clean_ref(ref))
     if not ref:
         return None
     candidate = (md_file.parent / ref).resolve()
@@ -228,10 +228,9 @@ def rewrite_markdown(content: str, md_file: Path, move_plan: dict[Path, Path]):
             return match.group(0)
 
         new_ref = rel_posix(md_file, dest)
+        new_ref = quote(new_ref, safe="/._-()")
         replaced += 1
 
-        if " " in new_ref:
-            return f"![{alt}](<{new_ref}>{tail})"
         return f"![{alt}]({new_ref}{tail})"
 
     def html_repl(match):
@@ -245,6 +244,7 @@ def rewrite_markdown(content: str, md_file: Path, move_plan: dict[Path, Path]):
             return match.group(0)
 
         new_ref = rel_posix(md_file, dest)
+        new_ref = quote(new_ref, safe="/._-()")
         replaced += 1
         return f'{match.group(1)}{match.group(2)}{new_ref}{match.group(2)}{match.group(5)}'
 
@@ -262,6 +262,7 @@ def rewrite_markdown(content: str, md_file: Path, move_plan: dict[Path, Path]):
             return match.group(0)
 
         new_ref = rel_posix(md_file, dest)
+        new_ref = quote(new_ref, safe="/._-()")
         replaced += 1
 
         if size.isdigit():
