@@ -1,0 +1,787 @@
+# Django Template과 URL 관리 정리
+
+- 🎯 글의 목표: Django 템플릿 시스템이 어떻게 데이터를 화면으로 바꾸는지 이해하고, form·request·URL routing까지 하나의 흐름으로 연결해 정리한다.
+- 🧩 핵심 키워드: Django Template Language, context, filter, tag, template inheritance, form, request.GET, variable routing, include, URL naming, app_name, BASE_DIR
+- ⭐ 중요도: 상
+- 📝 한눈에 보는 내용: 이 강의는 단순히 HTML을 보여주는 수준을 넘어서, **데이터를 템플릿에 연결하고**, **사용자 입력을 받아 처리하고**, **URL을 구조적으로 관리하는 방법**까지 이어서 다룬다. 즉, 화면·요청·라우팅이 Django 안에서 어떻게 이어지는지를 한 번에 이해하는 강의다.
+- 🔗 관련 문제 / 주제(있다면): Django 기초, MTV 패턴, 템플릿 상속, GET 요청, 앱 단위 URL 분리
+
+---
+
+## 1. 들어가며
+
+Django를 처음 배울 때는 보통 `render()`로 HTML 파일 하나를 띄우는 데서 시작한다. 그런데 실제 프로젝트에서는 단순히 정적인 HTML만 보여주면 끝나지 않는다. 같은 템플릿이라도 사용자 이름에 따라 내용이 달라져야 하고, 입력한 값을 다음 페이지에서 다시 보여줘야 하며, 앱이 많아질수록 URL도 체계적으로 나눠 관리해야 한다.
+
+이 강의는 바로 그 지점을 다룬다. 먼저 **템플릿에 데이터를 넣어 화면을 동적으로 바꾸는 방법**을 보고, 이어서 **form으로 사용자 입력을 보내고 request에서 값을 꺼내는 과정**을 익힌다. 그 다음에는 **Variable Routing, 앱별 URL 분리, URL 이름 지정과 이름공간(namespace)**까지 연결하면서, Django가 요청을 어떤 규칙으로 분배하는지 정리한다.
+
+핵심은 기능을 하나씩 따로 외우는 것이 아니다. **뷰에서 만든 데이터가 템플릿으로 넘어가고, 템플릿에서 만든 요청이 다시 URL과 view로 연결되는 흐름**을 잡는 것이 중요하다. 이 흐름이 잡히면 이후의 게시판, CRUD, 인증 기능도 훨씬 자연스럽게 이해된다.
+
+## 2. 핵심 개념 정리
+
+이번 강의의 큰 흐름은 아래처럼 정리할 수 있다.
+
+1. **Django Template System**  
+   파이썬에서 만든 데이터를 HTML에 끼워 넣어, 화면을 상황에 맞게 바꾼다.
+2. **Django Template Language(DTL)**  
+   템플릿 안에서 변수 출력, 필터 적용, 반복과 조건 처리 같은 표현 로직을 다룬다.
+3. **Template Inheritance**  
+   공통 레이아웃은 부모 템플릿에 두고, 바뀌는 부분만 자식 템플릿에서 재정의한다.
+4. **HTML form과 request 객체**  
+   사용자가 입력한 값을 서버로 보내고, Django는 `request.GET` 같은 형태로 그 값을 읽는다.
+5. **Variable Routing**  
+   URL 일부를 변수처럼 받아 view 함수로 전달한다.
+6. **App URL Mapping / URL Naming / Namespace**  
+   URL을 앱 단위로 나누고, 이름으로 참조하며, 충돌 없이 관리한다.
+7. **추가 템플릿 경로와 BASE_DIR**  
+   템플릿 파일의 위치를 더 유연하게 구성한다.
+
+여기서 중요한 점은, 이 개념들이 서로 따로 떨어져 있지 않다는 것이다. 예를 들어 템플릿 상속은 화면 구조를 재사용하기 위한 것이고, URL naming은 템플릿 안의 링크를 하드코딩하지 않기 위한 것이다. 결국 모두 **유지보수가 쉬운 Django 프로젝트 구조를 만들기 위한 장치**라고 볼 수 있다.
+
+## 3. 본문 정리
+
+이제부터는 개념이 실제 화면과 코드에서 어떻게 보이는지를 묶어서 정리한다. 이해는 이 섹션에서 거의 끝나도록, 설명과 예시를 같은 자리에서 이어 보겠다.
+
+### 3.1 Django Template System과 context
+
+Django Template System은 **파이썬 데이터(context)를 HTML 템플릿과 결합해서 동적인 페이지를 만드는 시스템**이다.
+
+정적인 HTML만 쓰면 페이지마다 내용을 직접 수정해야 한다. 하지만 Django에서는 view 함수가 데이터를 만들고, 템플릿은 그 데이터를 화면에 표현하는 역할을 맡는다. 쉽게 말하면, **view는 재료를 준비하고 template은 그 재료를 보기 좋은 형태로 보여주는 역할**이다.
+
+아래 예시는 `context['name']` 값이 바뀌면, 최종 HTML 응답도 함께 달라지는 구조를 보여준다.
+
+![context를 템플릿에 전달하는 기본 구조](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 115514.png>)
+
+```python
+from django.shortcuts import render
+
+
+def dinner(request):
+    # 템플릿에 전달할 데이터를 딕셔너리로 준비한다.
+    context = {
+        'name': 'Jane',
+    }
+
+    # 세 번째 인자로 넘긴 context의 key가 템플릿 변수명이 된다.
+    return render(request, 'articles/index.html', context)
+```
+
+템플릿에서는 이렇게 전달된 값을 `{{ 변수명 }}` 형태로 바로 사용할 수 있다.
+
+```html
+<h1>Hello, {{ name }}!</h1>
+```
+
+실제로 템플릿에서는 단순 값뿐 아니라, 딕셔너리 내부 값이나 객체 속성처럼 **점(`.`)** 으로 이어 접근할 수도 있다.
+
+![DTL 변수 문법과 dot 접근 예시](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 120258.png>)
+
+이 문법이 중요한 이유는, 이후 게시글 목록이나 사용자 정보처럼 구조가 있는 데이터를 템플릿에서 자연스럽게 꺼내 쓰게 되기 때문이다.
+
+⚠️ 주의  
+템플릿에서 값을 꺼낼 수 있다고 해서 복잡한 계산까지 템플릿에서 처리하려고 하면 구조가 금방 지저분해진다. **값을 준비하는 책임은 view**, **표현하는 책임은 template**이라는 기준을 유지하는 것이 좋다.
+
+📌 핵심  
+Django Template System의 출발점은 **view가 context를 만들고, template이 그 값을 화면에 출력한다**는 역할 분리다.
+
+### 3.2 DTL 문법: Variable, Filter, Tag, Comment
+
+Django Template Language(DTL)는 템플릿 안에서 사용할 수 있는 표현 도구다. 파이썬과 비슷해 보이는 문법이 나오지만, 실제 파이썬 코드가 실행되는 것은 아니다. **화면 표현을 돕기 위한 템플릿용 문법**이라고 이해하는 것이 맞다.
+
+#### 1) Variable
+
+가장 기본은 변수를 출력하는 것이다.
+
+```html
+{{ name }}
+{{ user.username }}
+{{ article.title }}
+```
+
+변수 출력은 단순해 보이지만, 대부분의 동적 페이지는 여기서 시작한다. 게시글 제목, 사용자 이름, 댓글 수처럼 화면이 바뀌는 거의 모든 지점이 변수 출력과 연결된다.
+
+#### 2) Filter
+
+필터는 **출력 직전에 값을 조금 가공해서 보여주고 싶을 때** 사용한다. 원본 데이터를 바꾸는 것이 아니라, 표시 형식을 조정하는 느낌에 가깝다.
+
+![필터 기본 문법](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 120543.png>)
+
+```html
+{{ variable|filter }}
+{{ name|truncatewords:30 }}
+```
+
+예를 들어 긴 문장을 그대로 출력하면 화면이 지저분할 수 있다. 이때 `truncatewords` 같은 필터를 쓰면, 데이터를 view에서 미리 잘라내지 않아도 템플릿에서 보기 좋게 표시할 수 있다.
+
+💡 포인트  
+필터는 화면 표현에 가까운 처리에 잘 어울린다. 반대로 중요한 비즈니스 로직이나 데이터 가공 전체를 필터에 기대는 것은 적절하지 않다.
+
+#### 3) Tag
+
+태그는 **조건문, 반복문처럼 템플릿의 흐름을 제어할 때** 사용한다.
+
+![태그 기본 문법](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 120714.png>)
+
+```html
+{% if 조건 %}
+  ...
+{% endif %}
+
+{% for item in items %}
+  ...
+{% endfor %}
+```
+
+이 문법은 뒤에서 메뉴 목록을 출력하거나, 데이터가 비어 있을 때 다른 문구를 보여주는 예시와 자연스럽게 연결된다.
+
+#### 4) Comment
+
+주석은 화면에 보이지 않도록 설명을 남기고 싶을 때 사용한다.
+
+```html
+<h1>Hello, {# name #}</h1>
+
+{% comment %}
+여러 줄 주석
+{% endcomment %}
+```
+
+주석은 기능을 바꾸지는 않지만, 템플릿이 길어질수록 구조를 읽기 쉽게 만드는 데 도움이 된다.
+
+📌 핵심  
+DTL은 **값 출력(Variable)**, **표시 형식 조정(Filter)**, **흐름 제어(Tag)**, **설명(Comment)** 로 나눠 이해하면 정리가 쉽다.
+
+### 3.3 DTL을 한 화면에서 쓰는 방법
+
+지금까지 본 문법은 따로따로 보면 단순하지만, 실제로는 한 템플릿 안에서 함께 쓰인다. 아래 예시는 메뉴판 화면을 만들면서 변수, 필터, 반복, 조건을 같이 활용한 흐름을 보여준다.
+
+![DTL 예시 결과 화면](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 154604.png>)
+![DTL 예시 코드 흐름](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 154629.png>)
+
+```python
+# views.py
+from django.shortcuts import render
+
+
+def dinner(request):
+    # 리스트 데이터는 템플릿에서 for 태그와 length 필터와 함께 자주 사용된다.
+    foods = ['국밥', '국수', '카레', '탕수육']
+
+    context = {
+        'foods': foods,
+    }
+    return render(request, 'articles/dinner.html', context)
+```
+
+```html
+<!-- articles/dinner.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <!-- length 필터로 데이터 개수를 먼저 보여준다. -->
+  <p>{{ foods|length }}개의 음식이 있습니다.</p>
+
+  <h2>메뉴판</h2>
+
+  <ul>
+    {% for food in foods %}
+      <!-- 반복문 안에서 리스트 요소를 하나씩 출력한다. -->
+      <li>{{ food }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if foods|length == 0 %}
+    <!-- 리스트가 비어 있으면 다른 문장을 보여준다. -->
+    <p>메뉴가 소진되었습니다.</p>
+  {% else %}
+    <p>아직 메뉴가 남았습니다.</p>
+  {% endif %}
+{% endblock content %}
+```
+
+이 예제에서 중요한 점은, 템플릿이 단순히 값을 한 번 출력하고 끝나지 않는다는 것이다. **리스트를 반복해서 보여주고**, **조건에 따라 다른 문구를 보여주며**, **필터로 화면 표현을 다듬는다**. 즉, 템플릿은 정적인 HTML 파일이 아니라, context를 받아 상황에 맞게 구성되는 표현 계층이다.
+
+⚠️ 주의  
+- `for` 태그와 `if` 태그는 시작과 끝이 반드시 맞아야 한다.
+- 필터와 변수 사이에는 공백을 넣지 않는다.
+- 조건이 복잡해지면 템플릿보다 view에서 미리 정리하는 편이 낫다.
+
+📌 핵심  
+DTL의 핵심은 문법 자체를 외우는 것이 아니라, **데이터를 화면 구조로 바꾸는 표현 도구**로 이해하는 것이다.
+
+### 3.4 템플릿 상속: 공통 레이아웃을 한 번만 작성하기
+
+프로젝트가 커지면 페이지마다 공통 요소가 생긴다. 예를 들어 Bootstrap CDN, 공통 제목, 네비게이션, footer 같은 부분은 모든 템플릿에 반복해서 들어가게 된다. 이걸 매번 복붙으로 관리하면 수정할 때도 모든 파일을 찾아 바꿔야 한다.
+
+이 문제를 해결하는 것이 **템플릿 상속(template inheritance)** 이다. 부모 템플릿은 공통 틀을 만들고, 자식 템플릿은 바뀌는 부분만 채운다.
+
+![부모 템플릿 base.html 구조](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 154952.png>)
+
+```html
+<!-- articles/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>articles 앱</h1>
+
+  <!-- 자식 템플릿이 내용을 채워 넣을 자리 -->
+  {% block content %}
+  {% endblock content %}
+</body>
+</html>
+```
+
+자식 템플릿에서는 `extends`와 `block`을 사용한다.
+
+![자식 템플릿에서 extends와 block 사용](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 155153.png>)
+
+```html
+<!-- articles/dinner.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <p>{{ foods|length }}개의 음식이 있습니다.</p>
+  <h2>메뉴판</h2>
+
+  <ul>
+    {% for food in foods %}
+      <li>{{ food }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if foods|length == 0 %}
+    <p>메뉴가 소진되었습니다.</p>
+  {% else %}
+    <p>아직 메뉴가 남았습니다.</p>
+  {% endif %}
+{% endblock content %}
+```
+
+여기서 중요한 점은 `extends`가 단순히 파일을 불러오는 것이 아니라, **부모 템플릿의 구조를 확장한다는 선언**이라는 점이다. 그래서 `extends`는 반드시 자식 템플릿의 최상단에 와야 한다.
+
+⚠️ 주의  
+- `extends`는 자식 템플릿 맨 위에 작성해야 한다.
+- 한 템플릿에서 `extends`를 여러 번 사용할 수 없다.
+- 부모와 자식의 `block` 이름이 일치해야 올바르게 덮어쓴다.
+
+📌 핵심  
+템플릿 상속은 **공통 구조는 부모에게, 바뀌는 내용은 자식에게 맡기는 재사용 전략**이다.
+
+### 3.5 HTML form: 사용자 입력을 서버로 보내기
+
+이제 화면을 보여주는 것에서 한 걸음 더 나아가, **사용자가 직접 값을 입력하고 서버로 보내는 흐름**을 본다. 이때 사용하는 핵심 요소가 HTML의 `form`이다.
+
+form은 한마디로, **입력 데이터를 어떤 URL로 어떤 방식으로 보낼지 정의하는 상자**라고 볼 수 있다.
+
+가장 먼저 강의에서는 fake Naver 실습으로 form의 동작을 확인한다.
+
+![fake Naver 검색창 만들기](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 165329.png>)
+![입력값이 URL에 붙는 모습](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 165347.png>)
+![실제 네이버 검색 URL 확인](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 165404.png>)
+![action을 실제 검색 주소로 바꾼 예시](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 165418.png>)
+
+```html
+<!-- articles/search.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1>fake Naver</h1>
+
+  <!-- 사용자가 입력한 값을 네이버 검색 주소로 GET 요청한다. -->
+  <form action="https://search.naver.com/search.naver" method="GET">
+    <label for="message">검색어</label>
+
+    <!-- name 속성값이 URL의 key가 된다. -->
+    <input type="text" name="query" id="message">
+
+    <input type="submit" value="네이버 검색">
+  </form>
+{% endblock content %}
+```
+
+이 예시를 보면 `input`에 적은 값이 브라우저 URL 뒤에 `?query=hello` 같은 형태로 붙는다. 이것이 바로 **Query String Parameters**다.
+
+```text
+https://search.naver.com/search.naver?query=hello
+```
+
+여기서 핵심 속성은 두 가지다.
+
+- `action`: 데이터를 보낼 목적지 URL
+- `method`: 어떤 방식으로 보낼지 결정하는 속성 (`GET`, `POST` 등)
+
+그리고 `input`에서 가장 중요한 것은 `name` 속성이다. 서버는 사용자가 입력한 값을 `name`을 기준으로 구분한다. 즉, **사용자 입장에서는 입력창에 값을 적지만, 서버 입장에서는 name이 붙은 key-value 데이터로 받는 것**이다.
+
+⚠️ 주의  
+- `name`이 없으면 서버는 해당 입력값을 식별하기 어렵다.
+- `action`을 비워두면 현재 페이지 주소로 요청이 간다.
+- `GET`은 URL에 데이터가 드러난다. 검색처럼 조회 성격의 요청에 잘 어울린다.
+
+📌 핵심  
+form은 **입력값을 서버로 보내는 도구**이고, 실제 데이터 식별의 기준은 `input`의 `name` 속성이다.
+
+### 3.6 throw / catch 예제로 보는 요청과 응답
+
+form의 동작 원리를 더 명확히 보기 위해, 강의에서는 `throw`와 `catch` 두 페이지를 만든다. 이름 그대로, 한쪽에서 값을 던지고(throw), 다른 쪽에서 그 값을 받는(catch) 흐름이다.
+
+먼저 `throw` 페이지는 입력을 받는 화면이다.
+
+![throw 페이지 작성 예시](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 170638.png>)
+
+```html
+<!-- articles/throw.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1>Throw</h1>
+
+  <!-- 입력한 값을 catch URL로 GET 방식으로 보낸다. -->
+  <form action="{% url 'articles:catch' %}" method="GET">
+    <label for="message">데이터 입력</label>
+    <input type="text" name="message" id="message">
+    <input type="submit">
+  </form>
+{% endblock content %}
+```
+
+그 다음 `catch` view는 요청에 담긴 데이터를 꺼내서 템플릿으로 다시 넘긴다.
+
+![request.GET에서 데이터 확인](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 171332.png>)
+![catch view에서 데이터 추출하기](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 171945.png>)
+
+```python
+# views.py
+from django.shortcuts import render
+
+
+def catch(request):
+    # GET 방식으로 전달된 데이터에서 'message' 값을 꺼낸다.
+    message = request.GET.get('message')
+
+    # 템플릿으로 다시 전달해서 화면에 출력한다.
+    context = {
+        'message': message,
+    }
+    return render(request, 'articles/catch.html', context)
+```
+
+```html
+<!-- articles/catch.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1>Catch</h1>
+  <h2>{{ message }}</h2>
+{% endblock content %}
+```
+
+여기서 `request` 객체는 매우 중요하다. Django는 view 함수를 호출할 때 첫 번째 인자로 `request`를 넘겨주는데, 이 안에는 단순 form 데이터뿐 아니라 현재 요청과 관련된 여러 정보가 담겨 있다.
+
+![request 객체 내부 정보 확인](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 171208.png>)
+
+이 흐름을 순서대로 다시 보면 이해가 쉬워진다.
+
+1. 브라우저가 `/throw/`에 접속한다.
+2. Django는 URL 패턴을 보고 `throw` view를 실행한다.
+3. `throw.html`이 응답으로 반환된다.
+4. 사용자가 값을 입력하고 제출한다.
+5. 브라우저는 `/catch/?message=...` 형태로 다시 요청한다.
+6. Django는 `catch` view를 실행한다.
+7. `request.GET.get('message')`로 값을 꺼낸다.
+8. 그 값을 다시 context에 담아 `catch.html`로 보낸다.
+
+즉, 이 예제는 단순히 입력과 출력을 보여주는 예제가 아니라, **브라우저 → URL → view → template → 브라우저** 흐름이 Django에서 어떻게 이어지는지를 가장 간단하게 보여주는 구조다.
+
+⚠️ 주의  
+- `request.GET['message']`처럼 바로 인덱싱하면 키가 없을 때 에러가 날 수 있다.
+- `.get('message')`를 쓰면 없을 때도 상대적으로 안전하게 처리할 수 있다.
+- form의 `name` 값과 `request.GET.get()`의 인자는 정확히 일치해야 한다.
+
+📌 핵심  
+사용자 입력 처리는 **form이 보내고, request가 받고, view가 다시 context로 넘겨 template이 출력하는 흐름**으로 이해하면 된다.
+
+### 3.7 Variable Routing: URL 일부를 변수처럼 받기
+
+지금까지는 URL이 고정된 문자열이었다. 하지만 실제 서비스에서는 `/articles/1/`, `/articles/2/`처럼 URL 일부만 달라지는 경우가 많다. 이럴 때 쓰는 것이 **Variable Routing**이다.
+
+Variable Routing은 URL 일부를 변수로 받아 view 함수의 인자로 전달하는 방식이다.
+
+![Variable Routing 개념과 path converter](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 173325.png>)
+![Variable Routing 코드 예시](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 174051.png>)
+![브라우저 결과 화면](<../assets/images/04_14_Django_Template_URLs_Model_1/스크린샷 2026-04-16 174119.png>)
+
+```python
+# articles/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # 정수 하나를 num이라는 이름으로 받아 detail view에 전달한다.
+    path('articles/<int:num>/', views.detail, name='detail'),
+
+    # 문자열 하나를 name이라는 이름으로 받아 greeting view에 전달한다.
+    path('hello/<str:name>/', views.greeting, name='greeting'),
+]
+```
+
+```python
+# views.py
+from django.shortcuts import render
+
+
+def detail(request, num):
+    # URL에서 받은 num을 그대로 context로 넘긴다.
+    context = {
+        'num': num,
+    }
+    return render(request, 'articles/detail.html', context)
+
+
+def greeting(request, name):
+    context = {
+        'name': name,
+    }
+    return render(request, 'articles/greeting.html', context)
+```
+
+```html
+<!-- articles/detail.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1>Detail</h1>
+  <h2>{{ num }}번 글입니다.</h2>
+{% endblock content %}
+```
+
+여기서 중요한 것은 `<int:num>` 같은 문법이다. 앞의 `int`는 **Path Converter**로, 해당 값이 정수여야 한다는 뜻이고, 뒤의 `num`은 view에서 받을 변수명이다.
+
+쉽게 말하면 URL이 단순 주소가 아니라, **view에 값을 전달하는 통로**가 되는 셈이다. 이후 게시글 상세 페이지, 사용자 프로필, 카테고리 페이지 등이 모두 이 구조를 바탕으로 만들어진다.
+
+⚠️ 주의  
+- URL에 적은 변수명과 view 함수 매개변수 이름이 맞아야 한다.
+- `<int:num>`인데 문자열이 들어오면 해당 패턴은 매칭되지 않는다.
+- converter를 빼먹으면 타입 의도가 흐려진다.
+
+📌 핵심  
+Variable Routing은 **URL의 일부를 동적인 값으로 바꾸고, 그 값을 view 함수로 전달하는 기능**이다.
+
+### 3.8 App URL Mapping: 앱별로 URL을 나누어 관리하기
+
+앱이 하나일 때는 프로젝트의 `urls.py`에 모든 경로를 몰아 써도 큰 문제가 없어 보인다. 하지만 앱이 많아지면 서로 다른 기능의 URL이 한 파일에 섞이기 시작하고, 유지보수 난이도가 빠르게 올라간다.
+
+이때 필요한 것이 **앱별 URL 분리(App URL Mapping)** 이다. 즉, 프로젝트 `urls.py`는 큰 입구만 담당하고, 실제 세부 경로는 각 앱의 `urls.py`가 맡도록 구조를 나누는 것이다.
+
+![articles 앱에 urls.py 작성](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-16 214016.jpg>)
+![프로젝트 urls.py에서 include 사용](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-16 214044.jpg>)
+![include가 나머지 URL을 넘기는 방식](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-16 214200.jpg>)
+![기존 URL을 앱 urls.py로 이동한 구조](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-16 214310.jpg>)
+
+```python
+# articles/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('index/', views.index),
+]
+```
+
+```python
+# firstpjt/urls.py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+
+    # 'articles/'까지 일치하면, 그 뒤의 경로는 articles.urls가 처리한다.
+    path('articles/', include('articles.urls')),
+]
+```
+
+이 구조의 핵심은 `include()`다. `include('articles.urls')`는 `'articles/'`까지 일치한 뒤, **남은 문자열을 해당 앱의 URL 패턴에게 넘겨준다**. 그래서 `/articles/index/` 요청이 오면,
+
+1. 프로젝트 `urls.py`에서 `articles/` 부분까지 먼저 매칭하고,
+2. 남은 `index/`는 `articles/urls.py`에서 처리한다.
+
+이 방식은 앱이 늘어날수록 더 중요해진다. 결국 URL도 기능별로 분리해야, 프로젝트 구조가 깔끔하게 유지된다.
+
+⚠️ 주의  
+- 앱마다 `urls.py`를 만든 뒤 프로젝트 쪽에서 반드시 `include()`로 연결해야 한다.
+- 프로젝트 URL과 앱 URL이 어디서 나뉘는지 흐름을 헷갈리기 쉽다.
+
+📌 핵심  
+App URL Mapping은 **프로젝트 수준의 큰 경로와 앱 수준의 세부 경로를 분리해 URL을 체계적으로 관리하는 방식**이다.
+
+### 3.9 URL 이름 지정과 DTL의 `url` 태그
+
+URL을 분리해도 아직 문제가 하나 남는다. 주소를 템플릿에 하드코딩해 두면, 나중에 URL 구조가 바뀔 때 그 주소를 사용한 모든 곳을 찾아 수정해야 한다.
+
+예를 들어 기존에 `articles/`였던 경로가 `articles/index/`로 바뀌면, 링크를 직접 써 둔 모든 파일을 고쳐야 한다. 이를 해결하는 방법이 **URL Naming**이다.
+
+![URL 패턴에 name 지정](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 003748.jpg>)
+![하드코딩 링크를 url 태그로 바꾸기](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 004012.jpg>)
+![브라우저에서는 같은 링크로 보이는 결과](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 004120.jpg>)
+
+```python
+# articles/urls.py
+from django.urls import path
+from . import views
+
+app_name = 'articles'
+
+urlpatterns = [
+    path('index/', views.index, name='index'),
+    path('dinner/', views.dinner, name='dinner'),
+    path('search/', views.search, name='search'),
+    path('throw/', views.throw, name='throw'),
+    path('catch/', views.catch, name='catch'),
+    path('<int:num>/', views.detail, name='detail'),
+]
+```
+
+```html
+<!-- articles/index.html -->
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1>Hello, {{ name }}</h1>
+
+  <!-- 주소를 직접 쓰지 않고 URL 이름으로 참조한다. -->
+  <a href="{% url 'articles:dinner' %}">dinner</a>
+  <a href="{% url 'articles:search' %}">search</a>
+  <a href="{% url 'articles:throw' %}">throw</a>
+{% endblock content %}
+```
+
+`url` 태그는 **주어진 URL 이름에 해당하는 실제 경로를 찾아서 반환**한다. 그래서 주소 구조가 바뀌더라도, 템플릿에서는 이름만 유지하면 된다.
+
+변수가 있는 URL도 마찬가지다.
+
+![변수 URL을 url 태그로 넘기는 예시](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 004521.jpg>)
+![for 태그 안의 변수 사용 예시](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 004615.jpg>)
+
+```html
+{% for num in nums %}
+  <!-- detail URL이 정수 하나를 요구하므로 num을 함께 넘긴다. -->
+  <a href="{% url 'articles:detail' num %}">Article {{ num }}</a>
+{% endfor %}
+```
+
+여기서 막히기 쉬운 부분은 문법이다. `url` 태그 안에서는 **콤마를 쓰지 않고 공백으로 인자를 구분**한다.
+
+```html
+{% url 'articles:detail' num %}
+```
+
+⚠️ 주의  
+- `url` 태그 안에서 인자를 쉼표로 구분하지 않는다.
+- URL 패턴이 인자를 요구하면 템플릿에서도 반드시 값을 함께 넘겨야 한다.
+- 하드코딩 주소와 `url` 태그를 섞어 쓰면 유지보수 기준이 흔들린다.
+
+📌 핵심  
+URL 이름 지정은 **주소 자체가 아니라 이름으로 경로를 참조하게 만들어, URL 변경에 유연하게 대응하는 방법**이다.
+
+### 3.10 URL 이름 공간(namespace)과 `app_name`
+
+URL에 이름을 붙여도, 앱이 여러 개일 때는 여전히 충돌 가능성이 남아 있다. 예를 들어 `articles` 앱에도 `index`가 있고, `pages` 앱에도 `index`가 있다면 단순히 `'index'`만으로는 어느 쪽을 뜻하는지 모호해진다.
+
+이 문제를 해결하는 것이 **URL 이름 공간(namespace)** 이고, Django에서는 `app_name`으로 이를 정의한다.
+
+![app_name 추가 전후 비교](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 004901.jpg>)
+![url 태그에 app_name 반영](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 005006.jpg>)
+
+```python
+# articles/urls.py
+app_name = 'articles'
+
+urlpatterns = [
+    path('index/', views.index, name='index'),
+]
+```
+
+```python
+# pages/urls.py
+app_name = 'pages'
+
+urlpatterns = [
+    path('index/', views.index, name='index'),
+]
+```
+
+```html
+<a href="{% url 'articles:index' %}">articles index</a>
+<a href="{% url 'pages:index' %}">pages index</a>
+```
+
+쉽게 말하면 이름 앞에 성을 붙이는 것과 비슷하다. `index`라는 이름 자체는 흔할 수 있지만, `articles:index`, `pages:index`처럼 쓰면 누구 것인지 분명해진다.
+
+⚠️ 주의  
+- `app_name`을 설정했다면 템플릿의 `url` 태그도 함께 수정해야 한다.
+- 네임스페이스를 도입하고도 예전 이름만 쓰면 `NoReverseMatch` 같은 오류를 만나기 쉽다.
+
+📌 핵심  
+`app_name`은 **같은 URL 이름이 여러 앱에 있어도 충돌 없이 구분하게 해 주는 네임스페이스 장치**다.
+
+### 3.11 추가 템플릿 경로와 `BASE_DIR`
+
+기본적으로 Django는 각 앱 내부의 `templates/` 폴더를 템플릿 경로로 사용한다. 하지만 프로젝트가 커지면 모든 앱이 공통으로 쓰는 `base.html` 같은 파일을 **프로젝트 최상위의 별도 `templates/` 폴더**에 두고 싶어질 수 있다.
+
+이때는 `settings.py`의 `TEMPLATES` 설정에서 `DIRS`를 지정한다.
+
+![settings.py에서 DIRS 지정](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 005146.jpg>)
+![프로젝트 최상위 templates 폴더 구조](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 005216.jpg>)
+![extends 경로를 base.html로 수정](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 005249.jpg>)
+![BASE_DIR 개념](<../assets/images/04_14_Django_Template_URLs_Model_1/화면 캡처 2026-04-18 005414.jpg>)
+
+```python
+# settings.py
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
+```html
+{% extends 'base.html' %}
+```
+
+여기서 `BASE_DIR`은 프로젝트의 최상단 위치를 기준으로 경로를 잡기 쉽게 만들어 둔 변수다. 즉, 절대경로를 길게 쓰는 대신 **프로젝트 기준의 안정적인 시작점**을 제공한다고 이해하면 된다.
+
+이 설정을 해 두면 공통 템플릿을 한곳에 모아 두고 여러 앱이 함께 사용할 수 있다. 결국 이것도 템플릿 상속과 같은 방향이다. **중복을 줄이고, 공통 요소를 한 번에 관리하려는 구조화 전략**이다.
+
+⚠️ 주의  
+- 템플릿 위치를 옮겼다면 `extends` 경로도 같이 수정해야 한다.
+- `DIRS`에 경로를 추가했다고 해서 기존 앱 템플릿 경로가 사라지는 것은 아니다. `APP_DIRS=True`와 함께 동작한다.
+
+📌 핵심  
+추가 템플릿 경로 지정은 **공통 템플릿을 프로젝트 차원에서 관리하기 위한 설정**이고, `BASE_DIR`은 그 경로를 안정적으로 잡는 기준점이다.
+
+### 3.12 DTL과 URL 사용 시 마지막으로 기억할 점
+
+강의 마지막에서 강조하는 포인트는 두 가지다.
+
+첫째, DTL은 파이썬과 비슷해 보여도 **파이썬 그 자체가 아니다**. `if`, `for` 같은 문법이 나온다고 해서 템플릿에서 복잡한 프로그래밍을 하려는 방향으로 가면 안 된다. 템플릿은 어디까지나 표현 계층이다.
+
+둘째, Django는 URL 끝의 `/`를 중요하게 다룬다. 이른바 **Trailing Slash**다.
+
+Django는 보통 URL 끝에 `/`가 없으면 자동으로 붙여 주는 동작을 한다. 기술적으로는 `foo.com/bar`와 `foo.com/bar/`가 서로 다른 URL이기 때문에, Django는 일관된 주소 체계를 유지하려고 슬래시를 붙이는 쪽을 택한 것이다.
+
+이 부분은 사소해 보여도 실제로는 링크 작성, 리다이렉트 동작, URL 패턴 매칭과 연결된다. 처음에는 작은 문법처럼 보여도, 프로젝트가 커질수록 주소 표기 일관성이 중요해진다.
+
+⚠️ 주의  
+- 템플릿에서 복잡한 로직을 처리하려 하지 말 것
+- URL을 작성할 때 trailing slash 여부를 가볍게 넘기지 말 것
+- 가능한 한 `url` 태그로 경로를 생성해 일관성을 유지할 것
+
+📌 핵심  
+DTL은 **표현을 위한 문법**, URL 관리는 **일관성과 유지보수성을 위한 구조화**라는 기준으로 정리하면 된다.
+
+## 4. 적용 관점에서 다시 보기
+
+이제 본문에서 정리한 내용을 실제 구현 관점에서 다시 묶어 보자. 여기서는 새로운 개념을 추가하기보다, 언제 무엇을 떠올려야 하는지를 정리하는 데 집중한다.
+
+### 4.1 화면을 만들 때 떠올릴 순서
+
+Django 화면 기능을 만들 때는 아래 순서로 생각하면 구조가 잘 잡힌다.
+
+1. **어떤 데이터를 보여줄 것인가?**  
+   먼저 view에서 context로 넘길 데이터를 정한다.
+2. **그 데이터를 HTML에서 어떻게 표현할 것인가?**  
+   단순 출력인지, 반복인지, 조건 분기인지 판단한다.
+3. **공통 레이아웃이 필요한가?**  
+   여러 페이지가 같은 틀을 쓴다면 `base.html`과 `block`을 먼저 잡는다.
+4. **사용자 입력이 필요한가?**  
+   입력이 있다면 form의 `action`, `method`, `name`을 확인한다.
+5. **URL이 고정인지, 동적인지 확인한다.**  
+   값이 달라지는 상세 페이지라면 Variable Routing을 고려한다.
+6. **링크를 하드코딩하고 있지 않은지 점검한다.**  
+   템플릿 링크는 되도록 `url` 태그와 네임스페이스를 사용한다.
+
+이 순서를 익혀 두면, 기능이 조금 복잡해져도 어디서부터 손대야 할지 감이 생긴다.
+
+### 4.2 문제를 보면 어떤 신호를 잡아야 하는가
+
+아래와 같은 상황이 보이면 이번 강의의 개념을 떠올리면 된다.
+
+- **“페이지마다 같은 HTML 구조가 반복된다.”**  
+  → 템플릿 상속을 써야 할 신호다.
+- **“사용자 입력값을 다음 페이지에서 다시 보여줘야 한다.”**  
+  → form + `request.GET` 흐름을 떠올리면 된다.
+- **“게시글 번호에 따라 다른 상세 페이지가 필요하다.”**  
+  → Variable Routing이 필요한 상황이다.
+- **“링크 주소가 자주 바뀌어서 수정 범위가 넓다.”**  
+  → URL naming과 `url` 태그로 구조를 바꿔야 한다.
+- **“앱이 늘어나면서 URL 파일이 복잡해진다.”**  
+  → `include()`를 통한 앱별 URL 분리가 필요하다.
+- **“여러 앱에 index가 있어서 헷갈린다.”**  
+  → `app_name` 네임스페이스를 붙여야 한다.
+
+### 4.3 구현할 때 자주 틀리는 흐름
+
+이번 범위에서 특히 자주 생기는 실수는 다음과 같다.
+
+- `form`의 `name` 값과 `request.GET.get()`의 키가 다르다.
+- `extends`를 템플릿 중간에 써서 상속이 제대로 되지 않는다.
+- `url` 태그에서 인자를 빼먹거나, 콤마를 넣어 문법 오류가 난다.
+- `app_name`을 추가해 놓고 템플릿 쪽은 예전 이름을 그대로 쓴다.
+- 공통 템플릿 위치를 바꿨는데 `DIRS` 설정이나 `extends` 경로를 고치지 않는다.
+- 템플릿 안에서 로직을 과하게 처리하려다 가독성이 무너진다.
+
+결국 이 강의의 실전 포인트는 문법을 따로따로 외우는 것이 아니라, **데이터 전달 → 화면 표현 → 사용자 입력 → URL 연결 → 구조적 관리** 흐름을 하나로 묶어 생각하는 것이다.
+
+## 5. 배운 점 / 느낀 점 / 확장 포인트
+
+이번 강의에서 특히 중요한 배움은, Django가 단순히 “HTML을 띄워 주는 프레임워크”가 아니라는 점이다. Django는 **데이터를 템플릿으로 전달하고, 사용자 입력을 다시 요청으로 받아 처리하며, URL을 체계적으로 분배하는 구조**를 갖고 있다. 즉, 이번 내용은 뒤에서 배우게 될 CRUD나 게시판 구현의 기반이 된다.
+
+또 하나의 확장 포인트는 유지보수성이다. 템플릿 상속, URL naming, `app_name`, 추가 템플릿 경로 지정은 모두 공통적으로 **중복을 줄이고 수정 비용을 낮추는 방향**을 가진다. 처음에는 조금 번거롭게 느껴질 수 있지만, 기능이 늘어날수록 이런 구조화가 왜 필요한지 분명해진다.
+
+다음 학습으로 이어질 포인트도 자연스럽다. 예를 들어 form에서 `GET`이 아니라 `POST`를 쓰는 이유, 모델 데이터와 템플릿의 연결, CRUD에서 상세/수정/삭제 URL 설계, 그리고 reverse/redirect 같은 개념이 바로 다음 단계로 이어질 수 있다.
+
+## 6. 요약 정리
+
+📌 핵심
+
+- Django Template System은 **view의 데이터(context)를 HTML에 결합해 동적인 화면을 만드는 구조**다.
+- DTL은 **변수 출력, 필터, 태그, 주석**으로 구성되며, 표현을 위한 문법이다.
+- 템플릿 상속은 **공통 레이아웃을 부모 템플릿에 두고, 자식 템플릿이 필요한 부분만 재정의**하는 방식이다.
+- form은 **사용자 입력을 서버로 보내는 도구**이고, `name` 속성이 데이터 식별의 기준이 된다.
+- `request.GET.get()`은 **GET 요청으로 전달된 값을 꺼내는 기본 방식**이다.
+- Variable Routing은 **URL 일부를 변수처럼 받아 view로 전달**하는 기능이다.
+- `include()`는 **프로젝트 URL과 앱 URL을 분리**해 관리하게 해 준다.
+- URL naming과 `url` 태그는 **하드코딩 없이 경로를 참조**하게 만들어, 구조 변경에 유연하게 대응하게 한다.
+- `app_name`은 **URL 이름 충돌을 막는 네임스페이스**다.
+- `DIRS`와 `BASE_DIR`은 **공통 템플릿 경로를 프로젝트 차원에서 관리**할 수 있게 한다.
+
+🧠 기억할 것
+
+- 템플릿은 로직을 처리하는 곳이 아니라 **표현을 담당하는 곳**이다.
+- Django 기능들은 따로 노는 것이 아니라, **요청과 응답의 흐름 안에서 연결**되어 있다.
+- 유지보수가 쉬운 구조는 처음부터 **이름, 경로, 공통 레이아웃**을 잘 잡는 데서 시작한다.
+
+## 7. 미니 퀴즈 또는 체크리스트
+
+1. Django Template System에서 `render()`의 세 번째 인자는 어떤 역할을 하며, 템플릿에서는 어떻게 접근하는가?
+2. `filter`와 `tag`의 차이는 무엇이며, 각각 어떤 상황에서 쓰는가?
+3. 템플릿 상속에서 `extends`와 `block`은 각각 어떤 책임을 가지는가?
+4. form의 `name` 속성이 왜 중요한가? `request.GET.get('message')`와 어떤 식으로 연결되는가?
+5. Variable Routing에서 `<int:num>`의 의미를 설명하고, 이 값이 view 함수로 어떻게 전달되는지 말해 보자.
+6. 링크를 하드코딩하지 않고 `url` 태그를 써야 하는 이유는 무엇인가?
+7. `app_name`을 붙이지 않았을 때 어떤 문제가 생길 수 있는가?
+8. 공통 `base.html`을 프로젝트 최상위 `templates/` 폴더로 옮겼다면, `settings.py`와 템플릿 코드에서 무엇을 수정해야 하는가?
+
