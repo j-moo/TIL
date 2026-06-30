@@ -1,0 +1,63 @@
+# TIL
+
+개발 과정에서 배운 내용을 이해한 언어로 다시 설명하고, 나중에 빠르게 복습할 수 있도록 기록하는 학습 저장소입니다.
+
+단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
+
+## Learning Areas
+
+| 분야 | 내용 | 노트 |
+| --- | --- | ---: |
+| [Python](./Python) | 문법, 함수, 자료구조, 객체지향 프로그래밍 | 8 |
+| [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
+| [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
+| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
+| [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
+| [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
+| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 6 |
+| [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 12 |
+| [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
+| [AI](./AI) | 머신러닝, LLM, RAG, Fine-tuning과 모델 활용 | 16 |
+| [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
+| [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
+
+현재 총 **107개의 학습 노트**를 관리하고 있습니다.
+
+## How I Write
+
+각 노트는 가능한 한 다음 흐름으로 정리합니다.
+
+1. 학습 주제가 해결하려는 문제와 전체 흐름을 먼저 파악합니다.
+2. 핵심 개념을 처음 배우는 사람도 이해할 수 있도록 풀어 설명합니다.
+3. 예제와 코드를 관련 개념 바로 옆에 배치하고 실행 흐름을 해설합니다.
+4. 자주 발생하는 실수와 디버깅 기준을 함께 기록합니다.
+5. 마지막에는 핵심 요약과 질문을 남겨 스스로 이해도를 확인합니다.
+
+## Current Focus
+
+- Django REST Framework와 Vue를 연결한 웹 애플리케이션 개발
+- FastAPI 기반 AI 모델 서빙과 API Gateway 구조
+- LLM, RAG, PEFT를 포함한 생성형 AI 활용
+- 알고리즘 문제 해결 과정의 언어화와 반복 복습
+
+## Repository Structure
+
+```text
+TIL/
+├── Python/          # Python 기초와 객체지향
+├── Algorithm/       # 자료구조와 알고리즘 강의
+├── Problem_review/  # 알고리즘 문제 풀이 기록
+├── Web/             # HTML, CSS, Bootstrap
+├── Javascript/      # JavaScript와 DOM
+├── Vue/             # Vue 생태계와 프론트엔드
+├── DB/              # 데이터베이스와 SQL
+├── Django/          # Django와 DRF
+├── FastAPI/         # FastAPI와 모델 서빙
+├── AI/              # 머신러닝과 생성형 AI
+├── Git/             # Git과 버전 관리
+└── Markdown/        # 문서 작성 연습
+```
+
+## Note
+
+이 저장소의 문서는 학습 당시의 강의와 실습 환경을 기준으로 작성됩니다. 라이브러리나 프레임워크의 버전에 따라 달라질 수 있는 내용은 공식 문서와 함께 확인하며 계속 보완합니다.
