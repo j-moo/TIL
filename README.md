@@ -1,14 +1,23 @@
 # TIL
 
-개발 과정에서 배운 내용을 이해한 언어로 다시 설명하고, 나중에 빠르게 복습할 수 있도록 기록하는 학습 저장소입니다.
+개발 과정에서 배운 내용을 제 언어로 다시 설명하고, 나중에 빠르게 복습할 수 있도록 기록하는 학습 저장소입니다.
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
+
+## Recently Updated
+
+| 주제 | 핵심 내용 | 노트 |
+| --- | --- | --- |
+| API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
+| NumPy·Pandas·Matplotlib | 배열 연산, DataFrame 전처리, 결측치 처리, 그룹 집계, 시계열 분석과 시각화 | [바로가기](./Python/01_30_NumPy_Pandas_Matplotlib/01_30_NumPy_Pandas_Matplotlib.md) |
+| Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
+| FastAPI | API 기초, 모델 서빙, API Gateway와 멀티모달 연동 | [바로가기](./FastAPI/05_22_FastAPI/05_22_FastAPI.md) |
 
 ## Learning Areas
 
 | 분야 | 내용 | 노트 |
 | --- | --- | ---: |
-| [Python](./Python) | 문법, 함수, 자료구조, 객체지향 프로그래밍 | 8 |
+| [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석 | 10 |
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
@@ -21,7 +30,16 @@
 | [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **107개의 학습 노트**를 관리하고 있습니다.
+현재 총 **109개의 학습 노트**를 관리하고 있습니다.
+
+## Current Focus
+
+- API·JSON 데이터를 안전하게 수집하고 분석 가능한 구조로 변환하기
+- NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
+- Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
+- FastAPI 기반 AI 모델 서빙과 API Gateway 구조
+- LLM, RAG, PEFT를 포함한 생성형 AI 활용
+- 알고리즘 문제 해결 과정의 언어화와 반복 복습
 
 ## How I Write
 
@@ -33,23 +51,16 @@
 4. 자주 발생하는 실수와 디버깅 기준을 함께 기록합니다.
 5. 마지막에는 핵심 요약과 질문을 남겨 스스로 이해도를 확인합니다.
 
-## Current Focus
-
-- Django REST Framework와 Vue를 연결한 웹 애플리케이션 개발
-- FastAPI 기반 AI 모델 서빙과 API Gateway 구조
-- LLM, RAG, PEFT를 포함한 생성형 AI 활용
-- 알고리즘 문제 해결 과정의 언어화와 반복 복습
-
 ## Repository Structure
 
 ```text
 TIL/
-├── Python/          # Python 기초와 객체지향
+├── Python/          # Python, API·JSON, 데이터 분석
 ├── Algorithm/       # 자료구조와 알고리즘 강의
 ├── Problem_review/  # 알고리즘 문제 풀이 기록
 ├── Web/             # HTML, CSS, Bootstrap
 ├── Javascript/      # JavaScript와 DOM
-├── Vue/             # Vue 생태계와 프론트엔드
+├── Vue/             # Vue 생태계, JWT와 프론트엔드
 ├── DB/              # 데이터베이스와 SQL
 ├── Django/          # Django와 DRF
 ├── FastAPI/         # FastAPI와 모델 서빙
