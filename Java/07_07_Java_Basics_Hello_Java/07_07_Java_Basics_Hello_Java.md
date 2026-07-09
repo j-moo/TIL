@@ -1,4 +1,4 @@
-# 07_08 Hello Java: 처음 배우는 Java 기초
+﻿# 07_07 Hello Java: 처음 배우는 Java 기초
 
 - 🎯 글의 목표: Java 프로그램이 만들어지고 실행되는 과정을 이해하고, 변수·자료형·연산자·조건문·반복문으로 작은 프로그램을 직접 작성한다.
 - 🧩 핵심 키워드: JDK, JVM, bytecode, `main`, 변수, 기본형, 참조형, 형 변환, 연산자, `if`, `switch`, `for`, `while`, `break`, `continue`
