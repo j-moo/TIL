@@ -8,6 +8,7 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
+| TypeScript 기초와 일상 타입 | 정적 타입 검사, 타입 추론, 유니언과 좁히기, 안전한 외부 데이터 처리 | [바로가기](./TypeScript/01_TypeScript_Basics_and_Everyday_Types.md) |
 | API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
 | NumPy·Pandas·Matplotlib | 배열 연산, DataFrame 전처리, 결측치 처리, 그룹 집계, 시계열 분석과 시각화 | [바로가기](./Python/01_30_NumPy_Pandas_Matplotlib/01_30_NumPy_Pandas_Matplotlib.md) |
 | Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
@@ -22,6 +23,7 @@
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
+| [TypeScript](./TypeScript) | 정적 타입 검사, 타입 추론, 타입 좁히기 | 1 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
 | [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 6 |
 | [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 12 |
@@ -30,7 +32,7 @@
 | [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **109개의 학습 노트**를 관리하고 있습니다.
+현재 총 **110개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -60,6 +62,7 @@ TIL/
 ├── Problem_review/  # 알고리즘 문제 풀이 기록
 ├── Web/             # HTML, CSS, Bootstrap
 ├── Javascript/      # JavaScript와 DOM
+├── TypeScript/      # 정적 타입 검사와 안전한 JavaScript 개발
 ├── Vue/             # Vue 생태계, JWT와 프론트엔드
 ├── DB/              # 데이터베이스와 SQL
 ├── Django/          # Django와 DRF
