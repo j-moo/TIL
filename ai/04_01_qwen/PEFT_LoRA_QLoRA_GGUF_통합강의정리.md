@@ -540,7 +540,13 @@ tokenizer.save_pretrained("./merged_model")
 
 llama.cpp는 PyTorch의 `.safetensors`나 `.pt`를 그대로 쓰지 않는다. 대신 **GGUF 포맷**을 사용한다. 그래서 내가 만든 모델을 llama.cpp로 추론하려면, 결국 **GGUF로 변환하는 단계**가 필요하다.
 
-![PyTorch 모델을 GGUF로 변환해야 하는 이유](integrated_note_assets/gguf_conversion_need.png)
+```text
+PyTorch / Hugging Face 모델
+        ↓ 변환
+      GGUF 파일
+        ↓ 로드
+     llama.cpp 추론
+```
 
 위 흐름처럼, 학습은 PyTorch/HuggingFace/Unsloth에서 수행하더라도, 빠른 로컬 추론으로 넘어가려면 GGUF 경로를 따로 이해해야 한다.
 
@@ -562,7 +568,17 @@ Qwen2.5 1.5B GGUF 예시에서는 여러 양자화 버전이 함께 제공된다
 - `FP16.gguf`: 양자화 없는 원본에 가까운 버전
 - `Q4_K_M.gguf`: llama.cpp에서 권장하는 대표적인 4-bit 양자화 옵션
 
-![Qwen2.5 GGUF 파일 목록 예시](integrated_note_assets/gguf_files_list.png)
+```text
+원본 또는 고정밀 GGUF
+├─ F16 / BF16
+└─ 큰 용량, 높은 정밀도
+
+양자화 GGUF
+├─ Q8
+├─ Q5
+└─ Q4_K_M 등
+   └─ 용량과 메모리를 줄이는 대신 일부 정밀도 손실 가능
+```
 
 이 장면에서 중요한 것은 파일이 많아 보이더라도 겁먹을 필요가 없다는 점이다. 핵심은 **원본과 양자화본을 비교할 때 어떤 포맷과 옵션을 쓰는지 명확히 아는 것**이다.
 
@@ -624,7 +640,14 @@ def qwen_prompt(user_text, system_text):
 - 추론 안정성도 더 좋게 느껴질 수 있다.
 - 배포 관점에서는 GGUF + llama.cpp가 매우 실용적이다.
 
-![코랩 환경에서 정리한 성능 비교 결과](integrated_note_assets/benchmark_result.png)
+| 비교 항목 | 원본·고정밀 모델 | 양자화 GGUF |
+|---|---|---|
+| 파일 크기 | 큼 | 작음 |
+| 메모리 요구량 | 큼 | 낮음 |
+| 추론 환경 | GPU 중심 도구가 편리 | CPU·로컬 환경 선택 폭이 넓음 |
+| 출력 품질 | 기준 품질 | 양자화 수준에 따라 일부 손실 가능 |
+
+수치는 모델 크기, 양자화 방식, 하드웨어와 실행 옵션에 따라 달라지므로 실제 배포 환경에서 직접 측정해야 한다.
 
 정확한 수치는 장비와 설정에 따라 달라지지만, 이 장에서 가져가야 할 메시지는 "양자화 모델이 품질 손실만 있는 것이 아니라, 실제 추론 속도와 배포 편의성 면에서 큰 장점이 있다"는 점이다.
 

@@ -8,7 +8,8 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·클래스·모듈 설정까지 | [로드맵](./TypeScript/README.md) |
+| React 입문 시리즈 | 컴포넌트·state·렌더링·JSX, Vite 실행 환경과 React 생태계 | [로드맵](./React/README.md) |
+| TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·클래스·모듈 설정까지 | [노트 목록](./TypeScript) |
 | API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
 | NumPy·Pandas·Matplotlib | 배열 연산, DataFrame 전처리, 결측치 처리, 그룹 집계, 시계열 분석과 시각화 | [바로가기](./Python/01_30_NumPy_Pandas_Matplotlib/01_30_NumPy_Pandas_Matplotlib.md) |
 | Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
@@ -18,25 +19,28 @@
 
 | 분야 | 내용 | 노트 |
 | --- | --- | ---: |
-| [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석 | 10 |
+| [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석 | 11 |
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈 | 6 |
+| [React](./React) | 컴포넌트, props, state, 렌더링, JSX, Vite와 생태계 | 3 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
-| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 6 |
-| [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 12 |
+| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 7 |
+| [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 13 |
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
 | [AI](./AI) | 머신러닝, LLM, RAG, Fine-tuning과 모델 활용 | 16 |
+| [Java](./Java) | Java 문법, 객체지향, 컬렉션, 예외 처리와 함수형 프로그래밍 | 15 |
 | [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **115개의 학습 노트**를 관리하고 있습니다.
+현재 총 **136개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
 - API·JSON 데이터를 안전하게 수집하고 분석 가능한 구조로 변환하기
+- React의 컴포넌트·state·렌더링 흐름과 Vite 개발 환경 이해
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
@@ -63,11 +67,13 @@ TIL/
 ├── Web/             # HTML, CSS, Bootstrap
 ├── Javascript/      # JavaScript와 DOM
 ├── TypeScript/      # 정적 타입 검사와 안전한 JavaScript 개발
+├── React/           # 컴포넌트, state, JSX와 React 개발 환경
 ├── Vue/             # Vue 생태계, JWT와 프론트엔드
 ├── DB/              # 데이터베이스와 SQL
 ├── Django/          # Django와 DRF
 ├── FastAPI/         # FastAPI와 모델 서빙
 ├── AI/              # 머신러닝과 생성형 AI
+├── Java/            # Java 문법, 객체지향과 표준 라이브러리
 ├── Git/             # Git과 버전 관리
 └── Markdown/        # 문서 작성 연습
 ```
