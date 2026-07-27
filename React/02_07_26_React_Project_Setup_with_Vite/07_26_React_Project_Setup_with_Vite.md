@@ -1,12 +1,12 @@
 # Vite로 React 프로젝트 시작하기
 
 - 🎯 글의 목표: Create React App의 현재 상태를 이해하고, Vite로 React 프로젝트를 생성한 뒤 `index.html`에서 `App` 컴포넌트까지 이어지는 실행 흐름을 설명할 수 있다.
-- 🧩 핵심 키워드: Node.js, npm, Create React App, Vite, `package.json`, `index.html`, `main.jsx`, `createRoot`, HMR, Fast Refresh
+- 🧩 핵심 키워드: Node.js, npm, Create React App, Vite, TypeScript, `package.json`, `index.html`, `main.tsx`, `createRoot`, HMR, Fast Refresh
 - ⭐ 중요도: ★★★★★ — React 코드를 실행하고 오류를 찾기 위한 기본 환경이다.
-- 📝 한눈에 보는 내용: 신규 학습 프로젝트는 Vite의 React 템플릿으로 시작할 수 있다. 프로젝트 생성, 의존성 설치, 개발 서버 실행을 거친 뒤 브라우저가 `index.html`과 `main.jsx`를 읽어 `App`을 렌더링한다.
+- 📝 한눈에 보는 내용: 신규 학습 프로젝트는 Vite의 React TypeScript 템플릿으로 시작할 수 있다. 프로젝트 생성, 의존성 설치, 개발 서버 실행을 거친 뒤 브라우저가 `index.html`과 `main.tsx`를 읽어 `App`을 렌더링한다.
 - 🧱 선수 지식: 터미널에서 폴더 이동하기, Node.js와 npm의 기본 역할
-- 🔗 이전 학습: [React 입문](./07_26_React_Introduction.md)
-- 🔗 다음 학습: [React 생태계와 도구 선택](./07_26_React_Ecosystem.md)
+- 🔗 이전 학습: [React 입문](../01_07_26_React_Introduction/07_26_React_Introduction.md)
+- 🔗 다음 학습: [React 생태계와 도구 선택](../03_07_26_React_Ecosystem/07_26_React_Ecosystem.md)
 
 ---
 
@@ -23,7 +23,7 @@ React는 UI 라이브러리이므로 프로젝트 폴더, 개발 서버, JSX 변
 → 의존성 설치
 → 개발 서버 실행
 → index.html 로드
-→ main.jsx 실행
+→ main.tsx 실행
 → App 컴포넌트 렌더링
 ```
 
@@ -103,11 +103,11 @@ npm --version
 
 ### 3.4 Vite React 프로젝트를 생성한다
 
-JavaScript 기반 React 프로젝트는 다음 순서로 만든다.
+이 학습 노트에서는 TypeScript 기반 React 프로젝트를 다음 순서로 만든다.
 
 ```bash
-# 최신 create-vite로 React 템플릿을 생성한다.
-npm create vite@latest my-app -- --template react
+# 최신 create-vite로 React TypeScript 템플릿을 생성한다.
+npm create vite@latest my-app -- --template react-ts
 
 # 생성된 프로젝트 폴더로 이동한다.
 cd my-app
@@ -119,15 +119,6 @@ npm install
 npm run dev
 ```
 
-TypeScript를 사용한다면 `react-ts` 템플릿을 선택한다.
-
-```bash
-npm create vite@latest my-app -- --template react-ts
-cd my-app
-npm install
-npm run dev
-```
-
 명령을 나누어 보면 다음과 같다.
 
 | 명령 또는 부분 | 의미 |
@@ -135,7 +126,7 @@ npm run dev
 | `npm create vite@latest` | 최신 create-vite 실행 |
 | `my-app` | 생성할 프로젝트 폴더 이름 |
 | `--` | 뒤 옵션을 create-vite에 전달 |
-| `--template react` | React JavaScript 템플릿 선택 |
+| `--template react-ts` | React TypeScript 템플릿 선택 |
 | `npm install` | 필요한 패키지 설치 |
 | `npm run dev` | 개발 서버 실행 |
 
@@ -151,20 +142,23 @@ npm run dev
 my-app/
 ├─ index.html
 ├─ package.json
+├─ tsconfig.json
+├─ tsconfig.app.json
 ├─ src/
-│  ├─ App.jsx
-│  ├─ main.jsx
+│  ├─ App.tsx
+│  ├─ main.tsx
 │  └─ assets/
-└─ vite.config.js
+└─ vite.config.ts
 ```
 
 | 파일 | 역할 |
 |---|---|
 | `package.json` | 패키지와 실행 명령 기록 |
 | `index.html` | 브라우저가 처음 읽는 HTML |
-| `src/main.jsx` | React 애플리케이션 진입점 |
-| `src/App.jsx` | 기본 루트 컴포넌트 |
-| `vite.config.js` | Vite 설정 |
+| `src/main.tsx` | React 애플리케이션 진입점 |
+| `src/App.tsx` | 기본 루트 컴포넌트 |
+| `tsconfig*.json` | TypeScript 검사와 빌드 범위 설정 |
+| `vite.config.ts` | Vite 설정 |
 
 ---
 
@@ -184,7 +178,7 @@ my-app/
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
 ```
@@ -195,24 +189,27 @@ my-app/
 <div id="root"></div>
 → React UI가 들어갈 DOM 위치
 
-<script type="module" src="/src/main.jsx"></script>
-→ React 진입 파일을 JavaScript 모듈로 실행
+<script type="module" src="/src/main.tsx"></script>
+→ React 진입 파일을 모듈로 불러오며 Vite가 TypeScript와 JSX를 처리
 ```
 
 ---
 
-### 3.7 `main.jsx`가 React root를 만든다
+### 3.7 `main.tsx`가 React root를 만든다
 
-```jsx
+```tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import App from './App.tsx'
 import './index.css'
 
 const rootElement = document.getElementById('root')
-const root = createRoot(rootElement)
 
-root.render(
+if (!rootElement) {
+  throw new Error('#root 요소를 찾을 수 없습니다.')
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <App />
   </StrictMode>,
@@ -223,7 +220,7 @@ root.render(
 
 ```text
 브라우저가 index.html 로드
-→ /src/main.jsx 실행
+→ /src/main.tsx 실행
 → id가 root인 DOM 요소 탐색
 → createRoot()로 React root 생성
 → root.render(<App />) 요청
@@ -291,8 +288,8 @@ React 프로젝트에서는 Fast Refresh가 함께 동작해 가능한 경우 �
 3. `npm install`을 실행했는가?
 4. `npm run dev`의 오류 메시지는 무엇인가?
 5. 터미널에 표시된 정확한 주소로 접속했는가?
-6. `index.html`의 `root` ID와 `main.jsx`에서 찾는 ID가 같은가?
-7. `App.jsx`가 기본 export를 제공하는가?
+6. `index.html`의 `root` ID와 `main.tsx`에서 찾는 ID가 같은가?
+7. `App.tsx`가 기본 export를 제공하는가?
 8. 브라우저 개발자 도구 콘솔에 어떤 오류가 있는가?
 
 새 프로젝트에서 Vite를 선택하는 기준도 구분한다.
@@ -341,11 +338,11 @@ React 코드와 실행 환경은 같은 개념이 아니다. React는 UI를 만�
 - CRA는 신규 앱에서 deprecated되었으며 기존 앱은 유지보수 모드로 사용할 수 있다.
 - Vite는 React 전용 생성기가 아니라 프론트엔드 빌드 도구다.
 - 프로젝트는 생성, 폴더 이동, 의존성 설치, 개발 서버 실행 순으로 시작한다.
-- `index.html`은 React가 연결될 DOM과 `main.jsx` 진입점을 제공한다.
-- `main.jsx`는 `createRoot()`로 React root를 만들고 `App`을 렌더링한다.
+- `index.html`은 React가 연결될 DOM과 `main.tsx` 진입점을 제공한다.
+- `main.tsx`는 `createRoot()`로 React root를 만들고 `App`을 렌더링한다.
 - HMR은 변경 모듈을 반영하고 Fast Refresh는 가능한 경우 state를 유지한다.
 
-🧠 기억할 것: `index.html → main.jsx → createRoot → App` 흐름을 알면 빈 화면과 실행 오류를 추적하기 쉬워진다.
+🧠 기억할 것: `index.html → main.tsx → createRoot → App` 흐름을 알면 빈 화면과 실행 오류를 추적하기 쉬워진다.
 
 ---
 
@@ -354,7 +351,7 @@ React 코드와 실행 환경은 같은 개념이 아니다. React는 UI를 만�
 1. React와 Vite의 역할은 어떻게 다른가?
 2. CRA가 deprecated되었다는 말은 무엇을 의미하는가?
 3. `npm create`, `npm install`, `npm run dev`는 각각 무엇을 하는가?
-4. `index.html`의 `root`와 `main.jsx`의 `createRoot()`는 어떻게 연결되는가?
+4. `index.html`의 `root`와 `main.tsx`의 `createRoot()`는 어떻게 연결되는가?
 5. HMR과 Fast Refresh는 무엇이 다른가?
 
 <details>
@@ -363,7 +360,7 @@ React 코드와 실행 환경은 같은 개념이 아니다. React는 UI를 만�
 1. React는 UI 라이브러리이고 Vite는 개발 서버와 빌드 환경을 제공하는 도구다.
 2. 신규 프로젝트에 권장하지 않는다는 뜻이며, 기존 프로젝트가 즉시 작동하지 않는다는 뜻은 아니다.
 3. 프로젝트 틀 생성, 패키지 설치, 개발 서버 실행을 각각 담당한다.
-4. `main.jsx`가 ID로 DOM 요소를 찾고 그 요소를 `createRoot()`에 전달한다.
+4. `main.tsx`가 ID로 DOM 요소를 찾고 그 요소를 `createRoot()`에 전달한다.
 5. HMR은 변경된 모듈을 교체하며, Fast Refresh는 React 컴포넌트의 state를 가능한 경우 보존한다.
 
 </details>

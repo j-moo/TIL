@@ -6,8 +6,8 @@
 - 📝 한눈에 보는 내용: React는 UI에 집중하므로 라우팅, 서버 데이터, 빌드, 네이티브 앱 같은 요구사항은 다른 도구와 결합한다. 선택지는 유행보다 프로젝트가 해결해야 할 문제를 기준으로 판단한다.
 - 🧱 선수 지식: React 컴포넌트, props, state
 - 🔗 이전 학습:
-  - [React 입문](./07_26_React_Introduction.md)
-  - [Vite로 React 프로젝트 시작하기](./07_26_React_Project_Setup_with_Vite.md)
+  - [React 입문](../01_07_26_React_Introduction/07_26_React_Introduction.md)
+  - [Vite로 React 프로젝트 시작하기](../02_07_26_React_Project_Setup_with_Vite/07_26_React_Project_Setup_with_Vite.md)
 
 ---
 

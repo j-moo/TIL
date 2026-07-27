@@ -6,8 +6,8 @@
 - 📝 한눈에 보는 내용: React는 현재 데이터에서 어떤 UI가 나와야 하는지를 컴포넌트로 표현하게 한다. props와 state를 바탕으로 UI 결과를 계산하고, 달라진 부분을 실제 DOM에 반영한다.
 - 🧱 선수 지식: HTML 요소, JavaScript 함수·객체·배열 구조 분해
 - 🔗 다음 학습:
-  - [Vite로 React 프로젝트 시작하기](./07_26_React_Project_Setup_with_Vite.md)
-  - [React 생태계와 도구 선택](./07_26_React_Ecosystem.md)
+  - [Vite로 React 프로젝트 시작하기](../02_07_26_React_Project_Setup_with_Vite/07_26_React_Project_Setup_with_Vite.md)
+  - [React 생태계와 도구 선택](../03_07_26_React_Ecosystem/07_26_React_Ecosystem.md)
 
 ---
 
@@ -105,7 +105,7 @@ React가 주로 담당하는 것은 다음 영역이다.
 → 데이터 변화에 맞춰 UI를 갱신한다.
 ```
 
-실제 서비스에서는 필요에 따라 라우팅, 데이터 요청, 인증, 빌드 도구를 결합한다. 이 주변 도구는 [React 생태계와 도구 선택](./07_26_React_Ecosystem.md)에서 따로 다룬다.
+실제 서비스에서는 필요에 따라 라우팅, 데이터 요청, 인증, 빌드 도구를 결합한다. 이 주변 도구는 [React 생태계와 도구 선택](../03_07_26_React_Ecosystem/07_26_React_Ecosystem.md)에서 따로 다룬다.
 
 📌 핵심: React의 중심 역할은 **현재 데이터에서 어떤 UI가 나와야 하는지 표현하고 렌더링하는 것**이다.
 
