@@ -27,7 +27,7 @@ TypeScript를 사용하면 컴포넌트가 어떤 Props를 요구하는지 코�
 
 ```text
 부모 컴포넌트
-  <ProfileCard name="김종무" role="학습자" />
+  <ProfileCard name="이서준" role="학습자" />
                     ↓ Props 전달
 자식 컴포넌트
   ProfileCard({ name, role })
@@ -81,7 +81,7 @@ React는 소문자로 시작하는 JSX 태그를 `div`, `button` 같은 내장 �
 function Profile() {
   return (
     <article>
-      <h2>김종무</h2>
+      <h2>이서준</h2>
       <p>React 학습 중</p>
     </article>
   )
@@ -119,7 +119,7 @@ function Profile({ name, role }: ProfileProps) {
 function App() {
   return (
     <main>
-      <Profile name="김종무" role="React 학습자" />
+      <Profile name="이서준" role="React 학습자" />
       <Profile name="홍길동" role="TypeScript 학습자" />
     </main>
   )
@@ -129,14 +129,14 @@ function App() {
 부모인 `App`이 JSX 속성 형태로 값을 전달한다.
 
 ```tsx
-<Profile name="김종무" role="React 학습자" />
+<Profile name="이서준" role="React 학습자" />
 ```
 
 React는 전달된 값을 하나의 Props 객체로 자식 컴포넌트에 넘긴다.
 
 ```ts
 {
-  name: '김종무',
+  name: '이서준',
   role: 'React 학습자'
 }
 ```
@@ -175,7 +175,7 @@ function Avatar({ imageUrl, alt, size }: AvatarProps) {
 다음 사용은 올바르다.
 
 ```tsx
-<Avatar imageUrl="/profile.png" alt="김종무 프로필" size={120} />
+<Avatar imageUrl="/profile.png" alt="이서준 프로필" size={120} />
 ```
 
 다음 사용은 TypeScript 오류가 발생한다.

@@ -316,7 +316,7 @@ React는 state setter를 통해 새 값을 전달받아 렌더링을 예약한�
 ```tsx
 setUser((previousUser) => ({
   ...previousUser,
-  name: '김종무',
+  name: '이서준',
 }))
 ```
 

@@ -1,32 +1,55 @@
 # React 학습 로드맵
 
-React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX → 렌더링 → 컴포넌트와 Props → 조건부·목록 UI → 순수한 렌더링** 순서로 이어서 볼 수 있도록 정리했다.
+React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와 컴포넌트 → 상호작용 → 상태 공유 → 구조화와 프로젝트** 순서로 학습하고 복습할 수 있도록 정리했다.
 
-폴더 이름은 `[학습 순서]_[날짜]_[주제]` 형식이다. 탐색기에서 이름순으로 정렬한 뒤 `01`부터 차례대로 읽으면 된다.
+폴더 이름은 `[학습 순서]_[날짜]_[주제]` 형식이다. 탐색기에서 이름순으로 정렬한 뒤 `01`부터 차례대로 읽으면 된다. 2026-07-30 강의 PDF의 0~16장과 React 18·19 부록은 기존 노트와 비교해 중복을 통합했고, 새 코드는 함수 컴포넌트와 TypeScript를 기준으로 다시 작성했다.
 
 ## 권장 학습 순서
 
 | 순서 | 날짜 | 주제 | 학습 목표 | 노트 |
 | ---: | --- | --- | --- | --- |
 | 01 | 07/26 | React 핵심 개념 | React, 컴포넌트, props, state, 렌더링의 큰 관계 이해 | [React 입문](./01_07_26_React_Introduction/07_26_React_Introduction.md) |
-| 02 | 07/26 | 프로젝트 실행 환경 | Vite와 `index.html → main.tsx → App` 흐름 이해 | [Vite로 React 프로젝트 시작하기](./02_07_26_React_Project_Setup_with_Vite/07_26_React_Project_Setup_with_Vite.md) |
-| 03 | 07/26 | 생태계와 도구 | SPA, 라우터, 프레임워크, React Native 역할 구분 | [React 생태계와 도구 선택](./03_07_26_React_Ecosystem/07_26_React_Ecosystem.md) |
+| 02 | 07/26 | 프로젝트 실행 환경 | Vite와 `index.html → main.tsx → App` 흐름 이해 | [Vite로 시작하기](./02_07_26_React_Project_Setup_with_Vite/07_26_React_Project_Setup_with_Vite.md) |
+| 03 | 07/26 | 생태계와 도구 | React, 라우터, 프레임워크와 상태 도구의 역할 구분 | [생태계와 도구](./03_07_26_React_Ecosystem/07_26_React_Ecosystem.md) |
 | 04 | 07/27 | JSX | JSX와 HTML의 차이, 중괄호, TSX 작성 규칙 이해 | [TypeScript로 배우는 JSX](./04_07_27_JSX/07_27_JSX.md) |
-| 05 | 07/27 | 엘리먼트와 렌더링 | React 엘리먼트, Trigger·Render·Commit, state 재렌더링 이해 | [엘리먼트와 렌더링](./05_07_27_Rendering_Elements/07_27_Rendering_Elements.md) |
-| 06 | 07/27 | 컴포넌트와 Props | 컴포넌트를 나누고 TypeScript로 Props를 안전하게 전달 | [컴포넌트와 Props](./06_07_27_Components_and_Props/07_27_Components_and_Props.md) |
-| 07 | 07/29 | 조건부 렌더링 | 조건에 따라 다른 JSX를 반환하거나 일부 UI를 숨기는 방법 이해 | [조건부 렌더링](./07_07_29_Conditional_Rendering/07_29_Conditional_Rendering.md) |
-| 08 | 07/29 | 리스트와 key | 배열을 반복 UI로 변환하고 안정적인 key를 선택하는 기준 이해 | [리스트 렌더링과 key](./08_07_29_Rendering_Lists_and_Keys/07_29_Rendering_Lists_and_Keys.md) |
-| 09 | 07/29 | 순수 컴포넌트 | 렌더링을 예측 가능한 계산으로 유지하고 변경의 위치를 구분 | [순수 컴포넌트](./09_07_29_Keeping_Components_Pure/07_29_Keeping_Components_Pure.md) |
+| 05 | 07/27 | 엘리먼트와 렌더링 | React 엘리먼트와 Trigger·Render·Commit 이해 | [엘리먼트와 렌더링](./05_07_27_Rendering_Elements/07_27_Rendering_Elements.md) |
+| 06 | 07/27 | 컴포넌트와 Props | 컴포넌트를 나누고 타입이 안전한 Props 전달 | [컴포넌트와 Props](./06_07_27_Components_and_Props/07_27_Components_and_Props.md) |
+| 07 | 07/30 | State와 생명주기 | state 스냅샷과 Effect setup·cleanup 이해 | [State와 생명주기](./07_07_30_State_and_Lifecycle/07_30_State_and_Lifecycle.md) |
+| 08 | 07/30 | Hook | 주요 Hook의 목적과 규칙, 커스텀 Hook 이해 | [React Hook](./08_07_30_Hooks/07_30_Hooks.md) |
+| 09 | 07/30 | 이벤트 | 이벤트 함수 전달, 타입, 전파와 기본 동작 제어 | [이벤트 처리](./09_07_30_Event_Handling/07_30_Event_Handling.md) |
+| 10 | 07/29 | 조건부 렌더링 | 조건에 따라 다른 JSX 반환 및 일부 UI 숨기기 | [조건부 렌더링](./10_07_29_Conditional_Rendering/07_29_Conditional_Rendering.md) |
+| 11 | 07/29 | 리스트와 key | 배열을 UI로 변환하고 안정적인 key 선택 | [리스트와 key](./11_07_29_Rendering_Lists_and_Keys/07_29_Rendering_Lists_and_Keys.md) |
+| 12 | 07/30 | 폼 | controlled·uncontrolled 입력과 폼 타입 처리 | [React 폼](./12_07_30_Forms/07_30_Forms.md) |
+| 13 | 07/30 | State 끌어올리기 | 공유 state의 소유자와 단일 진실 공급원 이해 | [State 끌어올리기](./13_07_30_Lifting_State_Up/07_30_Lifting_State_Up.md) |
+| 14 | 07/30 | 합성 | `children`과 슬롯 Props로 UI 조합 | [상속보다 합성](./14_07_30_Composition/07_30_Composition.md) |
+| 15 | 07/30 | Context | 깊은 데이터 전달과 Context 사용 기준 이해 | [Context](./15_07_30_Context/07_30_Context.md) |
+| 16 | 07/30 | 스타일링 | 일반 CSS, 조건부 클래스, 인라인 스타일 선택 | [컴포넌트 스타일링](./16_07_30_Styling/07_30_Styling.md) |
+| 17 | 07/30 | 미니 프로젝트 | 배운 개념을 학습 기록 대시보드로 통합 | [학습 기록 대시보드](./17_07_30_Mini_Project/07_30_Mini_Project.md) |
+| 18 | 07/29 | 순수 컴포넌트 | 렌더링을 예측 가능한 계산으로 유지 | [순수 컴포넌트](./18_07_29_Keeping_Components_Pure/07_29_Keeping_Components_Pure.md) |
+| 19 | 07/30 | React 버전 | React 18·19 자료와 현재 API를 구분 | [React 18·19 읽기](./19_07_30_React_18_and_19/07_30_React_18_and_19.md) |
+
+## PDF 챕터 반영표
+
+| PDF 범위 | 반영 노트 | 보완한 기준 |
+| --- | --- | --- |
+| 0장 준비하기 | 02 실행 환경 | React에 필요한 부분만 남기고 Vite·TypeScript 기준 적용 |
+| 1~5장 소개·설정·JSX·렌더링·Props | 01~06 | 기존 노트의 더 자세한 설명을 유지하고 실명 예제 제거 |
+| 6장 State와 생명주기 | 07 | 클래스 메서드 중심 설명을 state 스냅샷과 Effect 중심으로 수정 |
+| 7장 Hook | 08 | Hook 규칙, 불필요한 Effect, 메모이제이션의 한계 추가 |
+| 8~10장 이벤트·조건부·리스트 | 09~11 | TypeScript 이벤트 타입과 기존 심화 노트 통합 |
+| 11~15장 폼·끌어올리기·합성·Context·스타일 | 12~16 | controlled 입력, 단일 진실 공급원, Context 사용 기준 추가 |
+| 16장 미니 블로그 | 17 | 코드를 복제하지 않고 다른 주제의 설계·구현 과제로 재구성 |
+| React 18·19 부록 | 19 | 현재 React 19.2와 공식 업그레이드 기준으로 갱신 |
 
 ## 복습 기준
 
-1. JSX가 HTML 문자열이 아니라 JavaScript 안에서 UI 구조를 표현하는 문법인 이유를 설명할 수 있는가?
-2. `root.render(<App />)` 이후 React가 화면을 반영하는 순서를 설명할 수 있는가?
-3. `onClick={handleClick}`과 `onClick={handleClick()}`의 차이를 설명할 수 있는가?
-4. `useState`가 반환하는 두 값과 setter가 재렌더링을 일으키는 이유를 설명할 수 있는가?
-5. Props의 타입을 정의하고 부모에서 자식으로 값을 전달할 수 있는가?
-6. `if`, 삼항 연산자, `&&`를 상황에 맞게 선택할 수 있는가?
-7. 배열의 index나 `Math.random()` 대신 안정적인 ID를 key로 사용해야 하는 이유를 설명할 수 있는가?
-8. 렌더링 중 외부 값을 변경하면 왜 컴포넌트가 예측 불가능해지는지 설명할 수 있는가?
+1. props, state, ref 중 어떤 값에 무엇을 사용해야 하는지 설명할 수 있는가?
+2. Trigger, Render, Commit과 state 스냅샷을 연결해 설명할 수 있는가?
+3. 이벤트 핸들러와 Effect의 실행 원인을 구분할 수 있는가?
+4. controlled 입력에서 `value`·`checked`와 `onChange`를 연결할 수 있는가?
+5. 형제 컴포넌트의 공유 state를 가장 가까운 공통 부모로 옮길 수 있는가?
+6. `children`, Context, 커스텀 Hook이 각각 재사용하는 대상을 구분할 수 있는가?
+7. 배열의 index나 렌더링 중 생성한 값을 key로 쓰면 안 되는 이유를 설명할 수 있는가?
+8. 오래된 React 자료에서 `ReactDOM.render`, CRA, 클래스 생명주기 중심 예제를 판별할 수 있는가?
 
-막히는 질문이 있으면 해당 노트의 `핵심 개념 정리`, `요약 정리`, `미니 퀴즈` 순서로 다시 확인한다.
+막히는 질문이 있으면 각 노트의 `핵심 개념`, `요약`, `복습 질문` 순서로 다시 확인한다.
