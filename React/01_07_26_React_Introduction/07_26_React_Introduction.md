@@ -40,17 +40,23 @@ React는 이 문제를 다음 질문으로 바꾼다.
 
 개발자는 DOM 수정 순서를 나열하기보다 데이터에 해당하는 UI 결과를 컴포넌트로 작성한다. React는 데이터가 바뀌면 컴포넌트를 다시 호출하고, 새 결과에 필요한 DOM 변경을 반영한다.
 
-```jsx
+```tsx
 import { useState } from 'react'
 
 function Counter() {
-  const [count, setCount] = useState(0)
+  // 숫자 state의 초기값을 0으로 지정한다.
+  const [count, setCount] = useState<number>(0)
 
   return (
     <section>
-      <button onClick={() => setCount(count + 1)}>
+      {/* 클릭 전에는 함수를 실행하지 않고, 클릭할 때 실행할 함수를 전달한다. */}
+      <button
+        type="button"
+        onClick={() => setCount(current => current + 1)}
+      >
         증가
       </button>
+      {/* state가 바뀌면 React가 이 JSX를 새 값으로 다시 계산한다. */}
       <p>{count}</p>
     </section>
   )

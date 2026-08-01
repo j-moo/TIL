@@ -8,7 +8,7 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| React 입문 시리즈 | TypeScript 기반 컴포넌트·state·Hook·폼·Context·데이터 패칭 | [로드맵](./React/README.md) |
+| React 입문 시리즈 | 초보자 안내서와 TypeScript 기반 컴포넌트·state·Hook·폼·Context·데이터 패칭 | [로드맵](./React/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·클래스·모듈 설정까지 | [노트 목록](./TypeScript) |
 | API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
 | NumPy·Pandas·Matplotlib | 배열 연산, DataFrame 전처리, 결측치 처리, 그룹 집계, 시계열 분석과 시각화 | [바로가기](./Python/01_30_NumPy_Pandas_Matplotlib/01_30_NumPy_Pandas_Matplotlib.md) |
@@ -25,7 +25,7 @@
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈 | 6 |
-| [React](./React) | 컴포넌트, state, Hook, 폼, Context, 데이터 패칭과 버전별 API | 20 |
+| [React](./React) | 초보자 안내서, 컴포넌트, state, Hook, 폼, Context, 데이터 패칭과 버전별 API | 21 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
 | [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 7 |
 | [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 13 |
@@ -35,7 +35,7 @@
 | [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **153개의 학습 노트**를 관리하고 있습니다.
+현재 총 **154개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
