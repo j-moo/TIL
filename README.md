@@ -15,6 +15,17 @@
 | Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
 | FastAPI | API 기초, 모델 서빙, API Gateway와 멀티모달 연동 | [바로가기](./FastAPI/05_22_FastAPI/05_22_FastAPI.md) |
 
+## Progress Since Last Profile Update
+
+2026년 7월 3일 이후 **46개의 노트**를 추가했습니다.
+
+| 기간 | 학습 축 | 주요 내용 |
+| --- | --- | --- |
+| 2026.07.04–07.07 | Python·Django·DB | 데이터 크롤링, 고급 Model/Form, 데이터베이스 모델링과 정규화 |
+| 2026.07.08–07.23 | Java | 문법, 배열, I/O, 클래스·객체, 상속·인터페이스, 예외 처리, 컬렉션, 함수형 프로그래밍 |
+| 2026.07.24–07.26 | TypeScript | 타입 기초, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈과 학습 순서 정리 |
+| 2026.07.26–08.02 | React | JSX, 컴포넌트, props, state, 렌더링, Hook, 폼, Context, 데이터 패칭, 컴포넌트 테스트 |
+
 ## Learning Areas
 
 | 분야 | 내용 | 노트 |
@@ -40,7 +51,9 @@
 ## Current Focus
 
 - API·JSON 데이터를 안전하게 수집하고 분석 가능한 구조로 변환하기
-- React의 컴포넌트·state·렌더링 흐름과 Vite 개발 환경 이해
+- React의 컴포넌트·state·렌더링·Hook·테스트 흐름과 Vite 개발 환경 이해
+- TypeScript의 정적 타입 시스템으로 JavaScript 코드의 계약과 안정성 높이기
+- Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
