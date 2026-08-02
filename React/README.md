@@ -28,6 +28,7 @@ React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와
 | 18 | 07/29 | 순수 컴포넌트 | 렌더링을 예측 가능한 계산으로 유지 | [순수 컴포넌트](./18_07_29_Keeping_Components_Pure/07_29_Keeping_Components_Pure.md) |
 | 19 | 07/30 | React 버전 | React 18·19 자료와 현재 API를 구분 | [React 18·19 읽기](./19_07_30_React_18_and_19/07_30_React_18_and_19.md) |
 | 20 | 07/31 | 데이터 패칭 | TypeScript로 요청 상태·취소·경쟁 상태·캐시를 이해 | [데이터 패칭과 비동기 상태](./20_07_31_Data_Fetching/07_31_Data_Fetching.md) |
+| 21 | 08/02 | 컴포넌트 테스트 | Vitest와 Testing Library로 사용자 행동과 UI 결과 검증 | [React 컴포넌트 테스트](./21_08_02_React_Testing/08_02_React_Testing.md) |
 
 처음 배우는 경우에는 위 목록보다 먼저 [처음부터 따라가는 React 입문 안내서](./00_08_01_React_Beginner_Guide/08_01_React_Beginner_Guide.md)를 읽는다. 각 코드 블록은 실행 순서를 이해할 수 있도록 주석을 붙였고, 이후 챕터에서 같은 개념을 더 깊게 복습한다.
 
