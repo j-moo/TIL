@@ -1,6 +1,15 @@
 # TypeScript로 배우는 React 데이터 패칭과 비동기 상태
 
-> 학습 목표: 네트워크 요청의 성공·실패·진행·취소 상태를 모델링하고, React 렌더링과 서버 데이터를 안전하게 연결한다.
+- 🎯 글의 목표: 네트워크 요청의 성공·실패·진행·취소 상태를 모델링하고, React 렌더링과 서버 데이터를 안전하게 연결한다.
+- 🧩 핵심 키워드: `fetch`, 서버 상태, 판별 유니언, `AbortController`, race condition, cache
+- ⭐ 중요도: ★★★★★ — 실제 애플리케이션은 서버 응답의 대기·오류·재시도 상태를 화면에 표현해야 한다.
+- 📝 한눈에 보는 내용: API 함수와 UI 상태를 분리하고, Effect cleanup으로 오래된 요청을 정리한다. 캐시와 중복 제거가 필요해지면 전용 데이터 계층을 검토한다.
+- 🔗 관련 주제: Effect, 조건부 렌더링, Suspense, TanStack Query
+- 🧱 선수 지식: `async/await`, HTTP 상태 코드, `useEffect`, 제네릭
+
+---
+
+네트워크 요청은 시작 순서와 완료 순서가 같다는 보장이 없다. 성공 데이터만 생각하면 로딩 중 빈 화면, 실패 후 복구 불가, 오래된 검색 결과 같은 문제가 생긴다. 데이터 패칭은 요청의 전체 생명주기를 타입과 UI로 표현하는 작업이다.
 
 ## 1. 먼저 구분할 것
 
@@ -34,12 +43,15 @@ type RequestState<T> =
 
 ```tsx
 export async function getArticles(signal?: AbortSignal): Promise<Article[]> {
+  // 호출자가 전달한 signal을 fetch에 연결하면 외부에서 요청을 취소할 수 있다.
   const response = await fetch('/api/articles', { signal })
 
+  // fetch는 404와 500에서도 resolve되므로 HTTP 성공 여부를 직접 확인한다.
   if (!response.ok) {
     throw new Error(`요청 실패: ${response.status}`)
   }
 
+  // JSON 변환 결과는 런타임 검증을 거치지 않은 외부 데이터라는 점에 주의한다.
   return (await response.json()) as Article[]
 }
 ```
@@ -59,13 +71,17 @@ export function ArticleList() {
   })
 
   useEffect(() => {
+    // 이 Effect가 만든 요청만 취소할 수 있는 controller다.
     const controller = new AbortController()
 
+    // 요청을 시작하기 전에 화면을 pending 상태로 바꾼다.
     setState({ status: 'pending', data: null, error: null })
 
     getArticles(controller.signal)
+      // 성공하면 응답 데이터를 화면 상태에 저장한다.
       .then(data => setState({ status: 'success', data, error: null }))
       .catch(error => {
+        // 화면 이동이나 재요청으로 정상 취소된 경우 오류 UI를 표시하지 않는다.
         if (error instanceof DOMException && error.name === 'AbortError') return
         setState({
           status: 'error',
@@ -74,6 +90,7 @@ export function ArticleList() {
         })
       })
 
+    // 컴포넌트가 사라지거나 Effect가 다시 실행되기 전에 이전 요청을 취소한다.
     return () => controller.abort()
   }, [])
 
@@ -152,8 +169,10 @@ async function handleDelete(id: string): Promise<void> {
 import { useQuery } from '@tanstack/react-query'
 
 function ArticleList() {
+  // queryKey는 이 데이터의 캐시 주소 역할을 한다.
   const query = useQuery({
     queryKey: ['articles'],
+    // queryFn은 실제 Promise를 반환하는 API 함수다.
     queryFn: () => getArticles(),
   })
 
@@ -178,6 +197,7 @@ React 19의 `use(promise)`는 캐시된 Promise의 결과를 읽고, 대기 중�
 import { Suspense, use } from 'react'
 
 function ArticleBody({ articlePromise }: { articlePromise: Promise<Article> }) {
+  // Promise가 pending이면 가장 가까운 Suspense가 fallback을 보여 준다.
   const article = use(articlePromise)
   return <article><h1>{article.title}</h1><p>{article.summary}</p></article>
 }
@@ -202,14 +222,51 @@ function Page({ articlePromise }: { articlePromise: Promise<Article> }) {
 - 캐시·중복 제거·재검증이 필요해진 시점을 판단했는가?
 - 네트워크 오류와 빈 결과를 같은 화면으로 처리하지 않았는가?
 
-## 11. 요약과 복습
+## 11. 적용 관점에서 다시 보기
+
+요청 구현은 API 함수의 입력·응답 타입을 정의하는 데서 시작한다. 컴포넌트는 `pending`, `success`, `error`를 구분해 각 상태의 화면을 만들고, Effect에서 요청한다면 cleanup으로 취소하거나 오래된 결과를 무시한다.
+
+같은 요청을 여러 화면에서 반복하거나 뒤로 가기 시 즉시 이전 데이터를 보여 줘야 한다면 캐시 계층을 검토한다. 문제 발생 시 Network 탭에서 URL·상태 코드·응답 본문을 확인하고, 콘솔에서 AbortError와 실제 오류를 구분한다.
+
+## 12. 배운 점 / 확장 포인트
+
+### 12.1 새로 이해한 것
+
+TypeScript는 코드가 기대하는 응답 모양을 표현하지만 서버가 실제로 그 모양을 보냈는지 검사하지 않는다. HTTP 상태 확인과 필요에 따른 런타임 스키마 검증이 별도로 필요하다.
+
+### 12.2 이전·다음 학습과의 연결
+
+Effect cleanup, 조건부 렌더링, 판별 유니언이 데이터 패칭에서 함께 사용된다. 다음에는 테스트에서 성공·실패 응답을 제어하고 캐시 무효화를 검증할 수 있다.
+
+### 12.3 더 확인할 주제
+
+- Zod를 이용한 응답 검증
+- TanStack Query mutation과 invalidation
+- route loader와 병렬 요청
+- Error Boundary와 Suspense 경계
+
+## 13. 요약 정리
 
 데이터 패칭은 `fetch` 한 줄이 아니라 서버 상태의 생명주기를 UI에 표현하는 일이다. 먼저 API 함수와 상태 모델을 분리하고, Effect 요청에는 cleanup을 둔다. 규모가 커지면 캐시 계층이나 프레임워크 loader를 선택하며, React 19 `use`는 캐시된 Promise와 Suspense를 전제로 사용한다.
+
+🧠 기억할 것: 서버 데이터는 성공 값 하나가 아니라 요청 중·성공·실패·취소·캐시 상태를 함께 관리해야 한다.
+
+## 14. 미니 퀴즈
 
 1. `fetch`에서 `response.ok`를 확인해야 하는 이유는 무엇인가?
 2. 검색어를 빠르게 입력할 때 오래된 응답이 화면에 남는 이유와 해결 방법은 무엇인가?
 3. UI state와 서버 상태를 분리하면 어떤 책임이 명확해지는가?
 4. 수동 Effect 대신 TanStack Query를 고려할 신호를 세 가지 말할 수 있는가?
+
+<details>
+<summary>정답과 해설</summary>
+
+1. `fetch`는 HTTP 404나 500을 네트워크 오류로 reject하지 않으므로 애플리케이션이 직접 실패로 처리해야 한다.
+2. 요청 완료 순서가 보장되지 않기 때문이다. `AbortController`로 이전 요청을 취소하거나 cleanup에서 오래된 결과를 무시한다.
+3. 컴포넌트의 상호작용 상태와 서버 캐시·재검증·오류 복구 책임을 각각 알맞은 계층에서 관리할 수 있다.
+4. 중복 요청 제거, 캐시, 재시도, stale 관리, 페이지네이션, mutation 후 재검증이 반복되기 시작할 때다.
+
+</details>
 
 ## 참고 자료
 

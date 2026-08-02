@@ -1,6 +1,15 @@
 # TypeScript로 배우는 React 컴포넌트 테스트
 
-> 학습 목표: 사용자가 실제로 하는 행동을 기준으로 컴포넌트를 검증하고, Vitest와 React Testing Library로 실패 원인을 읽을 수 있는 테스트를 작성한다.
+- 🎯 글의 목표: 사용자가 실제로 하는 행동을 기준으로 컴포넌트를 검증하고, Vitest와 React Testing Library로 실패 원인을 읽을 수 있는 테스트를 작성한다.
+- 🧩 핵심 키워드: Vitest, jsdom, Testing Library, user-event, query, assertion, mock
+- ⭐ 중요도: ★★★★☆ — 리팩터링 후에도 사용자에게 약속한 동작이 유지되는지 자동으로 확인한다.
+- 📝 한눈에 보는 내용: 컴포넌트를 테스트 DOM에 렌더링하고, 접근 가능한 이름으로 요소를 찾은 뒤, 실제와 가까운 상호작용을 실행해 화면 결과를 검증한다.
+- 🔗 관련 주제: 이벤트, 폼, 비동기 상태, 접근성
+- 🧱 선수 지식: 컴포넌트, DOM 역할, `async/await`
+
+---
+
+브라우저에서 버튼을 매번 직접 눌러 보는 것만으로는 수정할 때마다 모든 기능을 확인하기 어렵다. 컴포넌트 테스트는 중요한 사용자 흐름을 코드로 기록하고, 예상과 달라진 순간 즉시 알려 준다.
 
 ## 1. 테스트는 무엇을 확인하는가?
 
@@ -137,17 +146,19 @@ test('증가 버튼을 누르면 현재 값이 1 증가한다', async () => {
   render(<Counter />)
 
   // Assert: 처음에는 사용자에게 0이 보인다.
-  expect(screen.getByOutputValue('현재 값: 0')).toBeInTheDocument()
+  expect(screen.getByText('현재 값: 0')).toBeInTheDocument()
 
   // Act: 사용자가 “증가”라는 이름의 버튼을 클릭한다.
   await user.click(screen.getByRole('button', { name: '증가' }))
 
   // Assert: 클릭 후 DOM에 1이 보이는지 확인한다.
-  expect(screen.getByOutputValue('현재 값: 1')).toBeInTheDocument()
+  expect(screen.getByText('현재 값: 1')).toBeInTheDocument()
 })
 ```
 
 테스트 함수가 `async`인 이유는 `user.click`이 여러 브라우저 이벤트를 비동기적으로 처리할 수 있기 때문이다. `userEvent.setup()`과 `await user.click()`을 기본 패턴으로 사용한다.
+
+실행 순서는 `render`로 초기 DOM 생성 → `getByRole`로 버튼 탐색 → `user.click`으로 이벤트 발생 → state 업데이트와 재렌더링 → 마지막 `expect`로 새 DOM 확인이다. 테스트는 `count` state 자체를 읽지 않고 사용자가 보는 output을 확인한다.
 
 ## 7. DOM을 찾는 우선순위
 
@@ -309,15 +320,53 @@ npx vitest run src/components/Counter.test.tsx
 4. 테스트 사이에 DOM이나 mock 상태가 남았는가?
 5. 컴포넌트가 아니라 테스트의 기대값이 잘못된 것은 아닌가?
 
-## 14. 요약과 복습
+## 14. 적용 관점에서 다시 보기
+
+테스트를 작성할 때는 컴포넌트가 내부에서 어떤 Hook을 쓰는지보다 사용자가 무엇을 보고 어떤 행동을 하는지 문장으로 먼저 적는다. 그 문장을 테스트 이름으로 사용하고, Arrange·Act·Assert 순서로 코드를 배치한다.
+
+요소를 찾지 못하면 테스트 ID를 바로 추가하기보다 렌더링된 DOM과 접근 가능한 이름을 확인한다. 비동기 실패는 `await` 누락, mock 응답 설정, 로딩 상태가 끝나는 조건을 차례로 확인한다.
+
+## 15. 배운 점 / 확장 포인트
+
+### 15.1 새로 이해한 것
+
+좋은 컴포넌트 테스트는 리팩터링을 방해하지 않으면서 사용자 행동의 결과를 보호한다. role과 label로 요소를 찾는 과정은 접근 가능한 마크업을 만드는 데도 도움을 준다.
+
+### 15.2 이전·다음 학습과의 연결
+
+이벤트, 폼, 데이터 패칭에서 배운 화면 상태를 테스트 시나리오로 바꿀 수 있다. 이후 MSW를 이용한 API mock과 Playwright 같은 E2E 테스트로 범위를 넓힌다.
+
+### 15.3 더 확인할 주제
+
+- MSW로 성공·실패 응답 제어
+- Provider를 포함하는 custom render
+- fake timer와 user-event
+- E2E 테스트와 컴포넌트 테스트의 역할 분담
+
+## 16. 요약 정리
 
 컴포넌트 테스트는 내부 구현이 아니라 사용자가 보는 DOM과 행동을 검증한다. Vitest가 테스트를 실행하고, jsdom이 DOM을 제공하며, Testing Library와 user-event가 실제 사용 흐름에 가까운 테스트를 작성하게 한다.
+
+🧠 기억할 것: 컴포넌트의 내부 변수가 아니라 사용자가 찾는 요소, 수행하는 행동, 확인하는 결과를 테스트한다.
+
+## 17. 미니 퀴즈
 
 1. `getBy`, `queryBy`, `findBy`는 각각 언제 사용하는가?
 2. `fireEvent`보다 `userEvent`를 먼저 고려하는 이유는 무엇인가?
 3. CSS class보다 role과 accessible name으로 요소를 찾는 장점은 무엇인가?
 4. 네트워크 요청을 컴포넌트 테스트에서 직접 호출하지 않는 이유는 무엇인가?
 5. `act`를 직접 호출하지 않아도 Testing Library가 대부분의 업데이트를 처리할 수 있는 이유는 무엇인가?
+
+<details>
+<summary>정답과 해설</summary>
+
+1. 지금 있어야 하면 `getBy`, 없어야 함을 확인하면 `queryBy`, 나중에 나타날 비동기 요소는 `findBy`를 사용한다.
+2. `userEvent`는 focus, keyboard, input 등 한 사용자 행동에서 발생하는 여러 이벤트와 상호작용 가능 여부를 더 가깝게 재현한다.
+3. 내부 CSS가 바뀌어도 테스트가 유지되며 실제 사용자와 보조기술이 요소를 찾을 수 있는지도 함께 확인한다.
+4. 네트워크 환경 때문에 테스트가 느리고 불안정해질 수 있다. 제어된 mock 응답으로 UI 상태 전환을 검증하는 편이 목적에 맞다.
+5. `render`와 user-event 같은 Testing Library 유틸리티가 React 업데이트가 반영된 뒤 assertion을 수행하도록 `act` 처리를 포함하기 때문이다.
+
+</details>
 
 ## 참고 자료
 

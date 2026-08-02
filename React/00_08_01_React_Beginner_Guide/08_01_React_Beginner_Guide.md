@@ -248,10 +248,10 @@ type FieldProps = {
 }
 
 function Field({ value, onChange }: FieldProps) {
+  // 입력된 새 값은 callback으로 부모에게 전달한다.
   return (
     <input
       value={value}
-      // 자식은 값을 직접 바꾸지 않고 부모에게 변경 의도만 알린다.
       onChange={event => onChange(event.currentTarget.value)}
     />
   )
