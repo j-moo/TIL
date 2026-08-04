@@ -8,7 +8,7 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| React 입문 시리즈 | TypeScript 기반 컴포넌트·Hook·라우팅·상태 관리·Actions·CRUD·테스트 | [로드맵](./React/README.md) |
+| React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·Actions·CRUD·Firebase 연동·테스트 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | 모듈형 SDK 설정, Firestore, Realtime Database, Cloud Storage와 Security Rules | [로드맵](./Firebase/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·클래스·모듈 설정까지 | [노트 목록](./TypeScript) |
 | API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
@@ -18,7 +18,7 @@
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **54개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **55개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -37,7 +37,7 @@
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈 | 6 |
-| [React](./React) | 컴포넌트, state, Hook, 라우팅, 상태 관리, Actions, CRUD, 테스트와 버전별 API | 26 |
+| [React](./React) | 컴포넌트, state, Hook, 라우팅, 상태 관리, Actions, CRUD, Firebase 연동과 테스트 | 27 |
 | [Firebase](./Firebase) | 웹 SDK 설정, Firestore, Realtime Database, Cloud Storage와 Security Rules | 4 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
 | [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 7 |
@@ -48,12 +48,12 @@
 | [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **163개의 학습 노트**를 관리하고 있습니다.
+현재 총 **164개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
 - API·JSON 데이터를 안전하게 수집하고 분석 가능한 구조로 변환하기
-- React의 라우팅·상태 관리·비동기 Action·CRUD 프로젝트 구조 이해
+- React의 라우팅·상태 관리·비동기 Action·CRUD와 Firebase 연동 구조 이해
 - Firebase 데이터베이스·파일 저장소와 Security Rules의 책임 구분
 - TypeScript의 정적 타입 시스템으로 JavaScript 코드의 계약과 안정성 높이기
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기

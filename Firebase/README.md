@@ -23,6 +23,8 @@ Firebase를 처음 사용하는 사람이 **프로젝트 연결 → Firestore �
 
 데이터베이스와 파일 저장소는 대체 관계가 아니다. 게시글 필드는 Firestore에, 첨부 이미지 원본은 Storage에 저장하고 문서에는 파일 경로나 다운로드 URL 같은 메타데이터를 연결할 수 있다.
 
+React 화면에서 Firebase를 사용하는 전체 흐름은 [TypeScript로 React와 Firebase 연결하기](../React/26_08_04_React_with_Firebase/08_04_React_with_Firebase.md)에서 이어서 학습한다.
+
 ## 복습 기준
 
 1. Firebase project, web app, SDK instance의 관계를 설명할 수 있는가?
