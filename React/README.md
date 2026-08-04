@@ -1,6 +1,6 @@
 # React 학습 로드맵
 
-React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와 컴포넌트 → 상호작용 → 상태 공유 → 구조화와 프로젝트** 순서로 학습하고 복습할 수 있도록 정리했다.
+React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와 컴포넌트 → 상호작용 → 상태 공유 → 라우팅과 비동기 UI → 프로젝트 구조화** 순서로 학습하고 복습할 수 있도록 정리했다.
 
 폴더 이름은 `[학습 순서]_[날짜]_[주제]` 형식이다. 탐색기에서 이름순으로 정렬한 뒤 `00`부터 차례대로 읽으면 된다. 예제 코드는 함수 컴포넌트와 TypeScript를 기준으로 작성했다.
 
@@ -29,6 +29,10 @@ React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와
 | 19 | 07/30 | React 버전 | React 18·19 자료와 현재 API를 구분 | [React 18·19 읽기](./19_07_30_React_18_and_19/07_30_React_18_and_19.md) |
 | 20 | 07/31 | 데이터 패칭 | TypeScript로 요청 상태·취소·경쟁 상태·캐시를 이해 | [데이터 패칭과 비동기 상태](./20_07_31_Data_Fetching/07_31_Data_Fetching.md) |
 | 21 | 08/02 | 컴포넌트 테스트 | Vitest와 Testing Library로 사용자 행동과 UI 결과 검증 | [React 컴포넌트 테스트](./21_08_02_React_Testing/08_02_React_Testing.md) |
+| 22 | 08/04 | React Router | URL·중첩 레이아웃·동적 경로와 화면 연결 | [TypeScript로 배우는 React Router](./22_08_04_React_Router/08_04_React_Router.md) |
+| 23 | 08/04 | 상태 관리 선택 | useReducer·Context·Redux Toolkit·Zustand의 역할 구분 | [React 상태 관리 선택 기준](./23_08_04_State_Management/08_04_State_Management.md) |
+| 24 | 08/04 | React Actions | 폼 제출 상태와 낙관적 UI·실패 복구 이해 | [React 19 Actions와 낙관적 UI](./24_08_04_React_Actions/08_04_React_Actions.md) |
+| 25 | 08/04 | CRUD 설계 | 데이터·API·라우팅·폼의 책임을 나눈 종합 구현 | [React CRUD 프로젝트 설계](./25_08_04_CRUD_Project_Architecture/08_04_CRUD_Project_Architecture.md) |
 
 처음 배우는 경우에는 위 목록보다 먼저 [처음부터 따라가는 React 입문 안내서](./00_08_01_React_Beginner_Guide/08_01_React_Beginner_Guide.md)를 읽는다. 각 코드 블록은 실행 순서를 이해할 수 있도록 주석을 붙였고, 이후 챕터에서 같은 개념을 더 깊게 복습한다.
 
@@ -42,5 +46,8 @@ React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와
 6. `children`, Context, 커스텀 Hook이 각각 재사용하는 대상을 구분할 수 있는가?
 7. 배열의 index나 렌더링 중 생성한 값을 key로 쓰면 안 되는 이유를 설명할 수 있는가?
 8. 오래된 React 자료에서 `ReactDOM.render`, CRA, 클래스 생명주기 중심 예제를 판별할 수 있는가?
+9. URL 매개변수를 외부 입력으로 보고 검증하며 중첩 Route에 `Outlet`을 배치할 수 있는가?
+10. 지역 state, Context, reducer, 외부 store와 서버 상태 캐시의 책임을 구분할 수 있는가?
+11. 비동기 mutation에서 pending·성공·실패·낙관적 상태를 모두 설명할 수 있는가?
 
 막히는 질문이 있으면 각 노트의 `핵심 개념`, `요약`, `복습 질문` 순서로 다시 확인한다.
