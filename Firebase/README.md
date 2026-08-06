@@ -1,6 +1,6 @@
 # Firebase 학습 로드맵
 
-Firebase를 처음 사용하는 사람이 **프로젝트 연결 → 데이터·파일 저장소 → 사용자 인증 → Security Rules → Emulator 테스트** 순서로 학습하도록 정리했다.
+Firebase를 처음 사용하는 사람이 **프로젝트 연결 → 데이터·파일 저장소 → 사용자 인증 → Security Rules → Emulator 테스트 → 고급 조회와 페이지네이션** 순서로 학습하도록 정리했다.
 
 폴더 이름은 `[학습 순서]_[날짜]_[주제]` 형식이다. 이름순으로 정렬한 뒤 `01`부터 읽는다. 웹 예제는 npm 기반 모듈형 Firebase JavaScript SDK와 TypeScript를 사용한다.
 
@@ -15,6 +15,7 @@ Firebase를 처음 사용하는 사람이 **프로젝트 연결 → 데이터·�
 | 05 | 08/05 | Authentication | 이메일 계정·로그인·로그아웃·세션 상태 이해 | [Firebase Authentication](./05_08_05_Firebase_Authentication/08_05_Firebase_Authentication.md) |
 | 06 | 08/05 | Firestore Rules | 사용자별 CRUD 권한과 필드·query 제한 설계 | [Firestore Security Rules](./06_08_05_Firestore_Security_Rules/08_05_Firestore_Security_Rules.md) |
 | 07 | 08/05 | Emulator 테스트 | 운영 데이터 없이 Rules의 허용·거부 사례 자동 검증 | [Firebase Emulator 테스트](./07_08_05_Firebase_Emulator_Testing/08_05_Firebase_Emulator_Testing.md) |
+| 08 | 08/06 | 고급 조회와 페이지네이션 | 필터·정렬·복합 인덱스·커서와 읽기 비용 이해 | [Firestore 고급 조회와 페이지네이션](./08_08_06_Firestore_Advanced_Queries/08_06_Firestore_Advanced_Queries.md) |
 
 ## 제품 선택 기준
 
@@ -39,3 +40,6 @@ React 화면에서 Firebase를 사용하는 전체 흐름은 [TypeScript로 Reac
 7. 인증과 인가의 차이, `request.auth.uid`의 역할을 설명할 수 있는가?
 8. Rules에서 `resource.data`와 `request.resource.data`를 구분할 수 있는가?
 9. Emulator에서 허용 요청과 거부 요청을 독립적으로 테스트할 수 있는가?
+10. `where`, `orderBy`, `limit`이 각각 query에서 맡는 역할을 설명할 수 있는가?
+11. 복합 인덱스가 필요한 이유와 오류 발생 시 확인 순서를 설명할 수 있는가?
+12. offset 대신 마지막 문서 snapshot과 `startAfter`를 사용하는 이유를 설명할 수 있는가?
