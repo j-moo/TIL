@@ -1,6 +1,6 @@
 # Firebase 학습 로드맵
 
-Firebase를 처음 사용하는 사람이 **프로젝트 연결 → 데이터·파일 저장소 → 사용자 인증 → Security Rules → Emulator 테스트 → 고급 조회와 페이지네이션** 순서로 학습하도록 정리했다.
+Firebase를 처음 사용하는 사람이 **프로젝트 연결 → 데이터·파일 저장소 → 사용자 인증 → 계정 수명주기 → Security Rules → Emulator 테스트 → 고급 조회와 페이지네이션** 순서로 학습하도록 정리했다.
 
 폴더 이름은 `[학습 순서]_[날짜]_[주제]` 형식이다. 이름순으로 정렬한 뒤 `01`부터 읽는다. 웹 예제는 npm 기반 모듈형 Firebase JavaScript SDK와 TypeScript를 사용한다.
 
@@ -13,9 +13,10 @@ Firebase를 처음 사용하는 사람이 **프로젝트 연결 → 데이터·�
 | 03 | 08/04 | Realtime Database | JSON 트리와 참조·구독·원자적 갱신 이해 | [Realtime Database](./03_08_04_Realtime_Database/08_04_Realtime_Database.md) |
 | 04 | 08/04 | Cloud Storage | 파일 경로·업로드 진행률·다운로드 URL·규칙 이해 | [Cloud Storage](./04_08_04_Cloud_Storage/08_04_Cloud_Storage.md) |
 | 05 | 08/05 | Authentication | 이메일 계정·로그인·로그아웃·세션 상태 이해 | [Firebase Authentication](./05_08_05_Firebase_Authentication/08_05_Firebase_Authentication.md) |
-| 06 | 08/05 | Firestore Rules | 사용자별 CRUD 권한과 필드·query 제한 설계 | [Firestore Security Rules](./06_08_05_Firestore_Security_Rules/08_05_Firestore_Security_Rules.md) |
-| 07 | 08/05 | Emulator 테스트 | 운영 데이터 없이 Rules의 허용·거부 사례 자동 검증 | [Firebase Emulator 테스트](./07_08_05_Firebase_Emulator_Testing/08_05_Firebase_Emulator_Testing.md) |
-| 08 | 08/06 | 고급 조회와 페이지네이션 | 필터·정렬·복합 인덱스·커서와 읽기 비용 이해 | [Firestore 고급 조회와 페이지네이션](./08_08_06_Firestore_Advanced_Queries/08_06_Firestore_Advanced_Queries.md) |
+| 06 | 08/07 | 계정 수명주기 | 이메일 인증·재인증·계정 삭제·로그인 제공자 연결 이해 | [Firebase 사용자 계정 수명주기](./06_08_07_Firebase_Account_Lifecycle/08_07_Firebase_Account_Lifecycle.md) |
+| 07 | 08/05 | Firestore Rules | 사용자별 CRUD 권한과 필드·query 제한 설계 | [Firestore Security Rules](./07_08_05_Firestore_Security_Rules/08_05_Firestore_Security_Rules.md) |
+| 08 | 08/05 | Emulator 테스트 | 운영 데이터 없이 Rules의 허용·거부 사례 자동 검증 | [Firebase Emulator 테스트](./08_08_05_Firebase_Emulator_Testing/08_05_Firebase_Emulator_Testing.md) |
+| 09 | 08/06 | 고급 조회와 페이지네이션 | 필터·정렬·복합 인덱스·커서와 읽기 비용 이해 | [Firestore 고급 조회와 페이지네이션](./09_08_06_Firestore_Advanced_Queries/08_06_Firestore_Advanced_Queries.md) |
 
 ## 제품 선택 기준
 
@@ -39,7 +40,10 @@ React 화면에서 Firebase를 사용하는 전체 흐름은 [TypeScript로 Reac
 6. 개발용 공개 규칙을 운영 환경에 남기면 안 되는 이유를 설명할 수 있는가?
 7. 인증과 인가의 차이, `request.auth.uid`의 역할을 설명할 수 있는가?
 8. Rules에서 `resource.data`와 `request.resource.data`를 구분할 수 있는가?
-9. Emulator에서 허용 요청과 거부 요청을 독립적으로 테스트할 수 있는가?
-10. `where`, `orderBy`, `limit`이 각각 query에서 맡는 역할을 설명할 수 있는가?
-11. 복합 인덱스가 필요한 이유와 오류 발생 시 확인 순서를 설명할 수 있는가?
-12. offset 대신 마지막 문서 snapshot과 `startAfter`를 사용하는 이유를 설명할 수 있는가?
+9. 이메일 인증 후 `reload`로 최신 `emailVerified` 값을 확인할 수 있는가?
+10. 최근 로그인과 재인증이 필요한 작업을 구분할 수 있는가?
+11. Auth 계정 삭제와 Firestore·Storage 데이터 삭제가 별개인 이유를 설명할 수 있는가?
+12. `linkWithPopup`과 `signInWithPopup`의 차이를 설명할 수 있는가?
+13. Emulator에서 허용 요청과 거부 요청을 독립적으로 테스트할 수 있는가?
+14. `where`, `orderBy`, `limit`이 각각 query에서 맡는 역할을 설명할 수 있는가?
+15. offset 대신 마지막 문서 snapshot과 `startAfter`를 사용하는 이유를 설명할 수 있는가?
