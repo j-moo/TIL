@@ -8,7 +8,7 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트 | [로드맵](./React/README.md) |
+| React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·클래스·모듈 설정·선언 파일까지 | [노트 목록](./TypeScript) |
 | API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
@@ -25,7 +25,7 @@
 | 2026.07.04–07.07 | Python·Django·DB | 데이터 크롤링, 고급 Model/Form, 데이터베이스 모델링과 정규화 |
 | 2026.07.08–07.23 | Java | 문법, 배열, I/O, 클래스·객체, 상속·인터페이스, 예외 처리, 컬렉션, 함수형 프로그래밍 |
 | 2026.07.24–07.26 | TypeScript | 타입 기초, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈과 학습 순서 정리 |
-| 2026.07.26–08.08 | React·Firebase | 라우팅·상태 관리·CRUD, Firebase 인증·계정 수명주기·App Check·Rules·Emulator 테스트·커서 페이지네이션 |
+| 2026.07.26–08.11 | React·Firebase | 라우팅·상태 관리·CRUD, Firebase 인증·계정 수명주기·App Check·Rules·Emulator 테스트·커서 페이지네이션·오류 복구 |
 | 2026.08.09 | TypeScript | 선언 파일, 외부 라이브러리 타입, 전역·모듈 보강, 선언 생성과 배포 |
 
 ## Learning Areas
@@ -38,7 +38,7 @@
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일 | 7 |
-| [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로와 테스트 | 28 |
+| [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
 | [Firebase](./Firebase) | SDK 설정, Firestore, Realtime Database, Storage, Authentication, 계정 수명주기, App Check, Rules, Emulator, 고급 query | 10 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
 | [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 7 |
@@ -58,6 +58,7 @@
 - Firebase Authentication·Security Rules·Emulator 테스트의 책임 구분
 - Firebase 사용자 계정 수명주기와 민감한 작업 재인증 설계
 - Firebase App Check와 Authentication·Security Rules의 책임 구분
+- React 렌더링·이벤트·비동기 오류의 복구 계층 설계
 - Firestore query의 필터·정렬·복합 인덱스와 커서 페이지네이션 설계
 - TypeScript의 정적 타입 시스템으로 JavaScript 코드의 계약과 안정성 높이기
 - TypeScript 선언 파일로 외부 JavaScript 라이브러리의 타입 경계 설계하기

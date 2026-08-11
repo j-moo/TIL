@@ -35,6 +35,7 @@ React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와
 | 25 | 08/04 | CRUD 설계 | 데이터·API·라우팅·폼의 책임을 나눈 종합 구현 | [React CRUD 프로젝트 설계](./25_08_04_CRUD_Project_Architecture/08_04_CRUD_Project_Architecture.md) |
 | 26 | 08/04 | React와 Firebase | Firestore 구독·폼·인증 상태를 React 생명주기와 연결 | [TypeScript로 React와 Firebase 연결하기](./26_08_04_React_with_Firebase/08_04_React_with_Firebase.md) |
 | 27 | 08/05 | Firebase 보호 경로 | Auth 초기화·로그인 이동·중첩 Route와 Rules 책임 구분 | [Firebase Auth로 React 보호 경로 만들기](./27_08_05_Protected_Routes_with_Firebase_Auth/08_05_Protected_Routes_with_Firebase_Auth.md) |
+| 28 | 08/11 | 오류 처리 | Error Boundary·이벤트 오류·비동기 오류와 복구 UI 구분 | [React 오류 처리와 Error Boundary](./28_08_11_Error_Handling_and_Error_Boundaries/08_11_Error_Handling_and_Error_Boundaries.md) |
 
 처음 배우는 경우에는 위 목록보다 먼저 [처음부터 따라가는 React 입문 안내서](./00_08_01_React_Beginner_Guide/08_01_React_Beginner_Guide.md)를 읽는다. 각 코드 블록은 실행 순서를 이해할 수 있도록 주석을 붙였고, 이후 챕터에서 같은 개념을 더 깊게 복습한다.
 
@@ -53,5 +54,7 @@ React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와
 11. 비동기 mutation에서 pending·성공·실패·낙관적 상태를 모두 설명할 수 있는가?
 12. Firebase listener를 Effect에 연결하고 cleanup에서 해제하며 원격 데이터와 UI state를 구분할 수 있는가?
 13. 인증 초기화 중·미로그인·로그인 상태를 나눠 보호 경로를 구성하고 Rules와 역할을 구분할 수 있는가?
+14. 렌더링 오류·이벤트 오류·비동기 요청 오류를 각각 알맞은 계층에서 처리할 수 있는가?
+15. Error Boundary의 fallback과 재시도·오류 로깅의 역할을 설명할 수 있는가?
 
 막히는 질문이 있으면 각 노트의 `핵심 개념`, `요약`, `복습 질문` 순서로 다시 확인한다.
