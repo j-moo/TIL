@@ -15,10 +15,11 @@
 | NumPy·Pandas·Matplotlib | 배열 연산, DataFrame 전처리, 결측치 처리, 그룹 집계, 시계열 분석과 시각화 | [바로가기](./Python/01_30_NumPy_Pandas_Matplotlib/01_30_NumPy_Pandas_Matplotlib.md) |
 | Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
 | FastAPI | API 기초, 모델 서빙, API Gateway와 멀티모달 연동 | [바로가기](./FastAPI/05_22_FastAPI/05_22_FastAPI.md) |
+| GitHub Actions CI | TypeScript·React 품질 검사와 Firebase Security Rules 테스트 자동화 | [로드맵](./Git/README.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **63개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **64개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -27,6 +28,7 @@
 | 2026.07.24–07.26 | TypeScript | 타입 기초, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈과 학습 순서 정리 |
 | 2026.07.26–08.11 | React·Firebase | 라우팅·상태 관리·CRUD, Firebase 인증·계정 수명주기·App Check·Rules·Emulator 테스트·커서 페이지네이션·오류 복구 |
 | 2026.08.09 | TypeScript | 선언 파일, 외부 라이브러리 타입, 전역·모듈 보강, 선언 생성과 배포 |
+| 2026.08.12 | GitHub Actions | TypeScript·React 자동 검사와 Firebase Emulator 기반 Security Rules 테스트 CI |
 
 ## Learning Areas
 
@@ -46,10 +48,10 @@
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
 | [AI](./AI) | 머신러닝, LLM, RAG, Fine-tuning과 모델 활용 | 16 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 예외 처리와 함수형 프로그래밍 | 15 |
-| [Git](./Git) | 버전 관리와 협업 흐름 | 2 |
+| [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **172개의 학습 노트**를 관리하고 있습니다.
+현재 총 **173개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -62,6 +64,7 @@
 - Firestore query의 필터·정렬·복합 인덱스와 커서 페이지네이션 설계
 - TypeScript의 정적 타입 시스템으로 JavaScript 코드의 계약과 안정성 높이기
 - TypeScript 선언 파일로 외부 JavaScript 라이브러리의 타입 경계 설계하기
+- GitHub Actions로 TypeScript·React·Firebase 검증 명령을 자동 실행하기
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
