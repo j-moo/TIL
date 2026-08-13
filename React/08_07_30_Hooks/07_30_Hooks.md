@@ -20,6 +20,43 @@ Hook은 함수 컴포넌트에서 state, context, ref, Effect 같은 React 기�
 
 조건문·반복문·중첩 함수에서 호출하면 렌더링마다 Hook 호출 순서가 달라질 수 있다.
 
+### React가 Hook을 호출 순서로 구분하는 이유
+
+컴포넌트 함수가 다시 실행되면 함수 안의 지역 변수는 새로 만들어진다. 하지만 `useState`의 값은 사라지지 않는다. React가 컴포넌트별로 Hook의 상태를 따로 보관하고, **첫 번째 Hook, 두 번째 Hook**처럼 호출 순서를 기준으로 이번 렌더링의 호출과 이전 렌더링의 상태를 연결하기 때문이다.
+
+```tsx
+import { useState } from 'react'
+
+function Profile() {
+  // 매 렌더링에서 첫 번째로 호출되므로 React는 name 상태와 연결한다.
+  const [name, setName] = useState('')
+
+  // 매 렌더링에서 두 번째로 호출되므로 React는 age 상태와 연결한다.
+  const [age, setAge] = useState(0)
+
+  return <p>{name} · {age}세</p>
+}
+```
+
+조건에 따라 첫 번째 Hook이 생겼다가 사라지면 뒤에 있는 모든 Hook의 순서가 밀린다. 그래서 조건을 Hook **바깥**이 아니라 Hook이 받은 함수 **안쪽**에 둔다.
+
+```tsx
+// 아래 두 코드는 Hook 호출 위치를 비교하기 위한 부분 예시다.
+
+// 잘못된 형태: isLoggedIn 값에 따라 Hook 호출 개수가 바뀐다.
+if (isLoggedIn) {
+  useEffect(() => {
+    document.title = '내 정보'
+  }, [])
+}
+
+// 올바른 형태: Hook은 항상 호출하고, 실행할 작업만 조건으로 제한한다.
+useEffect(() => {
+  if (!isLoggedIn) return
+  document.title = '내 정보'
+}, [isLoggedIn])
+```
+
 ## 2. Hook별 역할
 
 | Hook | 사용 목적 | 렌더링을 일으키는가? |
@@ -70,6 +107,46 @@ useEffect(() => {
   return () => controller.abort()
 }, [category])
 ```
+
+Effect의 실행 순서는 “한 번 실행”이라는 표현보다 **동기화의 시작과 종료**로 이해하는 편이 정확하다.
+
+```text
+첫 화면 커밋
+  → setup 실행
+
+category 변경 후 새 화면 커밋
+  → 이전 category의 cleanup 실행
+  → 새 category의 setup 실행
+
+컴포넌트 제거
+  → 마지막 cleanup 실행
+```
+
+의존성 배열은 Effect를 실행하고 싶은 순간을 취향대로 고르는 목록이 아니다. Effect 코드가 읽는 반응형 값에서 결정된다. React는 각 의존성을 이전 값과 `Object.is`로 비교한다. 객체나 함수는 내용이 같아 보여도 렌더링마다 새로 만들면 참조가 달라져 Effect가 다시 실행될 수 있다.
+
+```tsx
+// 렌더링마다 새 객체가 만들어져 Effect가 불필요하게 다시 실행될 수 있다.
+const options = { roomId }
+
+useEffect(() => {
+  const connection = connect(options)
+  return () => connection.disconnect()
+}, [options])
+
+// Effect 안에서 객체를 만들면 실제 반응형 값인 roomId만 의존성이 된다.
+useEffect(() => {
+  const options = { roomId }
+  const connection = connect(options)
+  return () => connection.disconnect()
+}, [roomId])
+```
+
+Effect가 필요해 보일 때 먼저 실행 원인을 묻는다.
+
+- 화면에 나타났기 때문에 외부 시스템과 연결해야 한다 → Effect
+- 사용자가 저장 버튼을 눌렀기 때문에 요청해야 한다 → 이벤트 핸들러
+- props와 state로 값을 계산할 수 있다 → 렌더링 중 계산
+- 여러 state를 한 동작에서 함께 바꿔야 한다 → 같은 이벤트 또는 reducer
 
 ## 5. `useRef`: 화면과 무관한 값을 보존
 
@@ -137,11 +214,64 @@ export function useDocumentTitle(title: string): void {
 
 각 컴포넌트가 이 Hook을 호출하면 로직은 공유하지만 state와 Effect 인스턴스는 서로 독립적이다.
 
+커스텀 Hook의 이름은 구현 방법보다 목적을 표현한다. `useEffectWrapper`보다 `useOnlineStatus`, `useDocumentTitle`처럼 사용하는 컴포넌트가 무엇을 얻는지 드러내는 이름이 좋다. Hook이 아닌 일반 계산 함수에 억지로 `use`를 붙이지 않는다.
+
+```tsx
+// 일반 함수: React 상태나 다른 Hook을 사용하지 않는다.
+function formatPrice(price: number): string {
+  return `${price.toLocaleString()}원`
+}
+
+// 커스텀 Hook: state와 Effect를 조합해 브라우저의 온라인 상태를 구독한다.
+function useOnlineStatus(): boolean {
+  const [isOnline, setIsOnline] = useState(navigator.onLine)
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true)
+    const handleOffline = () => setIsOnline(false)
+
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [])
+
+  return isOnline
+}
+```
+
+### Hook 선택 질문
+
+| 질문 | 먼저 검토할 도구 |
+| --- | --- |
+| 값이 바뀌면 화면도 바뀌어야 하는가? | `useState`, 복잡하면 `useReducer` |
+| DOM 요소에 focus를 주거나 화면과 무관한 값을 기억하는가? | `useRef` |
+| React 바깥 시스템과 연결하고 해제해야 하는가? | `useEffect` |
+| 먼 상위 컴포넌트가 제공한 값을 읽는가? | `useContext` |
+| 실제 측정에서 계산 비용이 큰가? | `useMemo` 검토 |
+| 메모화된 자식에 안정적인 함수 참조가 필요한가? | `useCallback` 검토 |
+
+이 표는 정답을 자동으로 정해 주는 규칙이 아니다. 먼저 값이 어디에서 생기고, 누가 소유하며, 무엇이 변경을 일으키는지 설명한 뒤 Hook을 선택한다.
+
 ## 8. 적용 관점에서 다시 보기
 
 값이 바뀔 때 화면도 바뀌어야 하면 `useState`, 화면과 무관한 값을 보존하거나 DOM을 가리키려면 `useRef`를 검토한다. 외부 시스템과 동기화해야 할 때만 `useEffect`를 사용한다. 계산이 느리다는 실제 근거가 있을 때 `useMemo`, 메모화된 자식에게 안정적인 함수 참조가 필요할 때 `useCallback`을 고려한다.
 
 Hook 관련 오류가 발생하면 호출 위치를 먼저 확인한다. 조건문, 반복문, 조기 반환 아래에서 Hook을 호출하면 렌더링마다 순서가 달라질 수 있다. 의존성 lint 경고는 배열에서 값을 지우라는 뜻이 아니라 Effect가 너무 많은 책임을 갖는지 확인하라는 신호다.
+
+### 자주 보이는 증상과 원인
+
+| 증상 | 먼저 확인할 원인 |
+| --- | --- |
+| 화면의 값이 바뀌지 않는다 | ref나 지역 변수를 화면 state처럼 사용했는가? |
+| Effect가 계속 반복된다 | Effect가 매 렌더링마다 새 객체·함수를 의존하는가? |
+| 이전 props나 state를 읽는다 | 의존성을 누락했거나 이전 렌더링의 closure를 사용했는가? |
+| 개발 모드에서 연결이 두 번 생긴다 | cleanup이 setup을 완전히 되돌리는가? |
+| `Rendered fewer hooks` 오류가 난다 | 조건문이나 조기 반환 뒤에서 Hook을 호출했는가? |
+| `useMemo`를 지우면 동작이 틀어진다 | 캐시에 정확성을 의존하도록 코드를 작성했는가? |
 
 ## 9. 배운 점 / 확장 포인트
 

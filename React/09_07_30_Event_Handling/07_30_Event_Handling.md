@@ -62,6 +62,30 @@ function SearchForm() {
 
 `currentTarget`은 핸들러가 연결된 요소로 타입이 안정적이다. `target`은 실제 이벤트가 시작된 하위 요소일 수 있다.
 
+### 이벤트 객체에는 무엇이 들어 있는가?
+
+React 이벤트 객체는 “무슨 일이 어느 요소에서 일어났는지”를 핸들러에 전달한다. `MouseEvent<HTMLButtonElement>`에서 앞부분은 사건의 종류, 제네릭 안의 `HTMLButtonElement`는 핸들러가 연결된 요소의 종류다.
+
+```tsx
+const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  // 이벤트 종류에 공통으로 있는 정보다.
+  console.log(event.type) // "click"
+
+  // 핸들러가 연결된 button이므로 disabled, name 등을 안전하게 읽는다.
+  console.log(event.currentTarget.disabled)
+
+  // 실제 클릭 시작점은 버튼 안의 span 또는 svg일 수도 있다.
+  console.log(event.target)
+}
+```
+
+JSX에 인라인으로 함수를 작성하면 문맥을 통해 타입을 추론할 수 있다. 핸들러를 별도 함수로 분리하면 매개변수 타입을 직접 적는 편이 함수의 계약을 읽기 쉽다.
+
+```tsx
+// event는 onChange 문맥에서 ChangeEvent<HTMLInputElement>로 추론된다.
+<input onChange={event => console.log(event.currentTarget.value)} />
+```
+
 ## 3. 인자를 함께 전달하기
 
 ```tsx
@@ -116,6 +140,43 @@ function Toolbar() {
 - 특정 클릭·입력·제출 때문에 실행된다면 이벤트 핸들러에 둔다.
 - 컴포넌트가 화면에 나타났기 때문에 외부 시스템과 맞춰야 한다면 Effect를 검토한다.
 - 렌더링 코드는 결과 계산만 하며 side effect를 일으키지 않는다.
+
+하나의 사용자 행동은 보통 다음 흐름을 만든다.
+
+```text
+사용자 클릭
+   ↓
+이벤트 핸들러 실행
+   ↓
+setter로 다음 state 요청
+   ↓
+컴포넌트 다시 렌더링
+   ↓
+변경된 DOM이 화면에 반영
+```
+
+핸들러가 실행되는 동안 화면의 state는 해당 렌더링의 스냅샷이다. 연속된 업데이트가 이전 값에 의존하면 updater 함수를 사용한다.
+
+```tsx
+const handleAddThree = () => {
+  // 각 updater는 앞 updater가 만든 대기 값을 전달받는다.
+  setCount(current => current + 1)
+  setCount(current => current + 1)
+  setCount(current => current + 1)
+}
+```
+
+### 마우스 클릭만을 기준으로 설계하지 않는다
+
+기본 HTML 버튼은 Enter와 Space 키, focus, disabled 동작을 브라우저가 제공한다. 클릭 가능한 UI를 `<div onClick={...}>`로 만들면 이 기능을 직접 다시 구현해야 한다. 가능한 경우 의미에 맞는 `<button>`, `<a>`, `<input>`을 먼저 선택하고 이벤트를 연결한다.
+
+```tsx
+// 버튼의 의미와 키보드 동작을 브라우저가 제공한다.
+<button type="button" onClick={handleOpen}>상세 정보 열기</button>
+
+// 페이지 이동은 button이 아니라 실제 목적지를 가진 링크가 알맞다.
+<a href="/settings">설정으로 이동</a>
+```
 
 ## 6. 자주 하는 실수
 

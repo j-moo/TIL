@@ -19,7 +19,7 @@
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **64개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **65개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -29,6 +29,7 @@
 | 2026.07.26–08.11 | React·Firebase | 라우팅·상태 관리·CRUD, Firebase 인증·계정 수명주기·App Check·Rules·Emulator 테스트·커서 페이지네이션·오류 복구 |
 | 2026.08.09 | TypeScript | 선언 파일, 외부 라이브러리 타입, 전역·모듈 보강, 선언 생성과 배포 |
 | 2026.08.12 | GitHub Actions | TypeScript·React 자동 검사와 Firebase Emulator 기반 Security Rules 테스트 CI |
+| 2026.08.13 | React·TypeScript | Hook·폼·상태 공유·Context·스타일 개념 보강과 타입 시스템 사고방식·오류 읽기 |
 
 ## Learning Areas
 
@@ -39,7 +40,7 @@
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
-| [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일 | 7 |
+| [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
 | [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
 | [Firebase](./Firebase) | SDK 설정, Firestore, Realtime Database, Storage, Authentication, 계정 수명주기, App Check, Rules, Emulator, 고급 query | 10 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
@@ -51,7 +52,7 @@
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **173개의 학습 노트**를 관리하고 있습니다.
+현재 총 **174개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 

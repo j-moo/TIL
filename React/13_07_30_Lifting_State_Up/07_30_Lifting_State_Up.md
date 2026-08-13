@@ -19,6 +19,23 @@
 2. 공통 부모에 state를 둔다.
 3. 현재 값은 아래로, 사용자 의도는 콜백으로 위로 전달한다.
 
+### state 소유자를 찾는 질문
+
+state를 어디에 둘지 애매하면 컴포넌트 이름보다 **그 값을 읽고 바꾸는 범위**를 먼저 본다.
+
+1. 어떤 컴포넌트들이 이 값을 화면에 표시하는가?
+2. 어떤 사용자 행동이 이 값을 바꾸는가?
+3. 그 컴포넌트들을 모두 포함하는 가장 가까운 공통 부모는 누구인가?
+4. props나 다른 state로 계산할 수 있어 아예 저장하지 않아도 되는가?
+
+```text
+Accordion             ← activePanelId를 소유할 후보
+├── Panel A            ← 값 읽기, 변경 요청
+└── Panel B            ← 값 읽기, 변경 요청
+```
+
+두 Panel이 서로 직접 값을 주고받는 것이 아니다. 공통 부모가 현재 값을 소유하고 두 자식의 요청을 조정한다.
+
 ## 2. 동기화된 입력 예제
 
 ```tsx
@@ -67,6 +84,55 @@ export default function SyncedFields() {
 - 멀리 떨어진 많은 컴포넌트가 필요하면 먼저 합성 구조를 검토한 뒤 Context를 고려한다.
 - 서버에서 받은 원본과 필터링 결과를 모두 state로 복제하지 않는다.
 
+### controlled와 uncontrolled는 절대적인 분류가 아니다
+
+컴포넌트가 중요한 값을 자신의 state로 관리하면 그 값에 대해서는 uncontrolled라고 설명할 수 있다. 부모가 props로 값을 결정하고 콜백으로 변경을 요청받으면 그 값에 대해서는 controlled다. 하나의 컴포넌트 안에서도 어떤 값은 controlled이고 다른 값은 내부 state일 수 있다.
+
+```tsx
+type PanelProps = {
+  title: string
+  isOpen: boolean
+  onOpen: () => void
+}
+
+function Panel({ title, isOpen, onOpen }: PanelProps) {
+  return (
+    <section>
+      <h2>{title}</h2>
+      {isOpen ? (
+        <p>현재 열린 패널의 내용입니다.</p>
+      ) : (
+        <button type="button" onClick={onOpen}>
+          열기
+        </button>
+      )}
+    </section>
+  )
+}
+
+function Accordion() {
+  // boolean 두 개 대신 어느 패널이 열렸는지를 하나의 값으로 표현한다.
+  const [activeId, setActiveId] = useState<'guide' | 'practice'>('guide')
+
+  return (
+    <>
+      <Panel
+        title="개념 안내"
+        isOpen={activeId === 'guide'}
+        onOpen={() => setActiveId('guide')}
+      />
+      <Panel
+        title="연습 문제"
+        isOpen={activeId === 'practice'}
+        onOpen={() => setActiveId('practice')}
+      />
+    </>
+  )
+}
+```
+
+`isGuideOpen`과 `isPracticeOpen`을 따로 저장하면 둘 다 열리거나 둘 다 닫히는 상태가 생길 수 있다. `activeId` 하나는 “항상 하나만 열린다”는 화면 규칙을 데이터 구조에 담는다.
+
 ## 4. state와 파생 값
 
 ```tsx
@@ -91,6 +157,15 @@ function ProductList({ products }: { products: Product[] }) {
 ## 5. 끌어올리기의 비용
 
 state가 올라가면 부모와 관련 자식이 다시 렌더링될 범위가 커지고 props 연결도 늘어난다. 이것은 무조건 나쁜 것이 아니라 데이터 흐름을 명시적으로 만드는 대가다. 실제 성능 문제가 측정되기 전에는 Context나 전역 상태 도구로 성급히 숨기지 않는다.
+
+state는 공유할 필요가 있는 만큼만 올린다. 모달 안의 입력 초안처럼 모달만 사용하는 값까지 페이지 루트에 두면 수정 이유가 다른 state가 한곳에 모인다. 반대로 목록과 상세 패널이 같은 선택 항목을 사용한다면 선택 ID는 둘의 공통 부모가 소유하는 편이 자연스럽다.
+
+| 값 | 알맞은 위치의 예 |
+| --- | --- |
+| 한 입력의 focus 여부 | 입력 컴포넌트 내부 |
+| 형제 입력이 공유하는 검색어 | 두 입력의 공통 부모 |
+| 현재 로그인 사용자 | 넓은 하위 트리의 Provider 또는 인증 계층 |
+| 서버에서 가져온 게시물 캐시 | 서버 상태 관리 계층 |
 
 ## 6. 적용 관점에서 다시 보기
 

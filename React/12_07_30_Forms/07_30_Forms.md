@@ -20,6 +20,33 @@
 
 둘 중 하나가 항상 우월한 것은 아니다. 입력하는 동안 React가 값을 알아야 하는지에 따라 선택한다.
 
+### 폼은 문자열을 객체로 모으는 작업만이 아니다
+
+사용자가 입력한 값은 바로 신뢰할 수 있는 애플리케이션 데이터가 아니다. 일반적으로 폼은 다음 단계를 거친다.
+
+```text
+브라우저 입력값
+   ↓ 읽기
+문자열·File·boolean 형태의 원시 입력
+   ↓ 검증과 변환
+도메인에서 사용할 수 있는 값
+   ↓ 제출
+서버 요청
+   ↓ 응답
+성공 안내 또는 필드·폼 오류 표시
+```
+
+예를 들어 `<input type="number">`의 화면 값도 이벤트에서 읽으면 문자열이다. 빈 문자열과 숫자 `0`은 의미가 다르므로 입력하는 동안 문자열로 보관하고, 제출 시점에 검증한 뒤 숫자로 변환하는 방식이 안전할 수 있다.
+
+```tsx
+const [ageText, setAgeText] = useState('')
+
+const age = Number(ageText)
+const isAgeValid = ageText !== '' && Number.isInteger(age) && age >= 0
+```
+
+TypeScript 타입은 `ageText`가 문자열이라는 사실은 보장하지만, 그 문자열이 실제 나이로 적합한지는 보장하지 않는다. 길이, 범위, 형식 같은 **값의 유효성**은 런타임 검증이 필요하다.
+
 ## 2. controlled 입력
 
 ```tsx
@@ -134,7 +161,102 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 <input type="file" accept="image/*" onChange={handleFileChange} />
 ```
 
-## 5. 자주 하는 실수
+`accept="image/*"`는 파일 선택 창의 후보를 제한하는 사용자 편의 기능이지 보안 검증이 아니다. 사용자가 보낸 파일의 크기와 실제 MIME type은 클라이언트와 서버에서 다시 확인해야 한다.
+
+## 5. 검증 상태를 설계하는 방법
+
+오류 메시지를 입력값과 완전히 별개의 boolean 여러 개로 관리하면 서로 모순되는 상태가 생길 수 있다. 먼저 현재 값으로 계산할 수 있는 오류인지 확인한다.
+
+```tsx
+type TitleFieldProps = {
+  title: string
+  touched: boolean
+  onChange: (value: string) => void
+  onBlur: () => void
+}
+
+function TitleField({ title, touched, onChange, onBlur }: TitleFieldProps) {
+  // 오류 여부는 현재 title로 계산하며 별도 state로 복제하지 않는다.
+  const error = title.trim().length < 2
+    ? '제목을 두 글자 이상 입력하세요.'
+    : null
+
+  // 사용자가 아직 필드를 떠나지 않았다면 오류를 성급하게 노출하지 않는다.
+  const showError = touched && error !== null
+
+  return (
+    <label>
+      제목
+      <input
+        value={title}
+        onChange={event => onChange(event.currentTarget.value)}
+        onBlur={onBlur}
+        aria-invalid={showError}
+        aria-describedby={showError ? 'title-error' : undefined}
+      />
+      {showError && (
+        <span id="title-error" role="alert">
+          {error}
+        </span>
+      )}
+    </label>
+  )
+}
+```
+
+서버 제출 상태는 여러 boolean보다 판별 유니언으로 표현하면 모순을 줄일 수 있다.
+
+```tsx
+type SubmitState =
+  | { status: 'idle' }
+  | { status: 'submitting' }
+  | { status: 'success'; noteId: string }
+  | { status: 'error'; message: string }
+
+const [submitState, setSubmitState] = useState<SubmitState>({ status: 'idle' })
+```
+
+이 구조에서는 `isLoading === true`이면서 `isSuccess === true`인 모순 상태를 만들 수 없다. `status`를 검사하면 TypeScript가 각 상태에 존재하는 필드도 좁혀 준다.
+
+## 6. 제출 함수의 전체 흐름
+
+```tsx
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault()
+
+  const trimmedTitle = values.title.trim()
+  if (trimmedTitle.length < 2) {
+    setSubmitState({
+      status: 'error',
+      message: '제목을 두 글자 이상 입력하세요.',
+    })
+    return
+  }
+
+  setSubmitState({ status: 'submitting' })
+
+  try {
+    // API 함수가 성공하면 생성된 노트 ID를 반환한다고 가정한다.
+    const created = await createNote({
+      ...values,
+      title: trimmedTitle,
+    })
+
+    setSubmitState({ status: 'success', noteId: created.id })
+  } catch (error: unknown) {
+    // 외부에서 던져진 값은 unknown으로 받고 안전한 메시지로 바꾼다.
+    const message = error instanceof Error
+      ? error.message
+      : '저장 중 알 수 없는 오류가 발생했습니다.'
+
+    setSubmitState({ status: 'error', message })
+  }
+}
+```
+
+클라이언트 검증은 빠른 피드백을 주지만 서버 검증을 대신하지 않는다. 네트워크 요청은 조작될 수 있으므로 서버는 같은 규칙과 권한을 다시 확인해야 한다.
+
+## 7. 자주 하는 실수
 
 - 처음에는 `undefined`, 이후에는 문자열을 `value`로 넘겨 controlled 여부를 바꾼다.
 - checkbox의 선택 상태를 `value`로 읽고 `checked`를 빼먹는다.
@@ -144,36 +266,36 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 controlled 텍스트 입력은 항상 문자열을 유지하도록 `useState('')`로 초기화하거나 API 값에 `value={value ?? ''}`를 사용한다.
 
-## 6. 적용 관점에서 다시 보기
+## 8. 적용 관점에서 다시 보기
 
 입력할 때마다 검증 결과나 미리보기를 보여 줘야 한다면 controlled 방식을 선택한다. 단순 검색처럼 제출할 때만 값이 필요하면 `FormData`를 이용한 uncontrolled 방식이 더 간단할 수 있다. 여러 입력을 하나의 객체 state로 관리할 때는 기존 필드를 펼친 뒤 바뀐 필드만 덮어쓴다.
 
 입력이 수정되지 않으면 `value`와 `onChange`의 연결을 확인한다. controlled 여부 경고가 나오면 첫 렌더링부터 마지막 렌더링까지 문자열은 문자열, boolean은 boolean으로 유지되는지 살핀다.
 
-## 7. 배운 점 / 확장 포인트
+## 9. 배운 점 / 확장 포인트
 
-### 7.1 새로 이해한 것
+### 9.1 새로 이해한 것
 
 controlled는 input에 `value`만 넣는 문법이 아니라 state를 단일 진실 공급원으로 만드는 설계다. checkbox와 radio는 텍스트 입력과 달리 `checked`를 사용한다.
 
-### 7.2 이전·다음 학습과의 연결
+### 9.2 이전·다음 학습과의 연결
 
 이벤트 처리와 state가 폼에서 결합된다. 이후 서버 전송, 로딩 상태, 오류 메시지, 접근 가능한 검증 안내로 확장한다.
 
-### 7.3 더 확인할 주제
+### 9.3 더 확인할 주제
 
 - 클라이언트와 서버 유효성 검사
 - React 19 form Actions
 - 대규모 폼의 상태 구조
 - 파일 업로드 진행률과 용량 검사
 
-## 8. 요약 정리
+## 10. 요약 정리
 
 폼은 React가 항상 값을 소유해야 하는지부터 판단한다. 입력 종류에 따라 `value`와 `checked`를 구분하고, 제출 데이터에는 `name`을 붙인다.
 
 🧠 기억할 것: React가 현재 값을 계속 알아야 하면 `value` 또는 `checked`와 `onChange`를 연결하고, 초기값만 주려면 `defaultValue`를 사용한다.
 
-## 9. 미니 퀴즈
+## 11. 미니 퀴즈
 
 1. `value`와 `defaultValue`는 어떻게 다른가?
 2. checkbox의 현재 선택 여부는 어떤 속성으로 제어하는가?

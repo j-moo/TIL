@@ -15,6 +15,17 @@
 
 합성은 작은 컴포넌트를 JSX 안에 배치해 더 큰 UI를 만드는 방식이다. 부모가 자식의 내부 구현을 상속받는 대신 필요한 UI 조각을 props로 전달한다.
 
+재사용하려는 대상에 따라 도구가 달라진다.
+
+| 재사용 대상 | 주로 사용하는 방법 |
+| --- | --- |
+| 화면의 바깥 구조와 배치 | `children`, 이름 있는 JSX Props |
+| 데이터 변환 규칙 | 일반 TypeScript 함수 |
+| state와 Effect를 조합한 로직 | 커스텀 Hook |
+| 먼 하위 트리에 공통 값 전달 | Context |
+
+합성은 이 중 **화면 구조**를 재사용하는 방법이다. 같은 코드가 보인다는 이유만으로 모든 것을 하나의 거대한 범용 컴포넌트에 넣지 않는다.
+
 ## 2. `children`으로 내용 감싸기
 
 ```tsx
@@ -97,29 +108,83 @@ function NetworkWarning() {
 
 중간 컴포넌트가 사용하지 않는 데이터를 단지 아래로 전달한다면, 필요한 컴포넌트 자체를 `children`으로 위에서 만들어 내려보낼 수 있다. 이 방식은 의존성을 명시적으로 유지하며 Context의 결합을 피한다.
 
-## 6. 적용 관점에서 다시 보기
+```tsx
+type PageLayoutProps = {
+  navigation: ReactNode
+  children: ReactNode
+}
+
+function PageLayout({ navigation, children }: PageLayoutProps) {
+  return (
+    <div className="page-layout">
+      <aside>{navigation}</aside>
+      <main>{children}</main>
+    </div>
+  )
+}
+
+function StudyPage({ user }: { user: User }) {
+  // Layout이 user를 받아 Menu로 전달할 필요 없이,
+  // user를 아는 StudyPage가 완성된 navigation JSX를 전달한다.
+  return (
+    <PageLayout navigation={<UserMenu user={user} />}>
+      <StudyList />
+    </PageLayout>
+  )
+}
+```
+
+이 방식으로 모든 prop drilling이 사라지는 것은 아니다. 같은 값이 여러 먼 위치에서 필요하거나 하위 컴포넌트가 직접 갱신해야 한다면 Context가 더 알맞을 수 있다.
+
+## 6. 좋은 합성 API를 만드는 기준
+
+- 컴포넌트 이름이 레이아웃의 책임을 드러내는가?
+- `isHeader`, `hasFooter`, `compact`, `wide` 같은 boolean 조합이 서로 충돌하지 않는가?
+- 호출하는 쪽에서 JSX를 읽었을 때 최종 구조를 예상할 수 있는가?
+- DOM 요소를 과도하게 고정해 접근성 속성을 넣기 어렵게 만들지 않았는가?
+- 데이터와 동작을 정말 이 공통 컴포넌트가 알아야 하는가?
+
+boolean Props가 많아지면 가능한 상태 조합이 빠르게 늘어난다. 역할이 다른 변형은 `variant` 유니언이나 별도 래퍼 컴포넌트로 표현한다.
+
+```tsx
+type ButtonProps = {
+  variant: 'primary' | 'secondary' | 'danger'
+  children: ReactNode
+  onClick: () => void
+}
+
+function Button({ variant, children, onClick }: ButtonProps) {
+  return (
+    <button className={`button button--${variant}`} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
+```
+
+## 7. 적용 관점에서 다시 보기
 
 카드, 패널, 모달처럼 바깥 구조는 같고 내부만 달라지면 `children`을 사용한다. 헤더와 푸터처럼 들어갈 위치가 여러 곳이면 이름 있는 ReactNode Props가 의도를 더 잘 보여 준다. 로직을 공유하려는 문제라면 합성보다 커스텀 Hook이나 일반 함수를 검토한다.
 
 Props가 지나치게 많아지면 하나의 컴포넌트가 너무 많은 변형을 책임지는지 확인한다. boolean Props 여러 개가 서로 충돌한다면 역할별 작은 컴포넌트로 나누는 편이 명확할 수 있다.
 
-## 7. 배운 점 / 확장 포인트
+## 8. 배운 점 / 확장 포인트
 
-### 7.1 새로 이해한 것
+### 8.1 새로 이해한 것
 
 합성은 상위 컴포넌트가 하위 구현을 물려받는 구조가 아니라, 필요한 JSX를 입력으로 받아 원하는 위치에 배치하는 구조다.
 
-### 7.2 이전·다음 학습과의 연결
+### 8.2 이전·다음 학습과의 연결
 
 `children`도 Props의 하나다. 합성을 먼저 검토하면 중간 컴포넌트가 데이터를 전달만 하는 prop drilling을 줄이고 Context 사용 범위도 작게 유지할 수 있다.
 
-### 7.3 더 확인할 주제
+### 8.3 더 확인할 주제
 
 - compound components 패턴
 - render props와 커스텀 Hook 비교
 - 접근 가능한 Dialog 구성
 
-## 8. 요약 정리
+## 9. 요약 정리
 
 - 포함 관계는 `children`으로 표현한다.
 - 여러 배치 위치는 이름 있는 ReactNode Props로 표현한다.
@@ -128,7 +193,7 @@ Props가 지나치게 많아지면 하나의 컴포넌트가 너무 많은 변�
 
 🧠 기억할 것: 공통 컴포넌트는 무엇을 상속할지보다 어떤 JSX와 데이터를 입력받아 어디에 배치할지 정의한다.
 
-## 9. 미니 퀴즈
+## 10. 미니 퀴즈
 
 1. `children`의 TypeScript 타입으로 무엇을 사용할 수 있는가?
 2. 이름 있는 슬롯 Props가 유리한 경우는 언제인가?

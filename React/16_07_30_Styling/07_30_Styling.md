@@ -46,6 +46,22 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
 
 상태 이름을 제한된 유니언 타입으로 두면 존재하지 않는 modifier 클래스가 만들어지는 실수를 줄일 수 있다.
 
+### `className`도 렌더링 결과다
+
+React가 CSS 파일의 규칙을 실행하는 것은 아니다. 컴포넌트는 현재 props와 state로 문자열 또는 style 객체를 계산해 DOM에 전달하고, 브라우저의 CSS 엔진이 최종 모양을 결정한다.
+
+```text
+props·state
+   ↓ React 렌더링
+className·style 계산
+   ↓ DOM 반영
+브라우저가 CSS cascade와 layout 계산
+   ↓
+화면에 픽셀 표시
+```
+
+따라서 스타일 문제를 디버깅할 때 React state와 실제 DOM class가 맞는지 먼저 보고, 그 다음 CSS 선택자·우선순위·상속을 확인한다.
+
 ## 2. 조건부 클래스
 
 조건이 많아 문자열 결합이 복잡해지면 작은 함수나 `clsx` 같은 검증된 유틸리티를 사용할 수 있다. 라이브러리를 추가하기 전에는 단순한 배열 조합으로도 충분하다.
@@ -104,7 +120,95 @@ function Progress({ value }: ProgressProps) {
 
 `styled-components`는 가능한 선택지 중 하나이지 React의 기본 스타일 방식이 아니다. 처음에는 일반 CSS 또는 Vite가 지원하는 CSS Modules로 CSS 자체를 익힌 뒤 도입 이유가 분명할 때 선택한다.
 
-## 5. 유지보수 기준
+### CSS Modules의 기본 흐름
+
+```css
+/* SaveButton.module.css */
+.button {
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.pending {
+  cursor: wait;
+  opacity: 0.65;
+}
+```
+
+```tsx
+import styles from './SaveButton.module.css'
+
+type SaveButtonProps = { pending: boolean }
+
+function SaveButton({ pending }: SaveButtonProps) {
+  const className = [styles.button, pending && styles.pending]
+    .filter(Boolean)
+    .join(' ')
+
+  return (
+    <button type="submit" className={className} disabled={pending}>
+      {pending ? '저장 중…' : '저장'}
+    </button>
+  )
+}
+```
+
+빌드 도구는 `styles.button`을 충돌 가능성이 낮은 실제 클래스 이름으로 바꾼다. CSS Modules는 CSS 문법을 대체하지 않으며 cascade, 상속, flex, grid 같은 CSS 개념은 그대로 적용된다.
+
+## 5. 상태와 디자인 토큰을 분리한다
+
+컴포넌트는 “현재 상태가 warning이다”를 결정하고, CSS는 warning의 색과 간격을 결정하도록 책임을 나눈다. 색상 값을 TSX 여러 곳에 직접 반복하면 테마 변경과 명암 대비 수정이 어렵다.
+
+```css
+:root {
+  --color-surface: #ffffff;
+  --color-text: #172033;
+  --color-warning-surface: #fff7d6;
+  --color-warning-text: #6b4f00;
+  --space-2: 0.5rem;
+  --radius-medium: 0.5rem;
+}
+
+.alert--warning {
+  background: var(--color-warning-surface);
+  color: var(--color-warning-text);
+  padding: var(--space-2);
+  border-radius: var(--radius-medium);
+}
+```
+
+CSS custom property는 브라우저가 이해하는 값이므로 중첩된 요소에서 재정의해 테마 범위를 만들 수도 있다. TypeScript의 유니언 타입은 허용된 상태 이름을 제한하고, CSS 변수는 상태가 실제로 어떻게 보이는지 담당한다.
+
+## 6. 반응형 UI는 화면 너비만 의미하지 않는다
+
+반응형 스타일은 media query, container query, 유연한 grid와 flex layout을 CSS에 두는 편이 자연스럽다. 렌더링 중 `window.innerWidth`를 직접 읽어 모바일 JSX를 고르면 resize 구독, 서버 렌더링 차이, 테스트 복잡도가 생긴다.
+
+```css
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-panel {
+    transition: none;
+  }
+}
+```
+
+DOM 구조나 동작 자체가 달라져야 할 때만 JavaScript 상태를 검토한다. 단순 배치와 표현 변화는 CSS가 더 잘 해결한다.
+
+## 7. 접근 가능한 상태 스타일
+
+- hover만 만들지 말고 키보드 사용자를 위한 `:focus-visible`을 함께 설계한다.
+- 색 하나만으로 성공·실패를 구분하지 않고 텍스트나 아이콘의 의미를 제공한다.
+- 시각적으로 숨길 때 `display: none`이 보조 기술에서도 제거한다는 점을 이해한다.
+- 비활성처럼 보이게 하는 클래스와 실제 `disabled`·`aria-disabled`의 의미를 구분한다.
+- 애니메이션은 `prefers-reduced-motion` 환경을 고려한다.
+
+## 8. 유지보수 기준
 
 - 색상·간격·글꼴 같은 반복 값은 CSS custom properties로 모은다.
 - 컴포넌트 상태 이름과 스타일 modifier 이름을 일치시킨다.
@@ -112,35 +216,35 @@ function Progress({ value }: ProgressProps) {
 - 색만으로 상태를 구분하지 않고 텍스트와 ARIA 상태를 함께 제공한다.
 - 전역 reset, 레이아웃, 컴포넌트 스타일의 책임을 구분한다.
 
-## 6. 적용 관점에서 다시 보기
+## 9. 적용 관점에서 다시 보기
 
 먼저 의미 있는 HTML 구조와 상태를 만든 뒤 클래스를 연결한다. hover, focus, media query처럼 CSS가 직접 표현할 수 있는 것은 CSS에 두고, 진행률처럼 JavaScript 값에서 계산되는 수치만 inline style을 검토한다.
 
 스타일이 적용되지 않으면 `class`가 아니라 `className`을 사용했는지, CSS 파일을 import했는지, 선택자 이름이 실제 DOM과 일치하는지 확인한다. 시각적 disabled 상태와 실제 `disabled` 속성도 함께 맞춰야 한다.
 
-## 7. 배운 점 / 확장 포인트
+## 10. 배운 점 / 확장 포인트
 
-### 7.1 새로 이해한 것
+### 10.1 새로 이해한 것
 
 조건부 스타일링은 DOM을 직접 수정하는 작업이 아니라 현재 Props와 state에서 className을 계산하는 렌더링 로직이다.
 
-### 7.2 이전·다음 학습과의 연결
+### 10.2 이전·다음 학습과의 연결
 
 조건부 렌더링과 같은 방식으로 상태에 맞는 클래스를 선택한다. 이후 접근성, 반응형 디자인, 디자인 토큰과 컴포넌트 라이브러리로 확장한다.
 
-### 7.3 더 확인할 주제
+### 10.3 더 확인할 주제
 
 - CSS custom properties와 테마
 - CSS Modules의 클래스 타입
 - focus-visible과 키보드 접근성
 
-## 8. 요약 정리
+## 11. 요약 정리
 
 React는 스타일링 솔루션이 아니다. 정적인 표현은 CSS 클래스, JavaScript 값에 따라 수치가 바뀌는 경우는 `style`, 범위 격리가 필요하면 CSS Modules를 우선 검토한다.
 
 🧠 기억할 것: React는 상태에서 클래스와 동적 값을 계산하고, CSS는 실제 표현 규칙을 담당한다.
 
-## 9. 미니 퀴즈
+## 12. 미니 퀴즈
 
 1. JSX에서 `class` 대신 무엇을 사용하는가?
 2. 인라인 스타일보다 CSS가 더 적합한 기능은 무엇인가?
