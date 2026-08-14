@@ -16,10 +16,11 @@
 | Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
 | FastAPI | API 기초, 모델 서빙, API Gateway와 멀티모달 연동 | [바로가기](./FastAPI/05_22_FastAPI/05_22_FastAPI.md) |
 | GitHub Actions CI | TypeScript·React 품질 검사와 Firebase Security Rules 테스트 자동화 | [로드맵](./Git/README.md) |
+| Java 입문 시리즈 | 실행 환경·기본 문법·객체지향·컬렉션·예외·제네릭을 처음부터 연결해 학습 | [로드맵](./Java/README.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **65개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **67개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -30,6 +31,7 @@
 | 2026.08.09 | TypeScript | 선언 파일, 외부 라이브러리 타입, 전역·모듈 보강, 선언 생성과 배포 |
 | 2026.08.12 | GitHub Actions | TypeScript·React 자동 검사와 Firebase Emulator 기반 Security Rules 테스트 CI |
 | 2026.08.13 | React·TypeScript | Hook·폼·상태 공유·Context·스타일 개념 보강과 타입 시스템 사고방식·오류 읽기 |
+| 2026.08.14 | Java | 처음 학습자를 위한 전체 안내서와 제네릭·와일드카드·타입 안전성 심화 정리 |
 
 ## Learning Areas
 
@@ -48,11 +50,11 @@
 | [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 13 |
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
 | [AI](./AI) | 머신러닝, LLM, RAG, Fine-tuning과 모델 활용 | 16 |
-| [Java](./Java) | Java 문법, 객체지향, 컬렉션, 예외 처리와 함수형 프로그래밍 | 15 |
+| [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **174개의 학습 노트**를 관리하고 있습니다.
+현재 총 **177개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -67,6 +69,7 @@
 - TypeScript 선언 파일로 외부 JavaScript 라이브러리의 타입 경계 설계하기
 - GitHub Actions로 TypeScript·React·Firebase 검증 명령을 자동 실행하기
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
+- Java 제네릭과 와일드카드로 재사용 가능한 타입 안전성 설계하기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
