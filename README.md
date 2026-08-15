@@ -10,17 +10,18 @@
 | --- | --- | --- |
 | React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
-| TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·클래스·모듈 설정·선언 파일까지 | [노트 목록](./TypeScript) |
+| TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·모듈·선언 파일·타입 오류 읽기까지 | [로드맵](./TypeScript/README.md) |
 | API와 JSON 데이터 분석 | HTTP 요청, API Key, 중첩 JSON 탐색, 필터링·집계·정렬, I/O와 변환 로직 분리 | [바로가기](./Python/01_23_API_JSON_Data_Analysis/01_23_API_JSON_Data_Analysis.md) |
 | NumPy·Pandas·Matplotlib | 배열 연산, DataFrame 전처리, 결측치 처리, 그룹 집계, 시계열 분석과 시각화 | [바로가기](./Python/01_30_NumPy_Pandas_Matplotlib/01_30_NumPy_Pandas_Matplotlib.md) |
 | Vue JWT 인증 | Vue와 DRF 환경에서 JWT 인증 흐름과 사용자 상태 관리 | [바로가기](./Vue/06_12_JWT/06_12_JWT_lecture_note.md) |
 | FastAPI | API 기초, 모델 서빙, API Gateway와 멀티모달 연동 | [바로가기](./FastAPI/05_22_FastAPI/05_22_FastAPI.md) |
 | GitHub Actions CI | TypeScript·React 품질 검사와 Firebase Security Rules 테스트 자동화 | [로드맵](./Git/README.md) |
 | Java 입문 시리즈 | 실행 환경·기본 문법·객체지향·컬렉션·예외·제네릭을 처음부터 연결해 학습 | [로드맵](./Java/README.md) |
+| 웹 접근성 기초 | 시맨틱 HTML, 키보드·focus, 폼, ARIA와 React 동적 상태 접근성 | [로드맵](./Web/README.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **67개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **68개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -32,6 +33,7 @@
 | 2026.08.12 | GitHub Actions | TypeScript·React 자동 검사와 Firebase Emulator 기반 Security Rules 테스트 CI |
 | 2026.08.13 | React·TypeScript | Hook·폼·상태 공유·Context·스타일 개념 보강과 타입 시스템 사고방식·오류 읽기 |
 | 2026.08.14 | Java | 처음 학습자를 위한 전체 안내서와 제네릭·와일드카드·타입 안전성 심화 정리 |
+| 2026.08.15 | Web·React | WCAG 원칙, 시맨틱 HTML, 키보드·focus, 폼과 동적 UI 접근성 |
 
 ## Learning Areas
 
@@ -40,7 +42,7 @@
 | [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석 | 11 |
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
-| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹 | 4 |
+| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 웹 접근성 | 5 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
 | [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
@@ -54,7 +56,7 @@
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **177개의 학습 노트**를 관리하고 있습니다.
+현재 총 **178개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -68,6 +70,7 @@
 - TypeScript의 정적 타입 시스템으로 JavaScript 코드의 계약과 안정성 높이기
 - TypeScript 선언 파일로 외부 JavaScript 라이브러리의 타입 경계 설계하기
 - GitHub Actions로 TypeScript·React·Firebase 검증 명령을 자동 실행하기
+- 시맨틱 HTML과 키보드·focus·ARIA를 활용한 접근 가능한 React UI 설계하기
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
 - Java 제네릭과 와일드카드로 재사용 가능한 타입 안전성 설계하기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
@@ -93,7 +96,7 @@ TIL/
 ├── Python/          # Python, API·JSON, 데이터 분석
 ├── Algorithm/       # 자료구조와 알고리즘 강의
 ├── Problem_review/  # 알고리즘 문제 풀이 기록
-├── Web/             # HTML, CSS, Bootstrap
+├── Web/             # HTML, CSS, Bootstrap, 반응형 웹과 접근성
 ├── Javascript/      # JavaScript와 DOM
 ├── TypeScript/      # 정적 타입 검사와 안전한 JavaScript 개발
 ├── React/           # 컴포넌트, state, JSX와 React 개발 환경
