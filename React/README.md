@@ -60,3 +60,5 @@ React를 처음 배우는 사람이 **기초 개념 → 실행 환경 → JSX와
 막히는 질문이 있으면 각 노트의 `핵심 개념`, `요약`, `복습 질문` 순서로 다시 확인한다.
 
 React 컴포넌트의 의미 있는 HTML, 키보드 조작, focus, 폼 오류와 동적 상태 알림은 [웹 접근성 기초](../Web/05_08_15_Web_Accessibility_Fundamentals/08_15_Web_Accessibility_Fundamentals.md)에서 하나의 흐름으로 복습한다.
+
+React 보호 경로, API 요청, JSX 출력과 Firebase 연동에서 필요한 신뢰 경계는 [브라우저 웹 보안 기초](../Web/06_08_16_Browser_Web_Security_Fundamentals/08_16_Browser_Web_Security_Fundamentals.md)에서 CORS·XSS·CSRF·인증·인가의 차이와 함께 복습한다.

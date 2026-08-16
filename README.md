@@ -18,10 +18,11 @@
 | GitHub Actions CI | TypeScript·React 품질 검사와 Firebase Security Rules 테스트 자동화 | [로드맵](./Git/README.md) |
 | Java 입문 시리즈 | 실행 환경·기본 문법·객체지향·컬렉션·예외·제네릭을 처음부터 연결해 학습 | [로드맵](./Java/README.md) |
 | 웹 접근성 기초 | 시맨틱 HTML, 키보드·focus, 폼, ARIA와 React 동적 상태 접근성 | [로드맵](./Web/README.md) |
+| 브라우저 웹 보안 기초 | SOP·CORS·cookie·XSS·CSRF·CSP와 React·Firebase의 신뢰 경계 | [로드맵](./Web/README.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **68개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **69개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -34,6 +35,7 @@
 | 2026.08.13 | React·TypeScript | Hook·폼·상태 공유·Context·스타일 개념 보강과 타입 시스템 사고방식·오류 읽기 |
 | 2026.08.14 | Java | 처음 학습자를 위한 전체 안내서와 제네릭·와일드카드·타입 안전성 심화 정리 |
 | 2026.08.15 | Web·React | WCAG 원칙, 시맨틱 HTML, 키보드·focus, 폼과 동적 UI 접근성 |
+| 2026.08.16 | Web·React·Firebase | 브라우저 origin 보안, CORS·cookie·XSS·CSRF·CSP와 서버 신뢰 경계 |
 
 ## Learning Areas
 
@@ -42,7 +44,7 @@
 | [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석 | 11 |
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
-| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 웹 접근성 | 5 |
+| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 접근성과 브라우저 보안 | 6 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
 | [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
@@ -56,7 +58,7 @@
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **178개의 학습 노트**를 관리하고 있습니다.
+현재 총 **179개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -71,6 +73,7 @@
 - TypeScript 선언 파일로 외부 JavaScript 라이브러리의 타입 경계 설계하기
 - GitHub Actions로 TypeScript·React·Firebase 검증 명령을 자동 실행하기
 - 시맨틱 HTML과 키보드·focus·ARIA를 활용한 접근 가능한 React UI 설계하기
+- SOP·CORS·XSS·CSRF와 인증·인가를 구분해 React·Firebase 신뢰 경계 설계하기
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
 - Java 제네릭과 와일드카드로 재사용 가능한 타입 안전성 설계하기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
@@ -96,7 +99,7 @@ TIL/
 ├── Python/          # Python, API·JSON, 데이터 분석
 ├── Algorithm/       # 자료구조와 알고리즘 강의
 ├── Problem_review/  # 알고리즘 문제 풀이 기록
-├── Web/             # HTML, CSS, Bootstrap, 반응형 웹과 접근성
+├── Web/             # HTML, CSS, 반응형 웹, 접근성과 브라우저 보안
 ├── Javascript/      # JavaScript와 DOM
 ├── TypeScript/      # 정적 타입 검사와 안전한 JavaScript 개발
 ├── React/           # 컴포넌트, state, JSX와 React 개발 환경
