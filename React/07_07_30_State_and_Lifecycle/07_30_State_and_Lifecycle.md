@@ -52,6 +52,40 @@ export default function ScoreBoard() {
 
 이벤트 핸들러 안의 `score`는 해당 렌더링의 스냅샷이다. 이전 값으로 다음 값을 계산할 때는 `setScore(current => current + 1)`처럼 updater 함수를 사용하면 연속 업데이트에도 안전하다.
 
+setter는 현재 변수의 값을 즉시 바꾸는 대입문이 아니다. React에 “다음 렌더링에서 사용할 값”을 전달하고 다시 렌더링을 예약한다.
+
+```tsx
+function TripleCounter() {
+  const [count, setCount] = useState<number>(0)
+
+  function addWrong(): void {
+    // 이 이벤트 핸들러 안의 count는 한 렌더링의 스냅샷이다.
+    // 세 줄 모두 같은 count를 기준으로 계산하므로 결과는 1만 증가한다.
+    setCount(count + 1)
+    setCount(count + 1)
+    setCount(count + 1)
+  }
+
+  function addThree(): void {
+    // updater 함수는 대기 중인 최신 값을 차례로 받는다.
+    // current: 0 → 1 → 2 순서로 이어져 최종적으로 3 증가한다.
+    setCount((current) => current + 1)
+    setCount((current) => current + 1)
+    setCount((current) => current + 1)
+  }
+
+  return (
+    <section>
+      <p>현재 값: {count}</p>
+      <button type="button" onClick={addWrong}>한 번만 증가하는 예</button>
+      <button type="button" onClick={addThree}>세 번 증가</button>
+    </section>
+  )
+}
+```
+
+`setCount(count + 1)`이 틀린 문법인 것은 아니다. 한 이벤트에서 한 번만 갱신하고 이전 대기 값에 의존하지 않는다면 충분하다. 이전 상태로 다음 상태를 계산하거나 여러 갱신을 연속으로 적용한다면 updater 함수가 더 정확하다.
+
 ## 3. state를 설계하는 기준
 
 - 화면에 영향을 주고 렌더링 사이에 기억해야 할 때만 state로 둔다.
@@ -122,6 +156,8 @@ function OrderTotal({ price, quantity }: Props) {
 - 모든 계산을 `useEffect`로 옮긴다.
 - 구독·타이머·이벤트 리스너를 만들고 cleanup을 생략한다.
 - 의존성 경고를 무시하기 위해 값을 임의로 배열에서 뺀다.
+
+렌더링 횟수가 많아 보일 때는 “무엇이 렌더링을 일으켰는가?”를 구분한다. 일반적으로 자신의 state 변경, 부모의 재렌더링, Context 값 변경이 원인이 될 수 있다. 재렌더링은 DOM 전체를 무조건 새로 만드는 작업이 아니라, React가 이전 결과와 새 결과를 비교해 필요한 DOM 변경만 반영하기 위한 계산 과정이다.
 
 ## 7. 적용 관점에서 다시 보기
 

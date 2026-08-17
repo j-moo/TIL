@@ -149,6 +149,29 @@ function Profile({ name, role }: ProfileProps) {
 }
 ```
 
+여기에서 `{ name, role }`는 JSX 문법이 아니라 JavaScript의 객체 구조 분해 문법이다. 구조 분해하지 않으면 하나의 `props` 객체로 받은 뒤 속성에 접근할 수도 있다.
+
+```tsx
+function Profile(props: ProfileProps) {
+  // props는 부모가 전달한 값을 모아 둔 하나의 객체다.
+  return <p>{props.name} · {props.role}</p>
+}
+```
+
+두 방식의 결과는 같다. 중요한 것은 Props의 데이터 흐름이 부모에서 자식으로 한 방향이라는 점이다.
+
+```text
+부모의 데이터
+   │ JSX 속성으로 전달
+   ▼
+자식의 Props 객체
+   │ 현재 렌더링에서 읽기
+   ▼
+JSX 결과 계산
+```
+
+자식이 부모의 값을 바꿔야 한다면 Props 객체를 수정하는 것이 아니라, 부모가 전달한 이벤트 함수를 호출해 부모가 자신의 state를 갱신하도록 요청한다. 이 구조를 알면 “값은 어디에 보관하고, 변경 함수는 어디에 둘 것인가?”를 판단하기 쉬워진다.
+
 ### 3.4 TypeScript로 Props 타입 정의하기
 
 Props는 `type` 또는 `interface`로 정의할 수 있다.

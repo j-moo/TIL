@@ -19,10 +19,15 @@
 | Java 입문 시리즈 | 실행 환경·기본 문법·객체지향·컬렉션·예외·제네릭을 처음부터 연결해 학습 | [로드맵](./Java/README.md) |
 | 웹 접근성 기초 | 시맨틱 HTML, 키보드·focus, 폼, ARIA와 React 동적 상태 접근성 | [로드맵](./Web/README.md) |
 | 브라우저 웹 보안 기초 | SOP·CORS·cookie·XSS·CSRF·CSP와 React·Firebase의 신뢰 경계 | [로드맵](./Web/README.md) |
+| Windows·Python 개발환경 | PowerShell 실행 정책, Conda 가상환경, 환경 정의 파일과 PEP 8 | [바로가기](./Python/08_17_Python_Development_Environment/08_17_Python_Development_Environment.md) |
+| SQL 쿼리 해석 | GROUP BY의 결과 행, EXISTS·NOT EXISTS, LIKE ESCAPE | [바로가기](./DB/08_17_SQL_Query_Reading/08_17_SQL_Query_Reading.md) |
+| Hadoop·MapReduce | HDFS 블록·복제·장애 허용성과 Map·Shuffle·Combine·Reduce 흐름 | [로드맵](./DataEngineering/README.md) |
+| UX/UI 설계 | 사용자 흐름, 라우팅, 화면 상태, 컨셉보드와 디자인 시스템 | [로드맵](./Web/README.md) |
+| AI 코딩 도구 협업 | 범위·맥락·권한·인증 경로와 검증 가능한 완료 조건 | [바로가기](./ai/08_17_AI_Coding_Assistant_Workflow/08_17_AI_Coding_Assistant_Workflow.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **69개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **74개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -36,29 +41,31 @@
 | 2026.08.14 | Java | 처음 학습자를 위한 전체 안내서와 제네릭·와일드카드·타입 안전성 심화 정리 |
 | 2026.08.15 | Web·React | WCAG 원칙, 시맨틱 HTML, 키보드·focus, 폼과 동적 UI 접근성 |
 | 2026.08.16 | Web·React·Firebase | 브라우저 origin 보안, CORS·cookie·XSS·CSRF·CSP와 서버 신뢰 경계 |
+| 2026.08.17 | Python·DB·Data Engineering·Web·AI | 개발환경, SQL 쿼리 해석, Hadoop·MapReduce, UX/UI 설계, AI 코딩 도구 협업 |
 
 ## Learning Areas
 
 | 분야 | 내용 | 노트 |
 | --- | --- | ---: |
-| [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석 | 11 |
+| [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석, Windows·Conda 개발환경 | 12 |
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./Problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
-| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 접근성과 브라우저 보안 | 6 |
+| [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 접근성, 브라우저 보안, UX/UI 설계 | 7 |
 | [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어 | 6 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
 | [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
 | [Firebase](./Firebase) | SDK 설정, Firestore, Realtime Database, Storage, Authentication, 계정 수명주기, App Check, Rules, Emulator, 고급 query | 10 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
-| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계 | 7 |
+| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계와 쿼리 해석 | 8 |
 | [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 13 |
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
-| [AI](./AI) | 머신러닝, LLM, RAG, Fine-tuning과 모델 활용 | 16 |
+| [AI](./AI) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
+| [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./Markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **179개의 학습 노트**를 관리하고 있습니다.
+현재 총 **184개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -81,6 +88,11 @@
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
 - LLM, RAG, PEFT를 포함한 생성형 AI 활용
 - 알고리즘 문제 해결 과정의 언어화와 반복 복습
+- Windows PowerShell·Conda 환경 문제를 코드 오류와 구분해 진단하기
+- GROUP BY·EXISTS·LIKE ESCAPE를 결과 집합의 모양으로 해석하기
+- HDFS와 MapReduce의 저장·분할·셔플·집계·장애 허용 흐름 이해하기
+- 사용자 역할과 흐름에서 라우팅·화면 상태·디자인 시스템 도출하기
+- AI 코딩 도구의 인증 경로·권한·범위를 분리하고 결과를 다시 검증하기
 
 ## How I Write
 
@@ -108,7 +120,8 @@ TIL/
 ├── DB/              # 데이터베이스와 SQL
 ├── Django/          # Django와 DRF
 ├── FastAPI/         # FastAPI와 모델 서빙
-├── AI/              # 머신러닝과 생성형 AI
+├── ai/              # 머신러닝과 생성형 AI
+├── DataEngineering/ # HDFS와 MapReduce 기반 분산 데이터 처리
 ├── Java/            # Java 문법, 객체지향과 표준 라이브러리
 ├── Git/             # Git과 버전 관리
 └── Markdown/        # 문서 작성 연습

@@ -781,6 +781,20 @@ names.forEach((name) => {
 | 선별 | `filter` | 조건을 만족하는 요소만 모아 새 배열을 만든다. |
 | 집계 | `reduce` | 배열을 하나의 결과값으로 줄인다. |
 
+콜백의 매개변수 이름은 문법으로 정해진 이름이 아니다. 아래의 `item`, `value`, `number`는 모두 개발자가 붙인 이름이며, 배열 메서드가 **현재 요소 → 인덱스 → 원본 배열** 순서로 값을 전달한다는 사실이 중요하다.
+
+```js
+const scores = [70, 85, 90]
+
+scores.forEach((score, index) => {
+  // 첫 번째 매개변수 score에는 현재 요소가 들어온다.
+  // 두 번째 매개변수 index에는 현재 위치가 들어온다.
+  console.log(`${index + 1}번째 점수: ${score}`)
+})
+```
+
+매개변수가 하나일 때 화살표 함수의 소괄호를 생략할 수 있지만, 두 개 이상이면 소괄호가 필요하다. 처음에는 `(score) => ...`처럼 항상 소괄호를 적어 두면 매개변수와 함수 본문을 구분하기 쉽다.
+
 ---
 
 ## 3.8 `forEach`
@@ -1091,6 +1105,16 @@ console.log(newCart)
 
 대표적으로 `find`, `some`, `every`, `includes` 같은 메서드가 있다. 이들은 모두 배열을 순회하지만 목적이 다르므로, 실제 구현에서는 “새 배열이 필요한가?”, “하나만 찾으면 되는가?”, “조건 만족 여부만 알면 되는가?”를 기준으로 선택하면 된다.
 
+```js
+const technologies = ['JavaScript', 'TypeScript', 'React']
+
+// includes는 정확히 같은 요소가 배열에 있는지 true/false로 알려 준다.
+console.log(technologies.includes('React')) // true
+console.log(technologies.includes('Vue')) // false
+```
+
+메서드 이름은 `includes`처럼 끝에 `s`가 붙는다. `include`라고 작성하면 배열에 그런 함수가 없다는 `TypeError`가 발생한다. 문자열에도 `includes`가 있지만, 배열에서는 **요소의 존재 여부**, 문자열에서는 **부분 문자열의 포함 여부**를 확인한다.
+
 ---
 
 ## 3.11 배열과 전개 구문
@@ -1148,6 +1172,29 @@ console.log(newNumbers) // [0, 1, 2, 5, 6]
 - `forEach`: 반환값을 사용하지 않는다.
 - `map`: 콜백의 반환값을 모아 새 배열을 만든다.
 - `filter`: 콜백의 true/false 결과로 요소를 남길지 결정한다.
+
+다음처럼 한 배열을 단계별로 추적하면 차이가 더 분명해진다.
+
+```js
+const values = [1, 2, 3]
+
+// forEach는 실행만 한다. 메서드 자체의 반환값은 항상 undefined다.
+const forEachResult = values.forEach((value) => {
+  console.log(value)
+})
+
+// map은 각 콜백의 반환값을 같은 순서로 모은다.
+const mapResult = values.map((value) => value * 10)
+
+// filter는 true가 나온 원래 요소만 남긴다.
+const filterResult = values.filter((value) => value >= 2)
+
+console.log(forEachResult) // undefined
+console.log(mapResult) // [10, 20, 30]
+console.log(filterResult) // [2, 3]
+```
+
+`undefined`는 오류 메시지가 아니라 “반환된 값이 없다”는 JavaScript 값이다. 함수에 `return`이 없거나, 객체에 없는 속성을 읽거나, 반환값이 없는 메서드의 결과를 저장할 때 나타날 수 있다. 따라서 `undefined`를 발견하면 먼저 **어느 표현식의 결과를 변수에 담았는지** 확인한다.
 
 ---
 

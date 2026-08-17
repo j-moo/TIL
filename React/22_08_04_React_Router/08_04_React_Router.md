@@ -190,6 +190,68 @@ export default function AppRoutes() {
 
 사용자가 누를 수 있는 이동은 우선 링크로 표현한다. 클릭 핸들러 안에서 모든 이동을 `navigate()`로 처리하면 새 탭 열기, 링크 주소 복사 같은 브라우저 기본 기능을 잃기 쉽다.
 
+### 레이아웃, 접근 제한, 페이지 지연 로딩의 책임
+
+라우팅 코드가 커지면 세 역할을 분리해서 읽는다.
+
+| 역할 | 책임 |
+| --- | --- |
+| Layout | 헤더·사이드바처럼 여러 페이지가 공유하는 UI를 제공하고 `Outlet`을 배치한다. |
+| Route guard | 로그인 여부나 권한을 검사하고 허용 또는 이동 중 하나를 결정한다. |
+| Lazy page | 실제로 방문할 때 페이지 코드를 내려받아 초기 번들 크기를 줄인다. |
+
+```tsx
+import { lazy, Suspense, type ReactElement } from 'react'
+import { Navigate, Outlet, Route, Routes } from 'react-router'
+
+// 페이지 모듈은 이 경로를 방문할 때 비동기로 불러온다.
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+
+type ProtectedRouteProps = {
+  isSignedIn: boolean
+  children: ReactElement
+}
+
+function ProtectedRoute({ isSignedIn, children }: ProtectedRouteProps) {
+  // 로그인하지 않았다면 보호 화면을 렌더링하지 않고 로그인 경로로 이동한다.
+  return isSignedIn ? children : <Navigate to="/login" replace />
+}
+
+function DashboardLayout() {
+  return (
+    <div className="dashboard-layout">
+      <aside>대시보드 메뉴</aside>
+      <main>
+        {/* 일치한 대시보드 하위 페이지가 이 자리에 들어온다. */}
+        <Outlet />
+      </main>
+    </div>
+  )
+}
+
+function AppRoutes({ isSignedIn }: { isSignedIn: boolean }) {
+  return (
+    // lazy 모듈을 받는 동안 빈 화면 대신 명시적인 대기 UI를 보여 준다.
+    <Suspense fallback={<p>화면을 불러오는 중입니다.</p>}>
+      <Routes>
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute isSignedIn={isSignedIn}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<DashboardPage />} />
+        </Route>
+      </Routes>
+    </Suspense>
+  )
+}
+```
+
+Route guard는 화면 진입을 제어하는 사용자 경험 장치이지 서버 보안을 대체하지 않는다. 사용자는 브라우저 코드를 바꾸거나 API를 직접 호출할 수 있으므로 서버도 토큰과 권한을 반드시 검증해야 한다.
+
 ## 6. 새로고침에서 404가 발생하는 이유
 
 개발 서버에서는 `/sessions/react-state`가 잘 열리지만 정적 호스팅에 배포한 뒤 새로고침하면 서버 404가 날 수 있다. 브라우저가 그 경로의 실제 파일을 서버에 요청했기 때문이다.
@@ -201,6 +263,15 @@ export default function AppRoutes() {
 먼저 화면 목록과 URL 표를 적고, 공통 레이아웃을 찾는다. 그다음 정적 경로, 동적 경로, 없는 페이지 순서로 구성한다. URL 값은 API 입력과 마찬가지로 검증한다.
 
 화면이 보이지 않으면 현재 주소, Route의 부모·자식 관계, `Outlet` 존재 여부, 경로 앞의 `/`, 동적 매개변수 이름을 차례로 확인한다.
+
+빈 화면을 조사할 때는 다음 순서가 빠르다.
+
+1. 브라우저 Console에서 렌더링 예외와 모듈 import 오류를 확인한다.
+2. Network에서 JavaScript chunk나 API 요청이 404·401·500인지 확인한다.
+3. 주소와 Route path가 실제로 일치하는지 확인한다.
+4. 부모 레이아웃에 `Outlet`이 있는지 확인한다.
+5. guard가 계속 같은 경로로 보내는 무한 이동을 만들지 않았는지 확인한다.
+6. lazy 페이지가 `default export`를 제공하는지와 `Suspense` fallback이 있는지 확인한다.
 
 ## 8. 요약 정리
 

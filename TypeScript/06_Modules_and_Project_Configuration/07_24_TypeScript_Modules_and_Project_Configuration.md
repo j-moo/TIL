@@ -113,6 +113,51 @@ import UserService from "./UserService.js";
 
 이름 있는 export는 가져오는 이름이 원본과 연결되어 리팩터링과 자동 완성에 명확한 장점이 있다. default export는 하나의 중심 값이 분명할 때 사용한다. 프로젝트 규칙을 일관되게 유지한다.
 
+`export default`는 “이 파일 전체를 내보낸다”는 뜻이 아니다. 모듈에서 대표 값 하나를 기본 내보내기로 지정하는 문법이다. 가져오는 쪽은 중괄호 없이 받고, 원하는 지역 이름을 붙일 수 있다.
+
+```ts
+// formatDate.ts
+export default function formatDate(date: Date): string {
+  // 이 함수 하나가 이 모듈의 대표 기능이다.
+  return new Intl.DateTimeFormat('ko-KR').format(date)
+}
+```
+
+```ts
+// main.ts
+// default import의 지역 이름은 원본 함수명과 달라도 문법상 동작한다.
+// 하지만 검색과 협업을 위해 원래 의미가 드러나는 이름을 유지하는 편이 좋다.
+import toKoreanDate from './formatDate.js'
+
+console.log(toKoreanDate(new Date()))
+```
+
+default export와 named export를 혼동하면 중괄호 위치에서 오류가 난다.
+
+```ts
+// named export
+export const language = 'TypeScript'
+// 가져올 때 원래 이름을 중괄호 안에 적는다.
+import { language } from './settings.js'
+
+// default export
+export default function App() {}
+// 가져올 때 중괄호를 사용하지 않는다.
+import App from './App.js'
+```
+
+React의 `lazy(() => import('./Page'))`는 동적으로 가져온 모듈의 `default` 값을 페이지 컴포넌트로 사용한다. 따라서 페이지가 named export만 제공하면 별도 변환 없이 바로 lazy loading할 수 없다.
+
+```tsx
+// Page.tsx가 `export function Page()`만 제공하는 경우
+const Page = lazy(() =>
+  import('./Page').then((module) => ({
+    // named export를 default 모양으로 바꿔 lazy에 전달한다.
+    default: module.Page,
+  })),
+)
+```
+
 ### 3.3 namespace import와 부수 효과 import
 
 모든 이름 있는 export를 하나의 객체처럼 가져올 수 있다.

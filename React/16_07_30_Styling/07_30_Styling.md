@@ -216,6 +216,55 @@ DOM 구조나 동작 자체가 달라져야 할 때만 JavaScript 상태를 검�
 - 색만으로 상태를 구분하지 않고 텍스트와 ARIA 상태를 함께 제공한다.
 - 전역 reset, 레이아웃, 컴포넌트 스타일의 책임을 구분한다.
 
+### Bootstrap과 Tailwind CSS는 해결 방식이 다르다
+
+둘 다 React 전용 기능은 아니며 CSS 작성을 돕는 도구다.
+
+| 기준 | Bootstrap | Tailwind CSS |
+| --- | --- | --- |
+| 기본 접근 | 완성된 버튼·폼·레이아웃 모양을 빠르게 사용 | 작은 utility class를 조합해 직접 모양 구성 |
+| 장점 | 익숙한 UI를 빠르게 만들기 좋음 | 디자인을 세밀하게 맞추고 일관된 토큰을 쓰기 좋음 |
+| 주의점 | 기본 인상이 강해 맞춤 디자인에는 덮어쓰기가 늘 수 있음 | className이 길어질 수 있어 반복 패턴을 컴포넌트로 묶어야 함 |
+| 적합한 상황 | 관리자 화면, 빠른 프로토타입 | 커스텀 디자인 시스템, 세밀한 반응형 UI |
+
+둘을 동시에 설치한다고 장점이 자동으로 합쳐지는 것은 아니다. reset, 우선순위, 번들 크기와 팀 규칙이 복잡해질 수 있으므로 프로젝트의 목표를 기준으로 주 도구 하나를 먼저 선택한다. 작은 프로젝트라면 일반 CSS나 CSS Modules만으로도 충분하다.
+
+### 3D 효과와 애니메이션을 사용할 때
+
+CSS의 `transform`, `perspective`, `transition`, `animation`으로 입체적인 카드나 회전을 만들 수 있다. 그러나 시각 효과는 정보 구조와 조작 가능성을 보조해야 하며, 과도하면 읽기와 성능을 해친다.
+
+```css
+.study-card-scene {
+  /* 자식 요소의 3D 이동에서 원근감을 만든다. */
+  perspective: 800px;
+}
+
+.study-card {
+  /* transform이 변할 때 0.25초 동안 부드럽게 이어 준다. */
+  transition: transform 0.25s ease;
+}
+
+.study-card:hover,
+.study-card:focus-visible {
+  /* 마우스뿐 아니라 키보드 포커스에서도 같은 강조를 제공한다. */
+  transform: rotateX(4deg) rotateY(-6deg) translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-card {
+    /* 움직임 감소를 요청한 사용자의 환경에서는 전환을 제거한다. */
+    transition: none;
+  }
+
+  .study-card:hover,
+  .study-card:focus-visible {
+    transform: none;
+  }
+}
+```
+
+`will-change: transform`을 모든 요소에 상시 적용하면 메모리를 더 사용할 수 있다. 실제 성능 문제가 측정되었고 곧 변할 요소에 제한적으로 사용한다.
+
 ## 9. 적용 관점에서 다시 보기
 
 먼저 의미 있는 HTML 구조와 상태를 만든 뒤 클래스를 연결한다. hover, focus, media query처럼 CSS가 직접 표현할 수 있는 것은 CSS에 두고, 진행률처럼 JavaScript 값에서 계산되는 수치만 inline style을 검토한다.

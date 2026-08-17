@@ -114,6 +114,30 @@ createRoot(container).render(
 
 `StrictMode`는 사용자에게 보이는 기능이 아니라 개발 검사용 래퍼다. 개발 중 Effect가 다시 실행되는 것은 cleanup이 제대로 되어 있는지 확인하기 위한 동작일 수 있다.
 
+개발 중 컴포넌트 함수나 Effect의 로그가 두 번 보인다고 해서 React가 화면을 항상 두 번 그린다는 뜻은 아니다. Strict Mode는 렌더링이 순수한지, Effect에 정리 함수가 있는지 확인하려고 일부 로직을 추가 실행한다. 이 검사는 개발 빌드에서만 동작하며 운영 빌드의 사용자 동작에는 포함되지 않는다.
+
+```tsx
+import { StrictMode } from 'react'
+
+function App() {
+  // 개발 환경에서는 순수하지 않은 렌더링을 찾기 위해 로그가 두 번 보일 수 있다.
+  // 여기에서 API 호출이나 localStorage 변경 같은 부수 효과를 실행하면 안 된다.
+  console.log('App 렌더링')
+
+  return <h1>학습 기록</h1>
+}
+
+export default function Root() {
+  return (
+    <StrictMode>
+      <App />
+    </StrictMode>
+  )
+}
+```
+
+로그를 한 번만 보려고 Strict Mode부터 제거하기보다, 렌더링 중 외부 값을 변경하지 않았는지와 Effect cleanup이 대칭적으로 작성되었는지 먼저 확인한다.
+
 ## 4. JSX와 컴포넌트
 
 JSX는 HTML 문자열이 아니다. TypeScript 파일 안에서 UI 구조를 작성할 수 있게 해 주는 문법 확장이다. JSX가 포함된 파일의 확장자는 `.tsx`다.
