@@ -25,12 +25,10 @@
 | UX/UI 설계 | 사용자 흐름, 라우팅, 화면 상태, 컨셉보드와 디자인 시스템 | [로드맵](./Web/README.md) |
 | AI 코딩 도구 협업 | 범위·맥락·권한·인증 경로와 검증 가능한 완료 조건 | [바로가기](./ai/08_17_AI_Coding_Assistant_Workflow/08_17_AI_Coding_Assistant_Workflow.md) |
 | JavaScript 배열 리팩터링 | map 반환값, 빈 배열 조건, splice·reduce와 읽기 좋은 개선 기준 | [바로가기](./Javascript/08_18_JavaScript_Array_Refactoring/08_18_JavaScript_Array_Refactoring.md) |
-| 데이터 프로젝트 주제 검증 | 문제·데이터·분산 처리·사용자 행동과 MVP를 연결하는 방법 | [로드맵](./DataEngineering/README.md) |
-| Markdown과 Notion | 표준 Markdown 문법과 Notion으로 옮길 때의 호환성 점검 | [바로가기](./markdown/basic.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **76개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **75개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -45,7 +43,7 @@
 | 2026.08.15 | Web·React | WCAG 원칙, 시맨틱 HTML, 키보드·focus, 폼과 동적 UI 접근성 |
 | 2026.08.16 | Web·React·Firebase | 브라우저 origin 보안, CORS·cookie·XSS·CSRF·CSP와 서버 신뢰 경계 |
 | 2026.08.17 | Python·DB·Data Engineering·Web·AI | 개발환경, SQL 쿼리 해석, Hadoop·MapReduce, UX/UI 설계, AI 코딩 도구 협업 |
-| 2026.08.18 | JavaScript·DB·Data Engineering·React·Markdown | 배열 리팩터링, 스칼라 서브쿼리, 프로젝트 주제 검증, translate3d, Notion 문서 이동 |
+| 2026.08.18 | JavaScript·DB | 배열 리팩터링과 스칼라 서브쿼리 보강 |
 
 ## Learning Areas
 
@@ -64,12 +62,12 @@
 | [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 13 |
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
-| [Data Engineering](./DataEngineering) | HDFS·MapReduce와 데이터 프로젝트 주제·가용성 검증 | 2 |
+| [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
-| [Markdown](./markdown) | Markdown 문법, Notion 호환성과 문서 작성 연습 | 2 |
+| [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **186개의 학습 노트**를 관리하고 있습니다.
+현재 총 **185개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -98,7 +96,6 @@
 - 사용자 역할과 흐름에서 라우팅·화면 상태·디자인 시스템 도출하기
 - AI 코딩 도구의 인증 경로·권한·범위를 분리하고 결과를 다시 검증하기
 - 배열 메서드의 반환값·원본 변경 여부를 기준으로 JavaScript 코드 리팩터링하기
-- 실제 데이터 가용성과 사용자 행동을 연결해 데이터 엔지니어링 프로젝트 범위 검증하기
 
 ## How I Write
 
@@ -130,7 +127,7 @@ TIL/
 ├── DataEngineering/ # HDFS와 MapReduce 기반 분산 데이터 처리
 ├── Java/            # Java 문법, 객체지향과 표준 라이브러리
 ├── Git/             # Git과 버전 관리
-└── markdown/        # 문서 작성 연습과 Notion 호환성
+└── markdown/        # 문서 작성 연습
 ```
 
 ## Note

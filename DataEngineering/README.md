@@ -5,7 +5,6 @@
 ## 학습 순서
 
 1. [Hadoop·HDFS·MapReduce 입문](./01_08_17_Hadoop_HDFS_MapReduce/08_17_Hadoop_HDFS_MapReduce.md)
-2. [데이터 프로젝트 주제 도출과 검증](./02_08_18_Data_Project_Ideation_and_Validation/08_18_Data_Project_Ideation_and_Validation.md)
 
 ## 현재 다루는 범위
 
@@ -14,6 +13,3 @@
 - 장애 허용성
 - Map, Shuffle, Combine, Reduce 처리 흐름
 - 센서 데이터 기반 설비 건강도 분석 예시
-- 문제·데이터·분산 처리·사용자 행동을 연결하는 주제 도출
-- 공개 데이터의 분석 단위와 실제 가용성 검증
-- 배치·실시간 범위와 MVP 설계
