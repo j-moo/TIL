@@ -1,9 +1,9 @@
-# SQL 쿼리를 결과 집합의 모양으로 읽기: GROUP BY, EXISTS, LIKE ESCAPE
+# SQL 쿼리를 결과 집합의 모양으로 읽기: GROUP BY, 서브쿼리, EXISTS, LIKE
 
 - 🎯 글의 목표: SQL 문법을 한 줄씩 외우지 않고, 각 절이 결과 행의 모양을 어떻게 바꾸는지 이해한다.
-- 🧩 핵심 키워드: SELECT, GROUP BY, 집계 함수, 상관 서브쿼리, EXISTS, NOT EXISTS, SELECT 1, LIKE, 와일드카드, ESCAPE
+- 🧩 핵심 키워드: SELECT, GROUP BY, 집계 함수, 스칼라 서브쿼리, 상관 서브쿼리, EXISTS, NOT EXISTS, SELECT 1, LIKE, 와일드카드, ESCAPE
 - ⭐ 중요도: ★★★★★ — 조회 쿼리는 문법보다 “현재 결과에 행이 몇 개이고 각 열이 무엇을 대표하는가”를 이해해야 정확히 작성할 수 있다.
-- 📝 한눈에 보는 내용: `GROUP BY`는 여러 행을 그룹별 한 행으로 접고, `EXISTS`는 서브쿼리의 값이 아니라 행의 존재 여부만 확인한다. `LIKE`의 `%`와 `_`를 문자 자체로 찾고 싶다면 `ESCAPE`로 탈출 문자를 정한다.
+- 📝 한눈에 보는 내용: `GROUP BY`는 여러 행을 그룹별 한 행으로 접고, 스칼라 서브쿼리는 바깥 결과의 한 칸에 값 하나를 만든다. `EXISTS`는 서브쿼리의 값이 아니라 행의 존재 여부만 확인하며, `LIKE`의 `%`와 `_`를 문자 자체로 찾을 때는 `ESCAPE`를 사용한다.
 - 🔗 관련 주제: 집계 함수, HAVING, JOIN, 상관 서브쿼리, 문자열 검색
 - 🧱 선수 지식: `SELECT`, `FROM`, `WHERE`의 기본 역할
 
@@ -284,6 +284,71 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 
 ⚠️ 주의: 문자열 리터럴과 백슬래시 처리 방식은 데이터베이스 제품과 설정에 따라 차이가 날 수 있다. 학습 예제에서는 `!`처럼 눈에 잘 보이는 탈출 문자를 명시하면 의도를 확인하기 쉽다.
 
+### 3.9 스칼라 서브쿼리는 한 칸에 들어갈 값 하나를 만든다
+
+스칼라(scalar)는 행이나 테이블 전체가 아니라 값 하나를 뜻한다. 스칼라 서브쿼리는 괄호 안의 `SELECT` 결과를 바깥 쿼리의 한 칸에 넣기 때문에 **열 하나와 최대 행 하나**를 반환해야 한다.
+
+```sql
+SELECT
+    e.emp_no,
+    e.emp_name,
+    (
+        SELECT d.dept_name
+        FROM department AS d
+        WHERE d.dept_id = e.dept_id
+    ) AS department_name
+FROM employee AS e;
+```
+
+바깥 쿼리가 직원 한 명을 처리할 때마다 안쪽 쿼리는 그 직원의 `dept_id`와 같은 부서를 찾는다.
+
+```text
+바깥 행: employee의 한 직원
+              ↓ e.dept_id를 안쪽 조건에 전달
+안쪽 결과: 해당 부서의 이름 한 칸
+              ↓
+바깥 결과의 department_name 한 칸에 배치
+```
+
+왜 열과 행이 하나여야 하는지는 결과 표의 한 칸을 생각하면 쉽다.
+
+```text
+emp_no | emp_name | department_name
+-------+----------+----------------
+101    | 이도윤   | 개발팀
+```
+
+`department_name` 한 칸에 `개발팀`과 `기획팀` 두 행을 동시에 넣을 수는 없다. 부서 이름과 위치 두 열을 한 칸에 넣을 수도 없다.
+
+```sql
+-- 잘못된 예: WHERE 조건이 없어 모든 부서 행이 반환될 수 있다.
+SELECT
+    e.emp_no,
+    (
+        SELECT d.dept_name
+        FROM department AS d
+    ) AS department_name
+FROM employee AS e;
+```
+
+부서 테이블에 여러 행이 있다면 이 쿼리는 “하나의 표현식으로 여러 행이 반환되었다”는 종류의 오류가 발생한다. `LIMIT 1`로 임의의 행을 감추기보다, 기본키·외래키 관계와 `WHERE d.dept_id = e.dept_id` 조건으로 결과가 왜 하나인지 보장해야 한다.
+
+PostgreSQL에서는 스칼라 서브쿼리 결과가 0행이면 그 한 칸은 `NULL`이 된다. 2행 이상이면 오류가 발생한다. 데이터베이스 제품에 따라 오류 문구는 다를 수 있지만 한 칸에 값 하나가 필요하다는 원리는 같다.
+
+같은 결과를 일반적인 `JOIN`으로도 표현할 수 있다.
+
+```sql
+SELECT
+    e.emp_no,
+    e.emp_name,
+    d.dept_name AS department_name
+FROM employee AS e
+LEFT JOIN department AS d
+    ON d.dept_id = e.dept_id;
+```
+
+단순히 다른 테이블의 열을 함께 조회한다면 `JOIN`이 관계와 실행 흐름을 더 분명하게 보여 주는 경우가 많다. 스칼라 서브쿼리와 `JOIN` 중 어느 쪽이 항상 빠르다고 문법만 보고 단정하지 말고 실행 계획과 데이터 구조를 확인한다.
+
 ## 4. 적용 관점에서 다시 보기
 
 ### 쿼리를 작성하기 전 결과 행을 먼저 그린다
@@ -295,6 +360,7 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 3. 조건은 개별 원본 행에 적용하는가, 계산된 그룹에 적용하는가?
 4. 관련 데이터의 실제 값이 필요한가, 존재 여부만 필요한가?
 5. 패턴 문자가 와일드카드인가, 검색할 실제 문자인가?
+6. 서브쿼리 결과가 바깥 결과의 한 칸에 들어가는가, 여러 행과 결합되는가?
 
 ### 자주 만나는 오류를 해석하는 기준
 
@@ -304,6 +370,7 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 | 집계 조건이 동작하지 않음 | `WHERE`가 아니라 `HAVING`이 필요한가? |
 | `NOT EXISTS` 결과가 예상과 다름 | 안쪽 조건이 바깥 행과 올바르게 연결되었는가? |
 | `%` 또는 `_` 검색 결과가 너무 많음 | 문자를 와일드카드로 해석하고 있지 않은가? |
+| 스칼라 서브쿼리가 여러 행을 반환함 | 바깥 행과 연결하는 조건 또는 데이터의 유일성이 빠졌는가? |
 
 ### 실행 계획으로 확인하기
 
@@ -317,6 +384,7 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 - 일반 열이 그룹마다 여러 값을 가지면 결과 한 칸을 결정할 수 없다.
 - `SELECT 1`의 1은 사용되는 결과값이 아니라 존재 검사의 의도를 나타낸다.
 - `ESCAPE`는 와일드카드 문자를 실제 문자로 검색할 수 있게 한다.
+- 스칼라 서브쿼리는 바깥 결과의 한 칸에 들어가므로 열 하나와 최대 행 하나를 반환해야 한다.
 
 ### 5.2 이전·다음 학습과의 연결
 
@@ -339,6 +407,7 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 6. `NOT EXISTS`는 조건에 맞는 관련 행이 하나도 없음을 검사한다.
 7. `LIKE`의 `%`는 여러 글자, `_`는 한 글자 와일드카드다.
 8. `ESCAPE`로 지정한 문자를 사용하면 `%`와 `_` 자체를 검색할 수 있다.
+9. 스칼라 서브쿼리는 열 하나와 최대 행 하나를 반환하며 0행이면 `NULL`이 될 수 있다.
 
 🧠 기억할 것: SQL을 읽을 때는 문법보다 먼저 “최종 결과 한 행과 한 칸이 무엇을 대표하는가”를 그린다.
 
@@ -349,6 +418,7 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 3. `EXISTS (SELECT 1 ...)`에서 숫자 1은 최종 결과로 반환되는가?
 4. 실제 밑줄 문자가 포함된 값을 `LIKE`로 찾으려면 무엇이 필요한가?
 5. `NOT EXISTS` 서브쿼리에서 바깥 테이블과의 연결 조건을 빼면 어떤 문제가 생길 수 있는가?
+6. 스칼라 서브쿼리가 두 행을 반환하면 왜 오류가 발생하는가?
 
 <details>
 <summary>정답과 해설</summary>
@@ -358,6 +428,7 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 3. 반환되지 않는다. `EXISTS`는 행이 있는지만 확인한다.
 4. `ESCAPE` 절로 탈출 문자를 지정하고 패턴에서 `_` 앞에 붙인다.
 5. 각 사용자별 존재 여부가 아니라 주문 테이블 전체의 존재 여부만 검사하는 전혀 다른 조건이 될 수 있다.
+6. 바깥 결과의 한 칸에는 값 하나만 들어갈 수 있는데 어떤 행의 값을 선택할지 결정할 수 없기 때문이다.
 
 </details>
 
@@ -366,3 +437,4 @@ WHERE file_name LIKE '%!_%' ESCAPE '!';
 - [PostgreSQL: Table Expressions와 GROUP BY](https://www.postgresql.org/docs/current/queries-table-expressions.html)
 - [PostgreSQL: Subquery Expressions](https://www.postgresql.org/docs/current/functions-subquery.html)
 - [PostgreSQL: Pattern Matching](https://www.postgresql.org/docs/current/functions-matching.html)
+- [PostgreSQL: Scalar Subqueries](https://www.postgresql.org/docs/current/sql-expressions.html#SQL-SYNTAX-SCALAR-SUBQUERIES)

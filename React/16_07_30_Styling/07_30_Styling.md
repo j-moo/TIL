@@ -265,6 +265,69 @@ CSS의 `transform`, `perspective`, `transition`, `animation`으로 입체적인 
 
 `will-change: transform`을 모든 요소에 상시 적용하면 메모리를 더 사용할 수 있다. 실제 성능 문제가 측정되었고 곧 변할 요소에 제한적으로 사용한다.
 
+#### `translate3d()`가 의미하는 것
+
+`translate3d(x, y, z)`는 요소를 3차원 좌표에서 이동시키는 CSS transform 함수다.
+
+```text
+x: 가로 이동 — 양수는 오른쪽
+y: 세로 이동 — 양수는 아래쪽
+z: 화면과 사용자를 잇는 깊이 축 이동
+```
+
+```css
+.floating-card {
+  /* 오른쪽 24px, 위쪽 12px, 사용자 방향 30px만큼 이동한다. */
+  transform: translate3d(24px, -12px, 30px);
+}
+```
+
+`translate3d()`만 사용했다고 항상 입체감이 눈에 보이는 것은 아니다. 부모 또는 관찰 공간에 `perspective`가 있어야 z축 거리 차이가 원근감으로 표현된다.
+
+```html
+<div class="scene">
+  <article class="floating-panel">분석 결과</article>
+</div>
+```
+
+```css
+.scene {
+  /* 관찰자와 z=0 평면 사이의 거리를 설정한다. */
+  perspective: 700px;
+}
+
+.floating-panel {
+  animation: float-panel 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes float-panel {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    /* 위로 이동하면서 사용자 쪽으로 조금 가까워진다. */
+    transform: translate3d(0, -10px, 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-panel {
+    animation: none;
+  }
+}
+```
+
+브라우저 개발자 도구에서 움직이는 요소를 조사할 때는 `transform` 한 줄만 보지 않는다. 다음 항목이 함께 효과를 만든다.
+
+1. `animation-name` 또는 `transition`이 있는가?
+2. 연결된 `@keyframes`에서 transform이 어떻게 변하는가?
+3. 부모에 `perspective`가 있는가?
+4. `transform-origin`이 회전 중심을 바꾸는가?
+5. 가상 요소와 여러 레이어가 동시에 움직이는가?
+
+`translate3d()`가 GPU 가속을 항상 보장한다고 생각해서 `translateZ(0)`을 습관적으로 추가하면 안 된다. 브라우저의 합성 계층 결정은 구현과 상황에 따라 달라지며, 계층이 많아지면 메모리 비용도 증가할 수 있다. 먼저 개발자 도구의 Performance와 Layers에서 실제 병목을 측정한다.
+
 ## 9. 적용 관점에서 다시 보기
 
 먼저 의미 있는 HTML 구조와 상태를 만든 뒤 클래스를 연결한다. hover, focus, media query처럼 CSS가 직접 표현할 수 있는 것은 CSS에 두고, 진행률처럼 JavaScript 값에서 계산되는 수치만 inline style을 검토한다.
