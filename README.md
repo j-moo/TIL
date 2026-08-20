@@ -25,6 +25,8 @@
 | UX/UI 설계 | 사용자 흐름, 라우팅, 화면 상태, 컨셉보드와 디자인 시스템 | [로드맵](./Web/README.md) |
 | AI 코딩 도구 협업 | 범위·맥락·권한·인증 경로와 검증 가능한 완료 조건 | [바로가기](./ai/08_17_AI_Coding_Assistant_Workflow/08_17_AI_Coding_Assistant_Workflow.md) |
 | JavaScript 배열 리팩터링 | map 반환값, 빈 배열 조건, splice·reduce와 읽기 좋은 개선 기준 | [바로가기](./Javascript/08_18_JavaScript_Array_Refactoring/08_18_JavaScript_Array_Refactoring.md) |
+| JavaScript 문자열·2차원 배열 | 숫자 문자 판별, filter·map 구분, 열 추출과 행렬 계산 | [바로가기](./Javascript/08_19_JavaScript_String_and_2D_Array/08_19_JavaScript_String_and_2D_Array.md) |
+| Oracle 계층형 쿼리 | START WITH·CONNECT BY·PRIOR와 LEVEL·순환·형제 정렬 | [바로가기](./DB/08_20_Oracle_Hierarchical_Query/08_20_Oracle_Hierarchical_Query.md) |
 
 ## Progress Since Last Profile Update
 
@@ -44,6 +46,7 @@
 | 2026.08.16 | Web·React·Firebase | 브라우저 origin 보안, CORS·cookie·XSS·CSRF·CSP와 서버 신뢰 경계 |
 | 2026.08.17 | Python·DB·Data Engineering·Web·AI | 개발환경, SQL 쿼리 해석, Hadoop·MapReduce, UX/UI 설계, AI 코딩 도구 협업 |
 | 2026.08.18 | JavaScript·DB | 배열 리팩터링과 스칼라 서브쿼리 보강 |
+| 2026.08.19–08.20 | JavaScript·DB | 문자열·2차원 배열 처리와 Oracle 계층형 쿼리 |
 
 ## Learning Areas
 
@@ -53,12 +56,12 @@
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 접근성, 브라우저 보안, UX/UI 설계 | 7 |
-| [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어와 배열 리팩터링 | 7 |
+| [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어, 배열·문자열·2차원 배열 처리 | 8 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
 | [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
 | [Firebase](./Firebase) | SDK 설정, Firestore, Realtime Database, Storage, Authentication, 계정 수명주기, App Check, Rules, Emulator, 고급 query | 10 |
 | [Vue](./Vue) | Vue 3, Composition API, Router, Pinia, JWT | 11 |
-| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계와 쿼리 해석 | 8 |
+| [DB](./DB) | 관계형 데이터베이스, SQL, 모델 관계, 쿼리 해석과 Oracle 계층형 조회 | 9 |
 | [Django](./Django) | Django, ORM, 인증, DRF 기반 API 개발 | 13 |
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
@@ -67,7 +70,7 @@
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **185개의 학습 노트**를 관리하고 있습니다.
+현재 총 **187개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -96,6 +99,8 @@
 - 사용자 역할과 흐름에서 라우팅·화면 상태·디자인 시스템 도출하기
 - AI 코딩 도구의 인증 경로·권한·범위를 분리하고 결과를 다시 검증하기
 - 배열 메서드의 반환값·원본 변경 여부를 기준으로 JavaScript 코드 리팩터링하기
+- 문자열 문자 판별과 map·filter의 결과 차이로 2차원 배열 안전하게 처리하기
+- START WITH·CONNECT BY·PRIOR로 Oracle 계층형 데이터의 탐색 방향 이해하기
 
 ## How I Write
 
