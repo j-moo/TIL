@@ -27,10 +27,11 @@
 | JavaScript 배열 리팩터링 | map 반환값, 빈 배열 조건, splice·reduce와 읽기 좋은 개선 기준 | [바로가기](./Javascript/08_18_JavaScript_Array_Refactoring/08_18_JavaScript_Array_Refactoring.md) |
 | JavaScript 문자열·2차원 배열 | 숫자 문자 판별, filter·map 구분, 열 추출과 행렬 계산 | [바로가기](./Javascript/08_19_JavaScript_String_and_2D_Array/08_19_JavaScript_String_and_2D_Array.md) |
 | Oracle 계층형 쿼리 | START WITH·CONNECT BY·PRIOR와 LEVEL·순환·형제 정렬 | [바로가기](./DB/08_20_Oracle_Hierarchical_Query/08_20_Oracle_Hierarchical_Query.md) |
+| Spring Boot 입문 준비 | Java·빌드 도구·HTTP·DB·IoC/DI·Bean과 Boot 실행 구조 사전지식 | [로드맵](./SpringBoot/README.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **75개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **76개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -47,6 +48,7 @@
 | 2026.08.17 | Python·DB·Data Engineering·Web·AI | 개발환경, SQL 쿼리 해석, Hadoop·MapReduce, UX/UI 설계, AI 코딩 도구 협업 |
 | 2026.08.18 | JavaScript·DB | 배열 리팩터링과 스칼라 서브쿼리 보강 |
 | 2026.08.19–08.20 | JavaScript·DB | 문자열·2차원 배열 처리와 Oracle 계층형 쿼리 |
+| 2026.08.21 | Spring Boot | Java·Maven/Gradle·HTTP·DB·IoC/DI·Bean과 첫 프로젝트 실행 구조 사전 학습 |
 
 ## Learning Areas
 
@@ -67,10 +69,11 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
+| [Spring Boot](./SpringBoot) | Java 웹 애플리케이션, IoC·DI, MVC, 데이터 접근과 운영 기초 | 1 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **187개의 학습 노트**를 관리하고 있습니다.
+현재 총 **188개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -88,6 +91,7 @@
 - SOP·CORS·XSS·CSRF와 인증·인가를 구분해 React·Firebase 신뢰 경계 설계하기
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
 - Java 제네릭과 와일드카드로 재사용 가능한 타입 안전성 설계하기
+- Spring Boot 학습을 위한 Java·HTTP·빌드 도구·DB·IoC/DI 기반 연결하기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
@@ -131,6 +135,7 @@ TIL/
 ├── ai/              # 머신러닝과 생성형 AI
 ├── DataEngineering/ # HDFS와 MapReduce 기반 분산 데이터 처리
 ├── Java/            # Java 문법, 객체지향과 표준 라이브러리
+├── SpringBoot/      # Spring Boot, Spring MVC와 데이터 접근
 ├── Git/             # Git과 버전 관리
 └── markdown/        # 문서 작성 연습
 ```
