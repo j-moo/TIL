@@ -29,10 +29,11 @@
 | Oracle 계층형 쿼리 | START WITH·CONNECT BY·PRIOR와 LEVEL·순환·형제 정렬 | [바로가기](./DB/08_20_Oracle_Hierarchical_Query/08_20_Oracle_Hierarchical_Query.md) |
 | Spring Boot 입문 준비 | Java·빌드 도구·HTTP·DB·IoC/DI·Bean과 Boot 실행 구조 사전지식 | [로드맵](./SpringBoot/README.md) |
 | JavaScript 참조·복사·불변성 | 객체 참조, 얕은·깊은 복사, 중첩 갱신과 structuredClone | [바로가기](./Javascript/08_22_JavaScript_Reference_Copy_and_Immutability/08_22_JavaScript_Reference_Copy_and_Immutability.md) |
+| JavaScript 객체·다차원 배열 문제 해결 | 동적 키, 속성 검사, spread, map 인덱스, 행렬 대각선과 차원 순회 | [바로가기](./Javascript/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **77개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **78개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -51,6 +52,7 @@
 | 2026.08.19–08.20 | JavaScript·DB | 문자열·2차원 배열 처리와 Oracle 계층형 쿼리 |
 | 2026.08.21 | Spring Boot | Java·Maven/Gradle·HTTP·DB·IoC/DI·Bean과 첫 프로젝트 실행 구조 사전 학습 |
 | 2026.08.22 | JavaScript·React | 객체 참조, 얕은·깊은 복사와 불변 상태 갱신 |
+| 2026.08.23 | JavaScript | 객체의 동적 키·속성 검사와 2·3차원 배열 문제 해결 패턴 |
 
 ## Learning Areas
 
@@ -60,7 +62,7 @@
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
 | [Problem Review](./problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 접근성, 브라우저 보안, UX/UI 설계 | 7 |
-| [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어, 배열·문자열 처리와 객체 불변성 | 9 |
+| [JavaScript](./Javascript) | 문법, DOM, 비동기 처리, 이벤트 제어, 객체 키와 다차원 배열·불변성 | 10 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
 | [React](./React) | 컴포넌트, Hook, 라우팅, 상태 관리, CRUD, Firebase 연동·보호 경로·테스트·오류 복구 | 29 |
 | [Firebase](./Firebase) | SDK 설정, Firestore, Realtime Database, Storage, Authentication, 계정 수명주기, App Check, Rules, Emulator, 고급 query | 10 |
@@ -75,7 +77,7 @@
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **189개의 학습 노트**를 관리하고 있습니다.
+현재 총 **190개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -106,6 +108,7 @@
 - AI 코딩 도구의 인증 경로·권한·범위를 분리하고 결과를 다시 검증하기
 - 배열 메서드의 반환값·원본 변경 여부를 기준으로 JavaScript 코드 리팩터링하기
 - 문자열 문자 판별과 map·filter의 결과 차이로 2차원 배열 안전하게 처리하기
+- 객체의 키·값·동적 속성과 다차원 배열의 값·인덱스·차원을 구분해 문제 해결하기
 - START WITH·CONNECT BY·PRIOR로 Oracle 계층형 데이터의 탐색 방향 이해하기
 - 객체 참조와 얕은 복사를 이해하고 중첩 데이터를 불변하게 갱신하기
 
