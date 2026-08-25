@@ -2,13 +2,14 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 데이터 접근 → 검증·예외 → 보안·테스트 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 첫 강의 전 준비 단계다. [필수 사전지식 노트](./00_08_21_Spring_Boot_Prerequisites/08_21_Spring_Boot_Prerequisites.md)에서 Java·HTTP·빌드 도구·데이터베이스·IoC/DI를 먼저 연결한 뒤 실제 프로젝트를 만든다.
+현재는 사전지식을 연결한 뒤 Initializr로 첫 프로젝트를 만들고 실행 구조를 확인한 단계다. 다음에는 Spring이 객체를 생성하고 연결하는 IoC·DI·Bean을 학습한다.
 
 ## 현재 작성된 노트
 
 | 순서 | 주제 | 핵심 질문 | 노트 |
 | ---: | --- | --- | --- |
 | 00 | 필수 사전지식 | Spring Boot 코드를 읽기 전에 Java·웹·DB·Spring에서 무엇을 알아야 하는가? | [Spring Boot 필수 사전지식](./00_08_21_Spring_Boot_Prerequisites/08_21_Spring_Boot_Prerequisites.md) |
+| 01 | Initializr와 첫 실행 | 생성 옵션·프로젝트 구조·Wrapper·시작 로그를 어떻게 읽는가? | [Initializr와 첫 실행](./01_08_25_Spring_Initializr_and_First_Run/08_25_Spring_Initializr_and_First_Run.md) |
 
 ## 권장 학습 순서
 
@@ -17,7 +18,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 순서 | 학습 주제 | 도달 목표 | 상태 |
 | ---: | --- | --- | --- |
 | 00 | 필수 사전지식 | Java·HTTP·빌드·DB·IoC/DI의 연결 이해 | 작성 완료 |
-| 01 | Initializr와 첫 실행 | 프로젝트 구조, Wrapper, `@SpringBootApplication`, 실행 로그 이해 | 예정 |
+| 01 | Initializr와 첫 실행 | 프로젝트 구조, Wrapper, `@SpringBootApplication`, 실행 로그 이해 | 작성 완료 |
 | 02 | IoC·DI·Bean | 컨테이너, Bean 등록, 컴포넌트 스캔, 생성자 주입 이해 | 예정 |
 | 03 | Spring MVC 요청 흐름 | 내장 서버, DispatcherServlet, Controller 매핑 이해 | 예정 |
 | 04 | REST API와 DTO | 요청·응답 DTO, JSON 변환, 상태 코드 설계 | 예정 |
@@ -94,4 +95,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-08-21
+> 정리 기준일: 2026-08-25

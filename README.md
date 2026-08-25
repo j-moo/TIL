@@ -27,14 +27,14 @@
 | JavaScript 배열 리팩터링 | map 반환값, 빈 배열 조건, splice·reduce와 읽기 좋은 개선 기준 | [바로가기](./Javascript/08_18_JavaScript_Array_Refactoring/08_18_JavaScript_Array_Refactoring.md) |
 | JavaScript 문자열·2차원 배열 | 숫자 문자 판별, filter·map 구분, 열 추출과 행렬 계산 | [바로가기](./Javascript/08_19_JavaScript_String_and_2D_Array/08_19_JavaScript_String_and_2D_Array.md) |
 | Oracle 계층형 쿼리 | START WITH·CONNECT BY·PRIOR와 LEVEL·순환·형제 정렬 | [바로가기](./DB/08_20_Oracle_Hierarchical_Query/08_20_Oracle_Hierarchical_Query.md) |
-| Spring Boot 입문 준비 | Java·빌드 도구·HTTP·DB·IoC/DI·Bean과 Boot 실행 구조 사전지식 | [로드맵](./SpringBoot/README.md) |
+| Spring Boot 입문 시리즈 | 사전지식, Initializr, Wrapper, 시작 클래스와 첫 JSON 응답 | [로드맵](./SpringBoot/README.md) |
 | JavaScript 참조·복사·불변성 | 객체 참조, 얕은·깊은 복사, 중첩 갱신과 structuredClone | [바로가기](./Javascript/08_22_JavaScript_Reference_Copy_and_Immutability/08_22_JavaScript_Reference_Copy_and_Immutability.md) |
 | JavaScript 객체·다차원 배열 문제 해결 | 동적 키, 속성 검사, spread, map 인덱스, 행렬 대각선과 차원 순회 | [바로가기](./Javascript/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving.md) |
 | JavaScript 비동기 요청 제어 | Promise 동시성, 요청 취소, 경쟁 상태와 debounce | [바로가기](./Javascript/08_24_JavaScript_Async_Concurrency_and_Request_Control/08_24_JavaScript_Async_Concurrency_and_Request_Control.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **79개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **80개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -55,6 +55,7 @@
 | 2026.08.22 | JavaScript·React | 객체 참조, 얕은·깊은 복사와 불변 상태 갱신 |
 | 2026.08.23 | JavaScript | 객체의 동적 키·속성 검사와 2·3차원 배열 문제 해결 패턴 |
 | 2026.08.24 | JavaScript·Web API | Promise 동시성, 요청 취소, 경쟁 상태와 debounce |
+| 2026.08.25 | Spring Boot | Initializr 생성 옵션, 프로젝트 구조, Wrapper와 첫 애플리케이션 실행 |
 
 ## Learning Areas
 
@@ -75,11 +76,11 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | Java 웹 애플리케이션, IoC·DI, MVC, 데이터 접근과 운영 기초 | 1 |
+| [Spring Boot](./SpringBoot) | 사전지식, Initializr, 실행 구조, IoC·DI, MVC와 데이터 접근 | 2 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **191개의 학습 노트**를 관리하고 있습니다.
+현재 총 **192개의 학습 노트**를 관리하고 있습니다.
 
 ## Current Focus
 
@@ -98,6 +99,7 @@
 - Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
 - Java 제네릭과 와일드카드로 재사용 가능한 타입 안전성 설계하기
 - Spring Boot 학습을 위한 Java·HTTP·빌드 도구·DB·IoC/DI 기반 연결하기
+- Initializr 프로젝트 구조와 Wrapper·시작 로그를 읽고 첫 JSON 응답 확인하기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
