@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 데이터 접근 → 검증·예외 → 보안·테스트 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Initializr로 만든 첫 프로젝트에서 Spring이 객체를 생성하고 연결하는 IoC·DI·Bean까지 확인한 단계다. 다음에는 HTTP 요청이 Spring MVC를 거쳐 Controller로 전달되는 흐름을 학습한다.
+현재는 HTTP 요청이 내장 서버와 Spring MVC를 거쳐 Controller에 도착하고, Java 반환값이 JSON 응답으로 변환되는 흐름까지 확인한 단계다. 다음에는 REST API의 요청·응답 DTO와 상태 코드 설계를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -11,6 +11,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 00 | 필수 사전지식 | Spring Boot 코드를 읽기 전에 Java·웹·DB·Spring에서 무엇을 알아야 하는가? | [Spring Boot 필수 사전지식](./00_08_21_Spring_Boot_Prerequisites/08_21_Spring_Boot_Prerequisites.md) |
 | 01 | Initializr와 첫 실행 | 생성 옵션·프로젝트 구조·Wrapper·시작 로그를 어떻게 읽는가? | [Initializr와 첫 실행](./01_08_25_Spring_Initializr_and_First_Run/08_25_Spring_Initializr_and_First_Run.md) |
 | 02 | IoC·DI·Bean | 컨테이너는 객체를 어떻게 등록·생성·연결하며 주입 오류는 어떻게 진단하는가? | [IoC·DI·Bean과 생성자 주입](./02_08_26_Spring_IoC_DI_and_Bean/08_26_Spring_IoC_DI_and_Bean.md) |
+| 03 | Spring MVC 요청 흐름 | HTTP 요청은 어떤 구성 요소를 거쳐 Controller에 도착하고 JSON 응답으로 바뀌는가? | [Spring MVC 요청 처리 흐름](./03_08_28_Spring_MVC_Request_Flow/08_28_Spring_MVC_Request_Flow.md) |
 
 ## 권장 학습 순서
 
@@ -21,7 +22,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 00 | 필수 사전지식 | Java·HTTP·빌드·DB·IoC/DI의 연결 이해 | 작성 완료 |
 | 01 | Initializr와 첫 실행 | 프로젝트 구조, Wrapper, `@SpringBootApplication`, 실행 로그 이해 | 작성 완료 |
 | 02 | IoC·DI·Bean | 컨테이너, Bean 등록, 컴포넌트 스캔, 생성자 주입 이해 | 작성 완료 |
-| 03 | Spring MVC 요청 흐름 | 내장 서버, DispatcherServlet, Controller 매핑 이해 | 예정 |
+| 03 | Spring MVC 요청 흐름 | 내장 서버, DispatcherServlet, Controller 매핑 이해 | 작성 완료 |
 | 04 | REST API와 DTO | 요청·응답 DTO, JSON 변환, 상태 코드 설계 | 예정 |
 | 05 | Validation과 예외 처리 | 입력 검증과 일관된 오류 응답 작성 | 예정 |
 | 06 | 설정과 Profile | 환경별 설정, 환경 변수, 비밀값 관리 | 예정 |
@@ -96,4 +97,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-08-26
+> 정리 기준일: 2026-08-28
