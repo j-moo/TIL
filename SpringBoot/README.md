@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 데이터 접근 → 검증·예외 → 보안·테스트 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Bean Validation으로 요청값을 검증하고 애플리케이션 예외를 일관된 HTTP 오류 응답으로 변환하는 단계까지 확인했다. 다음에는 환경별 설정과 Profile, 외부 설정 및 비밀값 관리 방법을 학습한다.
+현재는 외부 설정을 타입 안전한 객체로 바인딩하고 Profile·환경 변수로 환경별 값을 분리하는 단계까지 확인했다. 다음에는 JDBC·JPA·Spring Data JPA의 역할을 구분하며 데이터 접근 흐름을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -14,6 +14,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 03 | Spring MVC 요청 흐름 | HTTP 요청은 어떤 구성 요소를 거쳐 Controller에 도착하고 JSON 응답으로 바뀌는가? | [Spring MVC 요청 처리 흐름](./03_08_28_Spring_MVC_Request_Flow/08_28_Spring_MVC_Request_Flow.md) |
 | 04 | REST API와 DTO | 자원·메서드·상태 코드를 어떻게 설계하고 외부 JSON 계약을 내부 모델과 분리하는가? | [REST API와 DTO 설계](./04_08_29_REST_API_and_DTO/08_29_REST_API_and_DTO.md) |
 | 05 | Validation과 예외 처리 | 입력 오류와 비즈니스 실패를 어떻게 구분하고 일관된 HTTP 오류 응답으로 만드는가? | [Validation과 예외 처리](./05_09_01_Validation_and_Exception_Handling/09_01_Validation_and_Exception_Handling.md) |
+| 06 | 설정과 Profile | 여러 설정 출처의 최종값을 어떻게 결정하고 환경별 설정과 비밀값을 안전하게 분리하는가? | [외부 설정과 Profile](./06_09_02_External_Configuration_and_Profiles/09_02_External_Configuration_and_Profiles.md) |
 
 ## 권장 학습 순서
 
@@ -27,7 +28,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 03 | Spring MVC 요청 흐름 | 내장 서버, DispatcherServlet, Controller 매핑 이해 | 작성 완료 |
 | 04 | REST API와 DTO | 요청·응답 DTO, JSON 변환, 상태 코드 설계 | 작성 완료 |
 | 05 | Validation과 예외 처리 | 입력 검증과 일관된 오류 응답 작성 | 작성 완료 |
-| 06 | 설정과 Profile | 환경별 설정, 환경 변수, 비밀값 관리 | 예정 |
+| 06 | 설정과 Profile | 환경별 설정, 환경 변수, 비밀값 관리 | 작성 완료 |
 | 07 | 데이터 접근 기초 | JDBC·JPA·Spring Data JPA 역할 구분 | 예정 |
 | 08 | Entity와 연관관계 | 영속성 문맥, Entity 생명주기와 관계 매핑 이해 | 예정 |
 | 09 | 트랜잭션 | 작업 경계, commit·rollback과 예외 관계 이해 | 예정 |
@@ -99,4 +100,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-09-01
+> 정리 기준일: 2026-09-02
