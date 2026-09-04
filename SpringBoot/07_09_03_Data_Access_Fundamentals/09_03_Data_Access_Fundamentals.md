@@ -282,6 +282,12 @@ public class BookRepository {
 }
 ```
 
+```java
+import javax.sql.DataSource;
+```
+
+JPA 애너테이션은 `jakarta.persistence.*`를 사용하지만 JDBC의 `DataSource`는 Java SE에 포함된 `javax.sql.DataSource`다. `javax`라는 이름만 보고 오래된 import라고 판단해 바꾸면 안 된다. 두 타입은 서로 다른 표준에 속하므로 역할과 소속을 함께 확인한다.
+
 Spring Boot 공식 문서는 `spring-boot-starter-jdbc`나 `spring-boot-starter-data-jpa`를 사용하면 일반적으로 HikariCP 의존성이 함께 제공되고, 사용 가능한 경우 HikariCP를 우선 선택한다고 설명한다.
 
 ```text
@@ -1312,6 +1318,49 @@ public class BookQueryService {
 
 코드는 짧아졌지만 SQL과 연결이 사라진 것은 아니다. Repository Proxy, EntityManager, Hibernate를 거쳐 JDBC가 실행한다.
 
+### 36.4 Repository만 작게 검증하기
+
+데이터 접근 코드는 메서드 이름이 자연스러워 보여도 실제 Query 생성과 매핑이 올바른지 확인해야 한다. `@DataJpaTest`는 전체 웹 애플리케이션 대신 JPA 관련 구성 요소를 중심으로 불러오는 slice test다. 기본적으로 각 테스트를 Transaction 안에서 실행하고 끝난 뒤 rollback하므로 테스트 데이터가 다음 테스트에 남지 않는다.
+
+```java
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+
+// Controller나 일반 Service 전체가 아니라 JPA 관련 구성에 집중한다.
+@DataJpaTest
+class BookJpaRepositoryTest {
+
+    // Spring Data가 만든 Repository Proxy를 테스트 객체에 주입한다.
+    @Autowired
+    private BookJpaRepository bookRepository;
+
+    @Test
+    void isbn으로_책의_존재를_확인한다() {
+        // given: 중복되지 않는 ISBN을 가진 Entity를 준비한다.
+        BookEntity book = new BookEntity(
+                "처음 읽는 데이터 접근",
+                "샘플 저자",
+                "9781234567890"
+        );
+
+        // saveAndFlush는 저장 내용을 DB에 반영해 SQL·제약조건 오류를
+        // 테스트의 이 지점에서 확인하기 쉽게 만든다.
+        bookRepository.saveAndFlush(book);
+
+        // when: 메서드 이름에서 만들어진 exists Query를 실행한다.
+        boolean exists = bookRepository.existsByIsbn("9781234567890");
+
+        // then: Repository가 기대한 결과를 돌려주는지 검증한다.
+        assertThat(exists).isTrue();
+    }
+}
+```
+
+위 import 경로는 Spring Boot 4.1 기준이다. Spring Boot 3 계열에서는 `DataJpaTest`의 패키지가 다르므로 예제를 무작정 복사하지 말고 프로젝트 버전의 API 문서를 확인한다. 또한 embedded database 테스트만 통과했다고 운영 DB 호환성이 보장되는 것은 아니다. DB 고유 타입·Dialect·제약조건까지 중요하다면 실제 운영 DB와 같은 제품을 사용하는 통합 테스트도 별도로 둔다.
+
 ## 37. 오류를 층위별로 읽기
 
 ### 37.1 연결 실패
@@ -1547,5 +1596,6 @@ Repository는 저장 경계이고 Service는 여러 작업과 비즈니스 규�
 - [Spring Data JPA Reference - Getting Started](https://docs.spring.io/spring-data/jpa/reference/jpa/getting-started.html)
 - [Spring Data Commons - Defining Repository Interfaces](https://docs.spring.io/spring-data/commons/reference/repositories/definition.html)
 - [Jakarta Persistence 3.2 Specification](https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html)
+- [Spring Boot API - DataJpaTest](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/data/jpa/test/autoconfigure/DataJpaTest.html)
 
-> 정리 기준일: 2026-09-03. Starter 구성, 자동 설정 조건, Repository API와 JPA 동작은 프로젝트가 사용하는 Spring Boot·Spring Data·JPA Provider 버전의 공식 문서를 우선한다.
+> 정리 기준일: 2026-09-04. Starter 구성, 자동 설정 조건, Repository API와 JPA 동작은 프로젝트가 사용하는 Spring Boot·Spring Data·JPA Provider 버전의 공식 문서를 우선한다.
