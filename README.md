@@ -4,10 +4,21 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
+> 2026-09-05 기준 · 18개 학습 분야 · 학습 노트 199개 · Spring Boot 입문 노트 9개
+>
+> 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
+
+## Start Here
+
+- **최신 강의노트**: [JPA Entity 생명주기와 연관관계](./SpringBoot/08_09_05_Entity_Lifecycle_and_Relationships/09_05_Entity_Lifecycle_and_Relationships.md) — 변경 감지·flush·외래키·지연 로딩·N+1을 하나의 예제로 연결합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 사전지식부터 데이터 접근까지 정리했고, 다음은 트랜잭션 경계와 테스트입니다.
+- **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
+
 ## Recently Updated
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
+| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, Validation·설정, JDBC·JPA·Entity 생명주기와 연관관계 | [로드맵](./SpringBoot/README.md) |
 | React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·모듈·선언 파일·타입 오류 읽기까지 | [로드맵](./TypeScript/README.md) |
@@ -27,14 +38,13 @@
 | JavaScript 배열 리팩터링 | map 반환값, 빈 배열 조건, splice·reduce와 읽기 좋은 개선 기준 | [바로가기](./Javascript/08_18_JavaScript_Array_Refactoring/08_18_JavaScript_Array_Refactoring.md) |
 | JavaScript 문자열·2차원 배열 | 숫자 문자 판별, filter·map 구분, 열 추출과 행렬 계산 | [바로가기](./Javascript/08_19_JavaScript_String_and_2D_Array/08_19_JavaScript_String_and_2D_Array.md) |
 | Oracle 계층형 쿼리 | START WITH·CONNECT BY·PRIOR와 LEVEL·순환·형제 정렬 | [바로가기](./DB/08_20_Oracle_Hierarchical_Query/08_20_Oracle_Hierarchical_Query.md) |
-| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, Validation·설정, JDBC·JPA·Entity 생명주기와 연관관계 | [로드맵](./SpringBoot/README.md) |
 | JavaScript 참조·복사·불변성 | 객체 참조, 얕은·깊은 복사, 중첩 갱신과 structuredClone | [바로가기](./Javascript/08_22_JavaScript_Reference_Copy_and_Immutability/08_22_JavaScript_Reference_Copy_and_Immutability.md) |
 | JavaScript 객체·다차원 배열 문제 해결 | 동적 키, 속성 검사, spread, map 인덱스, 행렬 대각선과 차원 순회 | [바로가기](./Javascript/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving.md) |
 | JavaScript 비동기 요청 제어 | Promise 동시성, 요청 취소, 경쟁 상태와 debounce | [바로가기](./Javascript/08_24_JavaScript_Async_Concurrency_and_Request_Control/08_24_JavaScript_Async_Concurrency_and_Request_Control.md) |
 
-## Progress Since Last Profile Update
+## Learning Timeline
 
-2026년 7월 3일 이후 **87개의 노트**를 추가했습니다.
+2026년 7월 3일을 기준점으로, 9월 5일까지 **87개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -91,45 +101,15 @@
 
 ## Current Focus
 
-- API·JSON 데이터를 안전하게 수집하고 분석 가능한 구조로 변환하기
-- React의 라우팅·상태 관리·CRUD와 Firebase 인증 경로 구조 이해
-- Firebase Authentication·Security Rules·Emulator 테스트의 책임 구분
-- Firebase 사용자 계정 수명주기와 민감한 작업 재인증 설계
-- Firebase App Check와 Authentication·Security Rules의 책임 구분
-- React 렌더링·이벤트·비동기 오류의 복구 계층 설계
-- Firestore query의 필터·정렬·복합 인덱스와 커서 페이지네이션 설계
-- TypeScript의 정적 타입 시스템으로 JavaScript 코드의 계약과 안정성 높이기
-- TypeScript 선언 파일로 외부 JavaScript 라이브러리의 타입 경계 설계하기
-- GitHub Actions로 TypeScript·React·Firebase 검증 명령을 자동 실행하기
-- 시맨틱 HTML과 키보드·focus·ARIA를 활용한 접근 가능한 React UI 설계하기
-- SOP·CORS·XSS·CSRF와 인증·인가를 구분해 React·Firebase 신뢰 경계 설계하기
-- Java 객체지향과 컬렉션을 활용한 문제 해결 기반 다지기
-- Java 제네릭과 와일드카드로 재사용 가능한 타입 안전성 설계하기
-- Spring Boot 학습을 위한 Java·HTTP·빌드 도구·DB·IoC/DI 기반 연결하기
-- Initializr 프로젝트 구조와 Wrapper·시작 로그를 읽고 첫 JSON 응답 확인하기
-- IoC 컨테이너의 Bean 등록과 생성자 주입으로 객체의 생성·연결 책임 분리하기
-- DispatcherServlet을 중심으로 Spring MVC의 요청 매핑·인자 해석·JSON 응답 흐름 추적하기
-- 요청·응답 DTO로 REST API의 외부 JSON 계약과 내부 도메인 모델 분리하기
-- Bean Validation과 예외 처리로 입력 오류·비즈니스 실패·서버 장애를 일관된 API 계약으로 표현하기
-- ConfigurationProperties와 Profile로 환경별 설정을 분리하고 비밀값 노출 방지하기
-- JDBC·DataSource·연결 풀·JPA·Hibernate·Spring Data JPA의 책임과 호출 흐름 구분하기
-- Entity의 관리 상태·변경 감지·flush와 연관관계 주인·조회 전략을 연결하기
-- NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
-- Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
-- FastAPI 기반 AI 모델 서빙과 API Gateway 구조
-- LLM, RAG, PEFT를 포함한 생성형 AI 활용
-- 알고리즘 문제 해결 과정의 언어화와 반복 복습
-- Windows PowerShell·Conda 환경 문제를 코드 오류와 구분해 진단하기
-- GROUP BY·EXISTS·LIKE ESCAPE를 결과 집합의 모양으로 해석하기
-- HDFS와 MapReduce의 저장·분할·셔플·집계·장애 허용 흐름 이해하기
-- 사용자 역할과 흐름에서 라우팅·화면 상태·디자인 시스템 도출하기
-- AI 코딩 도구의 인증 경로·권한·범위를 분리하고 결과를 다시 검증하기
-- 배열 메서드의 반환값·원본 변경 여부를 기준으로 JavaScript 코드 리팩터링하기
-- 문자열 문자 판별과 map·filter의 결과 차이로 2차원 배열 안전하게 처리하기
-- 객체의 키·값·동적 속성과 다차원 배열의 값·인덱스·차원을 구분해 문제 해결하기
-- START WITH·CONNECT BY·PRIOR로 Oracle 계층형 데이터의 탐색 방향 이해하기
-- 객체 참조와 얕은 복사를 이해하고 중첩 데이터를 불변하게 갱신하기
-- Promise 동시성·요청 취소·경쟁 상태를 구분해 최신 비동기 결과만 반영하기
+현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
+
+1. **Spring Boot·JPA**: 요청 처리부터 Service·Repository, Entity 상태와 SQL 실행까지 추적합니다.
+2. **다음 학습 — 트랜잭션·테스트**: 여러 DB 작업의 commit·rollback 경계와 예외 규칙을 배우고, 단위·슬라이스·통합 테스트의 검증 범위를 구분합니다.
+3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
+4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
+5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.
+
+기존 데이터 분석·AI·알고리즘 학습 기록은 위의 분야별 목록과 학습 이력에서 이어서 확인할 수 있습니다.
 
 ## How I Write
 
