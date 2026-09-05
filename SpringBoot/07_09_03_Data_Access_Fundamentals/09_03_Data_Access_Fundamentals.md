@@ -65,11 +65,11 @@ Controller
 
 ## 3. 관계형 데이터베이스와 SQL 복습
 
-책을 저장하는 테이블을 생각해 보자.
+책을 저장하는 테이블을 생각해 보자. 다음 DDL과 CRUD 예제는 MySQL 문법을 기준으로 한다. `AUTO_INCREMENT`가 ID를 생성하므로 INSERT에서 `id`를 생략할 수 있다. PostgreSQL·H2 등의 identity 문법과 혼용하지 않는다.
 
 ```sql
 CREATE TABLE books (
-    id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     author VARCHAR(50) NOT NULL,
     price INTEGER NOT NULL,
@@ -664,7 +664,7 @@ Starter 하나가 “JPA 그 자체”는 아니다. 관련 라이브러리와 �
 
 ## 19. 최소 Entity 미리 보기
 
-Entity와 영속성 컨텍스트는 다음 노트에서 깊게 다루므로 여기서는 데이터 접근 층위를 이해할 최소 형태만 본다.
+Entity와 영속성 컨텍스트는 다음 노트에서 깊게 다루므로 여기서는 데이터 접근 층위를 이해할 최소 형태만 본다. 앞의 JDBC용 `price` 모델과 별도 예제이며, 뒤의 `findByIsbn`을 사용할 수 있도록 `isbn` 속성을 포함한다. 파생 Query의 속성명은 SQL Column명이 아니라 Entity의 Java 속성과 일치해야 한다.
 
 ```java
 import jakarta.persistence.Column;
@@ -688,13 +688,21 @@ public class BookEntity {
     @Column(nullable = false, length = 50)
     private String author;
 
+    @Column(nullable = false, length = 13, unique = true)
+    private String isbn;
+
     protected BookEntity() {
         // JPA가 객체를 생성할 때 사용할 수 있는 기본 생성자다.
     }
 
-    public BookEntity(String title, String author) {
+    public BookEntity(String title, String author, String isbn) {
         this.title = title;
         this.author = author;
+        this.isbn = isbn;
+    }
+
+    public String getIsbn() {
+        return isbn;
     }
 
     public Long getId() {
@@ -1138,6 +1146,8 @@ Connection의 auto-commit, Spring Transaction Manager, `@Transactional`, 예외�
 
 ### 35.1 Schema
 
+35절은 MySQL용 JDBC 예제다. 앞의 `price` 테이블을 그대로 사용하는 것이 아니라 ISBN 중심의 별도 스키마를 보여 준다. 36절은 이를 JPA 관점과 비교하는 코드 조각으로, 동일 이름의 Service 두 개를 한 프로젝트에 동시에 등록하지 않는다. `BookResponse`, 예외, import 및 애플리케이션 설정은 별도로 필요하며 이 저장소에 실행 프로젝트가 포함된 것은 아니다.
+
 ```sql
 CREATE TABLE books (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -1249,6 +1259,8 @@ HTTP GET
 
 ### 36.1 Entity
 
+35절의 `created_at NOT NULL`과 응답 DTO에 맞춰 생성 시각 필드도 매핑한다. 다음 Entity에는 `java.time.Instant`, `jakarta.persistence.PrePersist`와 사용한 JPA 애너테이션 import가 필요하다. 19절의 최소 Entity를 교체하는 확장 버전이지 함께 선언하는 두 번째 클래스가 아니다.
+
 ```java
 @Entity
 @Table(
@@ -1273,6 +1285,9 @@ public class BookEntity {
     @Column(nullable = false, length = 13)
     private String isbn;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+
     protected BookEntity() {
     }
 
@@ -1282,7 +1297,37 @@ public class BookEntity {
         this.isbn = isbn;
     }
 
-    // getter 생략
+    @PrePersist
+    void assignCreatedAt() {
+        if (createdAt == null) {
+            createdAt = Instant.now();
+        }
+    }
+
+    public Long getId() { return id; }
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public String getIsbn() { return isbn; }
+    public Instant getCreatedAt() { return createdAt; }
+}
+```
+
+`@PrePersist`는 처음 영속화할 때 생성 시각을 채운다. 다른 시스템이 직접 INSERT하는 경우까지 자동으로 채우는 DB 기본값은 아니므로 데이터 생성 경로별 정책을 일치시킨다.
+
+아래는 36.3절의 `BookResponse.from(entity)`에 대응하는 응답 DTO다. 35절에서도 같은 생성자 형태로 사용할 수 있다.
+
+```java
+import java.time.Instant;
+
+public record BookResponse(
+        Long id, String title, String author, String isbn, Instant createdAt
+) {
+    public static BookResponse from(BookEntity entity) {
+        return new BookResponse(
+                entity.getId(), entity.getTitle(), entity.getAuthor(),
+                entity.getIsbn(), entity.getCreatedAt()
+        );
+    }
 }
 ```
 
@@ -1592,10 +1637,11 @@ Repository는 저장 경계이고 Service는 여러 작업과 비즈니스 규�
 ## 참고 자료
 
 - [Spring Boot Reference - SQL Databases](https://docs.spring.io/spring-boot/reference/data/sql.html)
+- [MySQL 8.4 - AUTO_INCREMENT](https://dev.mysql.com/doc/refman/8.4/en/example-auto-increment.html)
 - [Spring Framework Reference - JDBC Core](https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html)
 - [Spring Data JPA Reference - Getting Started](https://docs.spring.io/spring-data/jpa/reference/jpa/getting-started.html)
 - [Spring Data Commons - Defining Repository Interfaces](https://docs.spring.io/spring-data/commons/reference/repositories/definition.html)
 - [Jakarta Persistence 3.2 Specification](https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html)
 - [Spring Boot API - DataJpaTest](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/data/jpa/test/autoconfigure/DataJpaTest.html)
 
-> 정리 기준일: 2026-09-04. Starter 구성, 자동 설정 조건, Repository API와 JPA 동작은 프로젝트가 사용하는 Spring Boot·Spring Data·JPA Provider 버전의 공식 문서를 우선한다.
+> 정리 기준일: 2026-09-05. Starter 구성, 자동 설정 조건, Repository API와 JPA 동작은 프로젝트가 사용하는 Spring Boot·Spring Data·JPA Provider 버전의 공식 문서를 우선한다.

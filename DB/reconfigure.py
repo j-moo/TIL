@@ -59,11 +59,12 @@ def resolve_local_image(md_file: Path, ref: str) -> Path | None:
     return candidate if is_image_file(candidate) else None
 
 
-def make_unique_path(path: Path) -> Path:
+def make_unique_path(path: Path, reserved: set[Path] | None = None) -> Path:
     """
     같은 이름의 파일이 이미 있으면 _1, _2 ... 를 붙여 고유 경로 생성
     """
-    if not path.exists():
+    reserved = reserved or set()
+    if not path.exists() and path.resolve() not in reserved:
         return path
 
     stem = path.stem
@@ -73,7 +74,7 @@ def make_unique_path(path: Path) -> Path:
 
     while True:
         candidate = parent / f"{stem}_{i}{suffix}"
-        if not candidate.exists():
+        if not candidate.exists() and candidate.resolve() not in reserved:
             return candidate
         i += 1
 
@@ -171,8 +172,11 @@ def choose_final_dest(src: Path, preferred: Path, reserved: set[Path]) -> Path:
     candidate = preferred.resolve()
 
     while True:
+        if candidate == src:
+            reserved.add(candidate)
+            return candidate
         if candidate in reserved:
-            candidate = make_unique_path(candidate)
+            candidate = make_unique_path(candidate, reserved)
             continue
 
         if candidate.exists():
@@ -183,7 +187,7 @@ def choose_final_dest(src: Path, preferred: Path, reserved: set[Path]) -> Path:
             except Exception:
                 pass
 
-            candidate = make_unique_path(candidate)
+            candidate = make_unique_path(candidate, reserved)
             continue
 
         reserved.add(candidate)
@@ -201,8 +205,10 @@ def collect_plan_for_lecture(lecture_dir: Path, root_dir: Path, image_store_dir:
     lecture = lecture_name(lecture_dir, root_dir)
     move_plan: dict[Path, Path] = {}
 
+    # 루트 README 때문에 이미 처리한 하위 강의와 이미지 저장소를 다시 읽지 않는다.
+    md_candidates = lecture_dir.glob("*.md") if lecture_dir == root_dir else lecture_dir.rglob("*.md")
     md_files = sorted(
-        p for p in lecture_dir.rglob("*.md")
+        p for p in md_candidates
         if p.is_file() and not p.name.endswith(".md.bak")
     )
 
@@ -239,24 +245,25 @@ def collect_plan_for_lecture(lecture_dir: Path, root_dir: Path, image_store_dir:
                 ref = mm.group(1) if mm else raw
 
             src = resolve_local_image(md_file, ref)
-            if src is not None and in_dir(src, lecture_dir):
+            if src is not None and in_dir(src, lecture_dir) and not in_dir(src, image_store_dir):
                 reserve(src)
 
         # HTML 이미지: <img src="...">
         for m in html_pattern.finditer(content):
             src = resolve_local_image(md_file, m.group(3).strip())
-            if src is not None and in_dir(src, lecture_dir):
+            if src is not None and in_dir(src, lecture_dir) and not in_dir(src, image_store_dir):
                 reserve(src)
 
         # Obsidian 형식: ![[image.png]]
         for m in obs_pattern.finditer(content):
             src = resolve_local_image(md_file, m.group(1).strip())
-            if src is not None and in_dir(src, lecture_dir):
+            if src is not None and in_dir(src, lecture_dir) and not in_dir(src, image_store_dir):
                 reserve(src)
 
     # 2) md에서 안 쓰였더라도 lecture_dir 내부 이미지는 전부 수집
-    for p in lecture_dir.rglob("*"):
-        if not is_image_file(p):
+    image_candidates = lecture_dir.glob("*") if lecture_dir == root_dir else lecture_dir.rglob("*")
+    for p in image_candidates:
+        if not is_image_file(p) or in_dir(p, image_store_dir):
             continue
         reserve(p)
 

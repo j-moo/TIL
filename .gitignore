@@ -1,0 +1,3 @@
+# Python 문서 검사 도구의 실행 부산물
+__pycache__/
+*.py[cod]

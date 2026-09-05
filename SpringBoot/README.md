@@ -1,8 +1,8 @@
 # Spring Boot 학습 로드맵
 
-Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 보안·테스트 → 운영** 순서로 학습하도록 구성한다.
+Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 JDBC Driver·DataSource·Connection Pool부터 Spring JDBC, JPA·Hibernate, Spring Data JPA까지 데이터 접근 기술의 층과 호출 흐름을 확인했다. 다음에는 Entity 생명주기와 영속성 컨텍스트, 연관관계 매핑을 학습한다.
+현재는 데이터 접근 기술의 층을 넘어 Entity 생명주기·영속성 컨텍스트·변경 감지와 연관관계 매핑까지 확인했다. 다음에는 여러 DB 작업을 묶는 트랜잭션 경계와 commit·rollback, 예외 규칙을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -16,6 +16,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 05 | Validation과 예외 처리 | 입력 오류와 비즈니스 실패를 어떻게 구분하고 일관된 HTTP 오류 응답으로 만드는가? | [Validation과 예외 처리](./05_09_01_Validation_and_Exception_Handling/09_01_Validation_and_Exception_Handling.md) |
 | 06 | 설정과 Profile | 여러 설정 출처의 최종값을 어떻게 결정하고 환경별 설정과 비밀값을 안전하게 분리하는가? | [외부 설정과 Profile](./06_09_02_External_Configuration_and_Profiles/09_02_External_Configuration_and_Profiles.md) |
 | 07 | 데이터 접근 기초 | JDBC부터 JPA·Hibernate·Spring Data JPA까지 각 계층은 무엇을 책임지는가? | [JDBC·JPA·Spring Data JPA](./07_09_03_Data_Access_Fundamentals/09_03_Data_Access_Fundamentals.md) |
+| 08 | Entity와 연관관계 | 객체 변경은 언제 SQL이 되고 어느 쪽을 바꿔야 외래키가 저장되는가? | [Entity 생명주기와 연관관계](./08_09_05_Entity_Lifecycle_and_Relationships/09_05_Entity_Lifecycle_and_Relationships.md) |
 
 ## 권장 학습 순서
 
@@ -31,7 +32,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 05 | Validation과 예외 처리 | 입력 검증과 일관된 오류 응답 작성 | 작성 완료 |
 | 06 | 설정과 Profile | 환경별 설정, 환경 변수, 비밀값 관리 | 작성 완료 |
 | 07 | 데이터 접근 기초 | JDBC·JPA·Spring Data JPA 역할 구분 | 작성 완료 |
-| 08 | Entity와 연관관계 | 영속성 문맥, Entity 생명주기와 관계 매핑 이해 | 예정 |
+| 08 | Entity와 연관관계 | 영속성 컨텍스트, Entity 생명주기와 관계 매핑 이해 | 작성 완료 |
 | 09 | 트랜잭션 | 작업 경계, commit·rollback과 예외 관계 이해 | 예정 |
 | 10 | 테스트 | 단위·슬라이스·통합 테스트의 범위 구분 | 예정 |
 | 11 | Spring Security | 인증·인가와 보안 필터 흐름 이해 | 예정 |
@@ -101,4 +102,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-09-03
+> 정리 기준일: 2026-09-05

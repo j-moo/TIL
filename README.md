@@ -27,14 +27,14 @@
 | JavaScript 배열 리팩터링 | map 반환값, 빈 배열 조건, splice·reduce와 읽기 좋은 개선 기준 | [바로가기](./Javascript/08_18_JavaScript_Array_Refactoring/08_18_JavaScript_Array_Refactoring.md) |
 | JavaScript 문자열·2차원 배열 | 숫자 문자 판별, filter·map 구분, 열 추출과 행렬 계산 | [바로가기](./Javascript/08_19_JavaScript_String_and_2D_Array/08_19_JavaScript_String_and_2D_Array.md) |
 | Oracle 계층형 쿼리 | START WITH·CONNECT BY·PRIOR와 LEVEL·순환·형제 정렬 | [바로가기](./DB/08_20_Oracle_Hierarchical_Query/08_20_Oracle_Hierarchical_Query.md) |
-| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, Validation·설정, JDBC·JPA·Spring Data JPA | [로드맵](./SpringBoot/README.md) |
+| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, Validation·설정, JDBC·JPA·Entity 생명주기와 연관관계 | [로드맵](./SpringBoot/README.md) |
 | JavaScript 참조·복사·불변성 | 객체 참조, 얕은·깊은 복사, 중첩 갱신과 structuredClone | [바로가기](./Javascript/08_22_JavaScript_Reference_Copy_and_Immutability/08_22_JavaScript_Reference_Copy_and_Immutability.md) |
 | JavaScript 객체·다차원 배열 문제 해결 | 동적 키, 속성 검사, spread, map 인덱스, 행렬 대각선과 차원 순회 | [바로가기](./Javascript/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving/08_23_JavaScript_Object_and_Multidimensional_Array_Problem_Solving.md) |
 | JavaScript 비동기 요청 제어 | Promise 동시성, 요청 취소, 경쟁 상태와 debounce | [바로가기](./Javascript/08_24_JavaScript_Async_Concurrency_and_Request_Control/08_24_JavaScript_Async_Concurrency_and_Request_Control.md) |
 
 ## Progress Since Last Profile Update
 
-2026년 7월 3일 이후 **86개의 노트**를 추가했습니다.
+2026년 7월 3일 이후 **87개의 노트**를 추가했습니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -62,6 +62,7 @@
 | 2026.09.01 | Spring Boot | Bean Validation, 검증 계층, 사용자 정의 예외, ProblemDetail과 일관된 오류 응답 |
 | 2026.09.02 | Spring Boot | 외부 설정 우선순위, ConfigurationProperties, Profile, 환경 변수와 비밀값 관리 |
 | 2026.09.03 | Spring Boot | JDBC·DataSource·연결 풀부터 JPA·Hibernate·Spring Data Repository까지 데이터 접근 계층 |
+| 2026.09.05 | Spring Boot | Entity 생명주기, 변경 감지·flush, 연관관계 주인, 지연 로딩·N+1과 DB 재조회 테스트 |
 
 ## Learning Areas
 
@@ -82,11 +83,11 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | 실행 구조, IoC·DI, MVC·REST, 검증·설정, JDBC·JPA와 데이터 접근 | 8 |
+| [Spring Boot](./SpringBoot) | 실행 구조, IoC·DI, MVC·REST, 검증·설정, JDBC·JPA·Entity 생명주기와 연관관계 | 9 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **198개의 학습 노트**를 관리하고 있습니다.
+현재 총 **199개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
@@ -112,6 +113,7 @@
 - Bean Validation과 예외 처리로 입력 오류·비즈니스 실패·서버 장애를 일관된 API 계약으로 표현하기
 - ConfigurationProperties와 Profile로 환경별 설정을 분리하고 비밀값 노출 방지하기
 - JDBC·DataSource·연결 풀·JPA·Hibernate·Spring Data JPA의 책임과 호출 흐름 구분하기
+- Entity의 관리 상태·변경 감지·flush와 연관관계 주인·조회 전략을 연결하기
 - NumPy, Pandas, Matplotlib을 활용한 데이터 전처리·집계·시각화
 - Django REST Framework와 Vue를 연결한 JWT 인증 웹 애플리케이션 개발
 - FastAPI 기반 AI 모델 서빙과 API Gateway 구조
@@ -166,3 +168,12 @@ TIL/
 ## Note
 
 라이브러리나 프레임워크의 API는 버전에 따라 달라질 수 있습니다. 각 문서의 환경과 공식 문서를 함께 확인하며 내용을 계속 보완합니다.
+
+문서 유지보수에는 [읽기 전용 점검 도구](./scripts/check_notes.py)를 사용합니다. Python 3.10 이상에서 실행합니다.
+
+```powershell
+python scripts/check_notes.py
+python -B -m unittest discover -s scripts -p 'test_*.py' -v
+```
+
+점검 범위와 수정·미검증 항목은 [2026-09-05 저장소 점검 기록](./docs/2026_09_05_Repository_Review.md)에 남겼습니다. 강의의 모든 코드 블록을 실행한 결과와 문서 정적 검사 결과는 구분합니다.

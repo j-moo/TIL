@@ -449,13 +449,18 @@ public ResponseEntity<?> create(
         BindingResult bindingResult) {
 
     if (bindingResult.hasErrors()) {
-        // 이 Controller가 직접 오류 응답을 구성한다.
-        return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        // FieldError에는 거부된 원본 값이 포함될 수 있으므로 직접 직렬화하지 않는다.
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, "요청 필드의 값을 확인해 주세요.");
+        problem.setProperty("code", "VALIDATION_FAILED");
+        return ResponseEntity.badRequest().body(problem);
     }
 
     return ResponseEntity.ok(bookService.create(request));
 }
 ```
+
+이 예제는 필드·객체 수준 오류 모두에 공통 메시지를 반환한다. 개별 필드 안내가 필요하면 20절의 오류 DTO로 필요한 정보만 선택한다. 원본 입력값이나 내부 오류 객체 자체를 응답에 넣지 않는다.
 
 ### 12.1 장점
 
@@ -874,12 +879,16 @@ Spring MVC의 메서드 검증 실패는 `HandlerMethodValidationException`으�
 public ProblemDetail handleMethodValidation(
         HandlerMethodValidationException exception) {
 
+    boolean returnValueError = exception.isForReturnValue();
     ProblemDetail problem = ProblemDetail.forStatusAndDetail(
-            HttpStatus.BAD_REQUEST,
-            "요청 매개변수의 값을 확인해 주세요."
+            exception.getStatusCode(),
+            returnValueError
+                    ? "요청을 처리하는 중 오류가 발생했습니다."
+                    : "요청 매개변수의 값을 확인해 주세요."
     );
-    problem.setTitle("Method Validation Failed");
-    problem.setProperty("code", "METHOD_VALIDATION_FAILED");
+    problem.setTitle(returnValueError ? "Internal Server Error" : "Method Validation Failed");
+    problem.setProperty("code", returnValueError
+            ? "INTERNAL_SERVER_ERROR" : "METHOD_VALIDATION_FAILED");
 
     // 실제 프로젝트에서는 exception.getParameterValidationResults() 또는
     // visitResults를 이용해 Path·Query·Header별 세부 오류를 안전한 DTO로 변환한다.
@@ -889,10 +898,13 @@ public ProblemDetail handleMethodValidation(
 
 공식 문서는 `HandlerMethodValidationException`이 Parameter별 결과를 제공하며 Visitor API로 `@RequestParam`, `@RequestHeader`, Model Attribute 등을 구분할 수 있다고 설명한다.
 
-버전에 따라 예외 타입과 API가 다를 수 있으므로 다음 두 경우를 실제 테스트로 확인한다.
+입력 검증 실패는 400이지만 **반환값 검증 실패는 서버가 응답 계약을 지키지 못한 것이므로 500**이다. 모든 메서드 검증 오류를 400으로 바꾸면 서버 결함을 사용자 탓으로 분류하게 된다. 반환값 오류의 세부 데이터는 공개하지 않고 서버 측에서 안전하게 진단한다. [공식 API의 상태 코드 규칙](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/method/annotation/HandlerMethodValidationException.html)을 확인한다.
+
+버전에 따라 예외 타입과 API가 다를 수 있으므로 다음 세 경우를 실제 테스트로 확인한다.
 
 1. `@Valid @RequestBody` DTO 제약 실패
 2. `@Min @RequestParam` 또는 `@Positive @PathVariable` 실패
+3. Controller 반환값의 `@NotNull` 등 제약 실패 → 500, 내부 값 비노출
 
 ## 22. 잘못된 JSON과 검증 실패는 다르다
 
@@ -983,7 +995,21 @@ throw new ResponseStatusException(
 
 ## 24. 예상하지 못한 예외 처리
 
-마지막 안전망으로 일반 예외를 처리할 수 있다.
+마지막 안전망으로 일반 예외를 처리할 수 있다. 다만 아래 메서드를 앞의 단순 Advice에 그대로 추가하면, 별도 Handler가 없는 405·415 같은 Spring MVC 예외까지 500으로 바뀔 수 있다.
+
+아래는 **별도 통합 방식**이다. `GlobalExceptionHandler`가 `ResponseEntityExceptionHandler`를 상속한 경우에만 이 일반 Handler를 추가한다. 부모 클래스가 처리하는 MVC 예외는 대응하는 protected 메서드(`handleMethodArgumentNotValid` 등)를 override하고, 같은 예외에 대한 앞 절의 `@ExceptionHandler` 메서드를 함께 복사하지 않는다. 부모 클래스의 예외 매핑과 중복되면 시작 시 모호한 Handler 오류가 날 수 있다. 사용자 정의 비즈니스 예외는 기존처럼 `@ExceptionHandler`로 처리한다.
+
+```java
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+    // MVC 예외는 부모 클래스의 처리 경로를 유지한다.
+    // 아래 일반 Handler와 프로젝트 비즈니스 예외 Handler를 이 클래스에 둔다.
+}
+```
+
+아래 코드는 이 클래스 내부에 넣는 메서드 조각이다. `@ResponseStatus`가 붙은 별도 사용자 예외까지 부모 클래스가 모두 처리하는 것은 아니므로 해당 예외도 명시적으로 매핑한다. 400·404·405·415·500 각각의 상태 코드와 405의 `Allow` Header 보존을 통합 테스트로 확인한다. [Spring 공식 오류 응답 구성 안내](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html)를 참고한다.
 
 ```java
 private static final Logger log = LoggerFactory.getLogger(
@@ -1065,6 +1091,10 @@ if (error.code === 'BOOK_NOT_FOUND') {
 
 Bean Validation과 Spring의 MessageSource를 이용해 Locale별 메시지를 관리할 수 있다.
 
+다음은 `FieldError`의 Spring 오류 코드를 `MessageSource`로 해석하는 방식이다. 파일만 추가한 뒤 20절의 `getDefaultMessage()`를 그대로 호출한다고 이 코드가 자동으로 해석되는 것은 아니다. Spring Boot의 기본 자동 설정을 쓰려면 `src/main/resources/messages.properties` 기본 번들도 만들고 한국어·영어 파일을 함께 둔다.
+
+기본 번들이 필요한 자동 설정 조건은 [Spring Boot 국제화 문서](https://docs.spring.io/spring-boot/reference/features/internationalization.html)에서 확인한다.
+
 ```properties
 # messages_ko.properties
 NotBlank.createBookRequest.title=제목은 비어 있을 수 없습니다.
@@ -1076,6 +1106,19 @@ Size.createBookRequest.title=제목은 {2}자 이상 {1}자 이하여야 합니�
 NotBlank.createBookRequest.title=Title must not be blank.
 Size.createBookRequest.title=Title must be between {2} and {1} characters.
 ```
+
+```java
+// Advice에 MessageSource를 생성자 주입한 뒤 사용하는 변환 메서드 조각이다.
+private InvalidField toInvalidField(FieldError error, Locale locale) {
+    return new InvalidField(
+            error.getField(),
+            error.getCode(),
+            messageSource.getMessage(error, locale)
+    );
+}
+```
+
+Controller Advice의 Handler에서 요청에 맞는 `Locale`을 전달하고 `.map(error -> toInvalidField(error, locale))`로 변환한다. `MessageSource`, `Locale`의 import와 주입 필드는 생략했다. Bean Validation 애너테이션의 `message = "{...}"` 보간과 Spring `FieldError` 코드 해석은 서로 다른 경로이므로 혼동하지 않는다.
 
 그러나 서버가 번역된 문구를 제공할지, 클라이언트가 `code`를 번역할지는 제품 구조에 따라 선택한다.
 
@@ -1656,4 +1699,4 @@ Advice가 HTTP 상태를 결정할 의미가 부족하다. 애플리케이션 �
 - [Jakarta Validation 3.1 Specification](https://jakarta.ee/specifications/bean-validation/3.1/jakarta-validation-spec-3.1.html)
 - [RFC 9457 - Problem Details for HTTP APIs](https://www.rfc-editor.org/rfc/rfc9457.html)
 
-> 정리 기준일: 2026-09-01
+> 최초 정리: 2026-09-01 · 예제와 오류 처리 보강: 2026-09-05

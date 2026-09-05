@@ -200,16 +200,18 @@ DTO의 핵심은 “getter와 setter만 있는 클래스”가 아니다. **특�
 
 책 생성 시 클라이언트는 제목과 저자를 보내지만, 서버는 ID와 생성 시각을 만들어 응답할 수 있다.
 
+요청 JSON:
+
 ```json
-// 요청
 {
   "title": "Spring Start",
   "author": "Kim"
 }
 ```
 
+응답 JSON:
+
 ```json
-// 응답
 {
   "id": 1,
   "title": "Spring Start",
