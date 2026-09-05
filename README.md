@@ -4,21 +4,21 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-09-05 기준 · 18개 학습 분야 · 학습 노트 199개 · Spring Boot 입문 노트 9개
+> 2026-09-06 기준 · 18개 학습 분야 · 학습 노트 200개 · Spring Boot 입문 노트 10개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [JPA Entity 생명주기와 연관관계](./SpringBoot/08_09_05_Entity_Lifecycle_and_Relationships/09_05_Entity_Lifecycle_and_Relationships.md) — 변경 감지·flush·외래키·지연 로딩·N+1을 하나의 예제로 연결합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 사전지식부터 데이터 접근까지 정리했고, 다음은 트랜잭션 경계와 테스트입니다.
+- **최신 강의노트**: [Spring 트랜잭션과 rollback](./SpringBoot/09_09_06_Transactions_and_Rollback/09_06_Transactions_and_Rollback.md) — 줄별 주석을 단 재고·대여 예제로 commit·rollback·프록시·전파와 실패 테스트를 연결합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 사전지식부터 데이터 접근·트랜잭션까지 정리했고, 다음은 단위·슬라이스·통합 테스트입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, Validation·설정, JDBC·JPA·Entity 생명주기와 연관관계 | [로드맵](./SpringBoot/README.md) |
+| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, 검증·설정, JDBC·JPA·연관관계, 트랜잭션과 rollback | [로드맵](./SpringBoot/README.md) |
 | React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·모듈·선언 파일·타입 오류 읽기까지 | [로드맵](./TypeScript/README.md) |
@@ -44,7 +44,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 9월 5일까지 **87개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 9월 6일까지 **88개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -73,6 +73,7 @@
 | 2026.09.02 | Spring Boot | 외부 설정 우선순위, ConfigurationProperties, Profile, 환경 변수와 비밀값 관리 |
 | 2026.09.03 | Spring Boot | JDBC·DataSource·연결 풀부터 JPA·Hibernate·Spring Data Repository까지 데이터 접근 계층 |
 | 2026.09.05 | Spring Boot | Entity 생명주기, 변경 감지·flush, 연관관계 주인, 지연 로딩·N+1과 DB 재조회 테스트 |
+| 2026.09.06 | Spring Boot | Service 트랜잭션 경계, 예외별 rollback, 프록시·전파, 격리 수준과 실패 경로 통합 테스트 |
 
 ## Learning Areas
 
@@ -93,18 +94,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | 실행 구조, IoC·DI, MVC·REST, 검증·설정, JDBC·JPA·Entity 생명주기와 연관관계 | 9 |
+| [Spring Boot](./SpringBoot) | 실행 구조, IoC·DI, MVC·REST, 검증·설정, JDBC·JPA·연관관계와 트랜잭션 | 10 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **199개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **200개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
-1. **Spring Boot·JPA**: 요청 처리부터 Service·Repository, Entity 상태와 SQL 실행까지 추적합니다.
-2. **다음 학습 — 트랜잭션·테스트**: 여러 DB 작업의 commit·rollback 경계와 예외 규칙을 배우고, 단위·슬라이스·통합 테스트의 검증 범위를 구분합니다.
+1. **Spring Boot·JPA**: 요청 처리부터 Service·Repository, Entity 상태와 SQL 실행, commit·rollback 경계와 예외 규칙까지 추적합니다.
+2. **다음 학습 — 테스트**: 트랜잭션 실패 테스트를 출발점으로 단위·슬라이스·통합 테스트의 검증 범위와 mock·실제 DB의 역할을 구분합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.
