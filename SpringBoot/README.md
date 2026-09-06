@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Entity 생명주기·연관관계에 이어 여러 DB 작업을 묶는 트랜잭션 경계, commit·rollback과 예외·프록시·전파 규칙까지 확인했다. 다음에는 단위·슬라이스·통합 테스트의 범위와 mock·실제 Spring·DB가 필요한 상황을 학습한다.
+현재는 Entity·트랜잭션에 이어 단위·MVC·JPA·전체 구성 테스트의 범위와 mock·실제 Spring·DB가 필요한 상황까지 정리했다. 다음에는 Spring Security의 인증·인가와 보안 필터 흐름을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -18,6 +18,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 07 | 데이터 접근 기초 | JDBC부터 JPA·Hibernate·Spring Data JPA까지 각 계층은 무엇을 책임지는가? | [JDBC·JPA·Spring Data JPA](./07_09_03_Data_Access_Fundamentals/09_03_Data_Access_Fundamentals.md) |
 | 08 | Entity와 연관관계 | 객체 변경은 언제 SQL이 되고 어느 쪽을 바꿔야 외래키가 저장되는가? | [Entity 생명주기와 연관관계](./08_09_05_Entity_Lifecycle_and_Relationships/09_05_Entity_Lifecycle_and_Relationships.md) |
 | 09 | 트랜잭션과 rollback | 여러 DB 작업은 어떻게 함께 확정·취소되고 예외·호출 경로는 결과를 어떻게 바꾸는가? | [트랜잭션 경계와 실패 검증](./09_09_06_Transactions_and_Rollback/09_06_Transactions_and_Rollback.md) |
+| 10 | 테스트 전략 | 무엇을 실제로 실행하고 무엇을 대체해야 원하는 실패를 검증할 수 있는가? | [단위·슬라이스·통합 테스트](./10_09_06_Testing_Strategy/09_06_Testing_Strategy.md) |
 
 ## 권장 학습 순서
 
@@ -35,7 +36,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 07 | 데이터 접근 기초 | JDBC·JPA·Spring Data JPA 역할 구분 | 작성 완료 |
 | 08 | Entity와 연관관계 | 영속성 컨텍스트, Entity 생명주기와 관계 매핑 이해 | 작성 완료 |
 | 09 | 트랜잭션 | 작업 경계, commit·rollback, 예외·프록시·전파와 실패 검증 | 작성 완료 |
-| 10 | 테스트 | 단위·슬라이스·통합 테스트의 범위 구분 | 예정 |
+| 10 | 테스트 | 단위·MVC·JPA·전체 구성 테스트의 범위와 대역·격리 구분 | 작성 완료 |
 | 11 | Spring Security | 인증·인가와 보안 필터 흐름 이해 | 예정 |
 | 12 | 운영 기초 | 로깅, Actuator, 상태 점검과 배포 설정 이해 | 예정 |
 
