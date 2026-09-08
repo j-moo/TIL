@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Entity·트랜잭션·테스트에 이어 Spring Security의 인증·인가, 보안 필터, 비밀번호 해시와 CSRF·허용·거부 테스트까지 정리했다. 다음에는 로깅·Actuator·상태 점검 등 운영 기초를 학습한다.
+현재는 실행·웹·데이터·테스트·보안에 이어 로깅·Actuator·상태 점검·안전한 종료까지 입문 흐름을 연결했다. 다음에는 외부 HTTP API 호출의 timeout·오류 처리·재시도 기준으로 확장한다.
 
 ## 현재 작성된 노트
 
@@ -20,6 +20,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 09 | 트랜잭션과 rollback | 여러 DB 작업은 어떻게 함께 확정·취소되고 예외·호출 경로는 결과를 어떻게 바꾸는가? | [트랜잭션 경계와 실패 검증](./09_09_06_Transactions_and_Rollback/09_06_Transactions_and_Rollback.md) |
 | 10 | 테스트 전략 | 무엇을 실제로 실행하고 무엇을 대체해야 원하는 실패를 검증할 수 있는가? | [단위·슬라이스·통합 테스트](./10_09_06_Testing_Strategy/09_06_Testing_Strategy.md) |
 | 11 | Spring Security | 요청은 Controller 앞에서 어떤 인증·인가·CSRF 검사를 거치며 거부 경로를 어떻게 테스트하는가? | [인증·인가와 보안 필터](./11_09_07_Spring_Security_Fundamentals/09_07_Spring_Security_Fundamentals.md) |
+| 12 | 운영 기초 | 로그·지표·상태로 무엇을 관찰하고 관리 기능과 종료 과정을 어떻게 보호하는가? | [로깅·Actuator·상태 점검](./12_09_08_Operations_Logging_and_Actuator/09_08_Operations_Logging_and_Actuator.md) |
 
 ## 권장 학습 순서
 
@@ -39,7 +40,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 09 | 트랜잭션 | 작업 경계, commit·rollback, 예외·프록시·전파와 실패 검증 | 작성 완료 |
 | 10 | 테스트 | 단위·MVC·JPA·전체 구성 테스트의 범위와 대역·격리 구분 | 작성 완료 |
 | 11 | Spring Security | 인증·인가·필터·비밀번호 해시·CSRF와 보안 경계 테스트 | 작성 완료 |
-| 12 | 운영 기초 | 로깅, Actuator, 상태 점검과 배포 설정 이해 | 예정 |
+| 12 | 운영 기초 | 로깅·Actuator 노출·권한, liveness·readiness와 안전한 종료 | 작성 완료 |
+| 13 | 외부 HTTP API 연동 | timeout·오류 처리·재시도 기준과 실패 검증 | 예정 |
 
 ## 학습 원칙
 
@@ -105,4 +107,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-09-07
+> 정리 기준일: 2026-09-08
