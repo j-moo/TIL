@@ -4,21 +4,21 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-09-10 기준 · 18개 학습 분야 · 학습 노트 205개 · Spring Boot 입문 노트 15개
+> 2026-09-11 기준 · 18개 학습 분야 · 학습 노트 206개 · Spring Boot 입문 노트 16개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [HTTP Interface 클라이언트](./SpringBoot/14_09_10_HTTP_Interface_Clients/09_10_HTTP_Interface_Clients.md) — 상세한 줄별 주석과 17회 실행을 예상하는 테스트로 선언·프록시·요청 매핑과 오류 처리의 책임을 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — RestClient에 이어 HTTP Interface 클라이언트를 정리했고, 다음은 페이지네이션·정렬과 조회 API입니다.
+- **최신 강의노트**: [페이지네이션·정렬과 조회 API](./SpringBoot/15_09_11_Pagination_and_Sorting/09_11_Pagination_and_Sorting.md) — 상세한 줄별 주석과 13회 실행을 예상하는 MVC·JPA 테스트로 입력 제한·정렬·Page/Slice·응답 DTO를 설명합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 목록 조회의 페이지·정렬 계약을 정리했고, 다음은 커서 기반 페이지네이션입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, JDBC·JPA, 트랜잭션·테스트·보안·운영, RestClient·HTTP Interface | [로드맵](./SpringBoot/README.md) |
+| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, JDBC·JPA, 트랜잭션·테스트·보안·운영, 외부 HTTP 연동·페이지네이션 | [로드맵](./SpringBoot/README.md) |
 | React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·모듈·선언 파일·타입 오류 읽기까지 | [로드맵](./TypeScript/README.md) |
@@ -44,7 +44,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 9월 10일까지 **93개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 9월 11일까지 **94개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -79,6 +79,7 @@
 | 2026.09.08 | Spring Boot | 로그 레벨·민감 정보, Actuator 접근·노출·권한, liveness·readiness, 메트릭과 안전한 종료 |
 | 2026.09.09 | Spring Boot | RestClient·전송 팩터리, timeout, HTTP·전송·응답 오류 분류, 클라이언트 테스트와 재시도 판단 |
 | 2026.09.10 | Spring Boot | HTTP Interface 선언·프록시·RestClient 연결, 요청 매핑·오류 정책 이전과 클라이언트 계약 테스트 |
+| 2026.09.11 | Spring Boot | 페이지·크기 입력 제한, 정렬 허용 목록·동점 기준, Page/Slice·응답 DTO와 MVC·JPA 조회 테스트 |
 
 ## Learning Areas
 
@@ -99,18 +100,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP API·HTTP Interface | 15 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP 연동·페이지네이션 | 16 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **205개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **206개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — 페이지네이션·정렬과 조회 API**: 페이지 번호·크기·정렬의 검증을 DB 조회와 응답 DTO까지 연결합니다.
+2. **다음 학습 — 커서 기반 페이지네이션**: 마지막 정렬 키와 다음 커서를 설계하고, 동시 삽입·삭제 상황을 offset 방식과 비교합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.
