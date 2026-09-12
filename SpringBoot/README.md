@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 목록 API의 페이지·크기 제한, 정렬 기준, Page/Slice와 응답 DTO를 정리했다. 다음에는 offset의 한계를 바탕으로 커서 기반 페이지네이션을 학습한다.
+현재는 offset에 이어 복합 정렬 키로 커서 기반 조회를 구성하고, 커서 검증과 삽입·삭제 시 탐색 경계를 정리했다. 다음에는 JPA DTO Projection과 조회 최적화를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -24,6 +24,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 13 | 외부 HTTP API 연동 | 외부의 부재·HTTP 오류·전송 실패를 어떻게 구별하고 기다림과 재시도를 제한하는가? | [RestClient·timeout·오류 처리](./13_09_09_External_HTTP_API_and_RestClient/09_09_External_HTTP_API_and_RestClient.md) |
 | 14 | HTTP Interface 클라이언트 | 선언이 실제 요청으로 바뀌는 과정에서 프록시는 무엇을 대신하고 어떤 정책은 남는가? | [선언·프록시·계약 테스트](./14_09_10_HTTP_Interface_Clients/09_10_HTTP_Interface_Clients.md) |
 | 15 | 페이지네이션·정렬과 조회 API | 입력을 제한하고 정렬한 결과의 일부를 DB에서 읽어 어떤 메타데이터와 함께 반환하는가? | [Pageable·Page/Slice·조회 테스트](./15_09_11_Pagination_and_Sorting/09_11_Pagination_and_Sorting.md) |
+| 16 | 커서 기반 페이지네이션 | 마지막 정렬 키로 다음 구간을 찾고 삽입·삭제와 잘못된 커서를 어떻게 다루는가? | [복합 키·다음 커서·변경 경계](./16_09_12_Cursor_Pagination/09_12_Cursor_Pagination.md) |
 
 ## 권장 학습 순서
 
@@ -47,7 +48,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 13 | 외부 HTTP API 연동 | RestClient·timeout·오류 분류·재시도 기준과 실패 검증 | 작성 완료 |
 | 14 | HTTP Interface 클라이언트 | 인터페이스 선언·프록시·RestClient 연결과 계약 테스트 | 작성 완료 |
 | 15 | 페이지네이션·정렬과 조회 API | 입력 제한·Pageable·Page/Slice·정렬과 응답 DTO 연결 | 작성 완료 |
-| 16 | 커서 기반 페이지네이션 | 마지막 정렬 키·다음 커서와 동시 변경 시 조회 결과 이해 | 예정 |
+| 16 | 커서 기반 페이지네이션 | 마지막 정렬 키·다음 커서와 동시 변경 시 조회 결과 이해 | 작성 완료 |
+| 17 | JPA DTO Projection과 조회 최적화 | 필요한 컬럼 조회·DTO 변환 방식과 정렬 키·응답 계약 유지 | 예정 |
 
 ## 학습 원칙
 
@@ -113,4 +115,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-09-11
+> 정리 기준일: 2026-09-12
