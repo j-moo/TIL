@@ -581,7 +581,7 @@ Spring Data는 `Window<T>`와 `ScrollPosition`으로 이어 읽기를 표현하�
 7. 커서의 값 검증·서명·인증·인가는 각각 다른 책임이다.
 8. H2 결과 검증과 운영 DB의 성능·정밀도·동시성 검증을 구분한다.
 
-다음 확장 주제는 **JPA DTO Projection과 조회 최적화**다. 이번에는 Entity를 조회한 뒤 DTO로 바꿨지만, 필요한 컬럼만 처음부터 읽는 방법과 그때 커서 정렬 키를 빠뜨리지 않는 기준을 이어서 학습한다.
+다음 확장 주제는 [JPA DTO Projection과 조회 최적화](../17_09_13_JPA_DTO_Projection/09_13_JPA_DTO_Projection.md)다. 이번에는 Entity를 조회한 뒤 DTO로 바꿨지만, 필요한 컬럼만 처음부터 읽는 방법과 그때 커서 정렬 키를 빠뜨리지 않는 기준을 이어서 학습한다.
 
 ## 15. 복습 퀴즈
 
