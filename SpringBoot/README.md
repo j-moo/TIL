@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 커서 기반 조회에 DTO Projection을 적용하고, 필요한 컬럼만 읽으면서 정렬 키와 응답 계약을 유지하는 과정을 정리했다. 다음에는 N+1 문제와 fetch join·EntityGraph를 학습한다.
+현재는 N+1 문제를 재현하고 fetch join·EntityGraph, 컬렉션 페이징의 버전별 차이와 부모 ID 기반 2단계 조회를 정리했다. 다음에는 Batch Fetching과 연관 조회 전략을 비교한다.
 
 ## 현재 작성된 노트
 
@@ -26,6 +26,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 15 | 페이지네이션·정렬과 조회 API | 입력을 제한하고 정렬한 결과의 일부를 DB에서 읽어 어떤 메타데이터와 함께 반환하는가? | [Pageable·Page/Slice·조회 테스트](./15_09_11_Pagination_and_Sorting/09_11_Pagination_and_Sorting.md) |
 | 16 | 커서 기반 페이지네이션 | 마지막 정렬 키로 다음 구간을 찾고 삽입·삭제와 잘못된 커서를 어떻게 다루는가? | [복합 키·다음 커서·변경 경계](./16_09_12_Cursor_Pagination/09_12_Cursor_Pagination.md) |
 | 17 | JPA DTO Projection과 조회 최적화 | 필요한 컬럼만 읽으면서 커서 정렬 키와 응답 계약을 어떻게 유지하는가? | [Entity·DTO 조회와 SQL 관찰](./17_09_13_JPA_DTO_Projection/09_13_JPA_DTO_Projection.md) |
+| 18 | N+1 문제와 fetch join·EntityGraph | 연관 접근의 추가 쿼리를 줄이면서 부모 페이지와 자식 목록을 어떻게 유지하는가? | [연관 로딩·컬렉션 페이징·2단계 조회](./18_09_14_N_Plus_One_and_Fetch_Strategies/09_14_N_Plus_One_and_Fetch_Strategies.md) |
 
 ## 권장 학습 순서
 
@@ -51,7 +52,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 15 | 페이지네이션·정렬과 조회 API | 입력 제한·Pageable·Page/Slice·정렬과 응답 DTO 연결 | 작성 완료 |
 | 16 | 커서 기반 페이지네이션 | 마지막 정렬 키·다음 커서와 동시 변경 시 조회 결과 이해 | 작성 완료 |
 | 17 | JPA DTO Projection과 조회 최적화 | 필요한 컬럼 조회·DTO 변환 방식과 정렬 키·응답 계약 유지 | 작성 완료 |
-| 18 | N+1 문제와 fetch join·EntityGraph | 연관관계 추가 쿼리의 원인·조회 전략과 페이지네이션 제약 비교 | 예정 |
+| 18 | N+1 문제와 fetch join·EntityGraph | 연관관계 추가 쿼리의 원인·조회 전략과 페이지네이션 제약 비교 | 작성 완료 |
+| 19 | Batch Fetching과 연관 조회 전략 비교 | 묶음 조회·캐시·접근 순서의 영향과 fetch join·DTO 조회의 선택 기준 | 예정 |
 
 ## 학습 원칙
 
@@ -117,4 +119,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-09-13
+> 정리 기준일: 2026-09-14
