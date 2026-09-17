@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Batch Fetching의 Entity·컬렉션 묶음 단위와 설정, 후보·캐시·접근 순서의 영향을 비교했다. 다음에는 인덱스와 실행 계획으로 조회 병목을 확인한다.
+현재는 PostgreSQL 실행 계획으로 탐색·정렬 비용을 읽고, 복합 인덱스를 비교하면서 커서 조회 결과를 유지하는 방법을 정리했다. 다음에는 Flyway와 DB 스키마 마이그레이션으로 테이블·인덱스 변경 이력을 관리한다.
 
 ## 현재 작성된 노트
 
@@ -28,6 +28,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 17 | JPA DTO Projection과 조회 최적화 | 필요한 컬럼만 읽으면서 커서 정렬 키와 응답 계약을 어떻게 유지하는가? | [Entity·DTO 조회와 SQL 관찰](./17_09_13_JPA_DTO_Projection/09_13_JPA_DTO_Projection.md) |
 | 18 | N+1 문제와 fetch join·EntityGraph | 연관 접근의 추가 쿼리를 줄이면서 부모 페이지와 자식 목록을 어떻게 유지하는가? | [연관 로딩·컬렉션 페이징·2단계 조회](./18_09_14_N_Plus_One_and_Fetch_Strategies/09_14_N_Plus_One_and_Fetch_Strategies.md) |
 | 19 | Batch Fetching과 연관 조회 전략 비교 | 무엇을 묶어서 읽으며 후보·캐시·접근 순서에 따라 효과가 어떻게 달라지는가? | [묶음 설정·조회 후보·컬렉션 테스트](./19_09_16_Batch_Fetching/09_16_Batch_Fetching.md) |
+| 20 | 인덱스와 실행 계획으로 조회 병목 확인하기 | DB는 행을 어떻게 찾고 정렬하며 인덱스 변경 후 조회 결과를 어떻게 검증하는가? | [실행 계획·복합 인덱스·커서 실습](./20_09_17_Indexes_and_Execution_Plans/09_17_Indexes_and_Execution_Plans.md) |
 
 ## 권장 학습 순서
 
@@ -55,7 +56,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 17 | JPA DTO Projection과 조회 최적화 | 필요한 컬럼 조회·DTO 변환 방식과 정렬 키·응답 계약 유지 | 작성 완료 |
 | 18 | N+1 문제와 fetch join·EntityGraph | 연관관계 추가 쿼리의 원인·조회 전략과 페이지네이션 제약 비교 | 작성 완료 |
 | 19 | Batch Fetching과 연관 조회 전략 비교 | 묶음 조회·캐시·접근 순서의 영향과 fetch join·DTO 조회의 선택 기준 | 작성 완료 |
-| 20 | 인덱스와 실행 계획으로 조회 병목 확인하기 | DB 탐색·정렬 비용과 조회 조건에 맞는 인덱스 검토 | 예정 |
+| 20 | 인덱스와 실행 계획으로 조회 병목 확인하기 | DB 탐색·정렬 비용과 조회 조건에 맞는 인덱스 검토 | 작성 완료 |
+| 21 | Flyway와 DB 스키마 마이그레이션 | 테이블·인덱스 변경의 버전·적용 순서와 실패 시 대응 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -121,4 +123,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-09-16
+> 정리 기준일: 2026-09-17

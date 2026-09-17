@@ -4,21 +4,21 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-09-16 기준 · 18개 학습 분야 · 학습 노트 210개 · Spring Boot 입문 노트 20개
+> 2026-09-17 기준 · 18개 학습 분야 · 학습 노트 211개 · Spring Boot 입문 노트 21개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [Batch Fetching과 연관 조회 전략 비교](./SpringBoot/19_09_16_Batch_Fetching/09_16_Batch_Fetching.md) — 상세한 줄별 주석과 8회 실행을 예상하는 테스트로 묶음 크기·후보·캐시, 컬렉션 페이지와 fetch join의 차이를 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 연관 묶음 조회를 정리했고, 다음은 인덱스와 실행 계획으로 조회 병목 확인하기입니다.
+- **최신 강의노트**: [인덱스와 실행 계획으로 조회 병목 확인하기](./SpringBoot/20_09_17_Indexes_and_Execution_Plans/09_17_Indexes_and_Execution_Plans.md) — PostgreSQL 17 공식 문서를 바탕으로 실행 계획 읽기, 복합 인덱스와 커서 경계를 설명하고 상세 주석이 있는 SQL 실습을 제공합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — DB 탐색·정렬 비용과 인덱스를 정리했고, 다음은 Flyway와 DB 스키마 마이그레이션입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
-| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, JDBC·JPA, 트랜잭션·테스트·보안·운영, 외부 HTTP 연동·페이지 조회·Projection·연관 로딩·Batch Fetching | [로드맵](./SpringBoot/README.md) |
+| Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, JDBC·JPA, 트랜잭션·테스트·보안·운영, 외부 HTTP 연동·페이지 조회·연관 로딩·인덱스와 실행 계획 | [로드맵](./SpringBoot/README.md) |
 | React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
 | TypeScript 핵심 핸드북 시리즈 | 기초 타입부터 함수·객체·제네릭·고급 타입·모듈·선언 파일·타입 오류 읽기까지 | [로드맵](./TypeScript/README.md) |
@@ -44,7 +44,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 9월 16일까지 **98개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 9월 17일까지 **99개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -84,6 +84,7 @@
 | 2026.09.13 | Spring Boot | Entity·DTO 조회 차이, 인터페이스·record Projection, SQL 관찰과 커서 계약 유지 |
 | 2026.09.14 | Spring Boot | N+1 재현, 일반 join·fetch join·EntityGraph, 컬렉션 페이징과 부모 ID 기반 2단계 조회 |
 | 2026.09.16 | Spring Boot | Batch Fetching 설정·Entity와 컬렉션의 묶음 단위, 후보·캐시·접근 순서와 조회 전략 비교 |
+| 2026.09.17 | Spring Boot | PostgreSQL 실행 계획·복합 인덱스·탐색과 정렬 비용, 커서 경계와 결과 유지 검증 |
 
 ## Learning Areas
 
@@ -104,18 +105,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP 연동·페이지 조회·Projection·연관 로딩·Batch Fetching | 20 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP 연동·페이지 조회·연관 로딩·인덱스와 실행 계획 | 21 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **210개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **211개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — 인덱스와 실행 계획으로 조회 병목 확인하기**: 쿼리 수뿐 아니라 DB의 탐색·정렬 비용을 살펴보고 실제 조회 조건에 맞는 인덱스를 검토합니다.
+2. **다음 학습 — Flyway와 DB 스키마 마이그레이션**: 테이블·인덱스 변경을 버전으로 기록하고 환경별 적용 순서와 실패 시 대응을 이해합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.
