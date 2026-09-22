@@ -591,3 +591,5 @@ class AtomicStockDecreaseIntegrationTest {
 - [PostgreSQL 17 — Client Connection Defaults](https://www.postgresql.org/docs/17/runtime-config-client.html): lock_timeout·statement_timeout 범위
 - [Spring Framework — CannotAcquireLockException](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/dao/CannotAcquireLockException.html): Spring 잠금 획득 실패 예외
 - [Spring Framework — Transaction Propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html): 물리·논리 트랜잭션과 rollback 경계
+
+다음 학습: [멱등성 키와 중복 요청 방지](../24_09_22_Idempotency_Key_and_Duplicate_Requests/09_22_Idempotency_Key_and_Duplicate_Requests.md)에서 timeout 뒤 재전송된 주문을 한 번만 처리하는 요청 계약으로 이어 간다.
