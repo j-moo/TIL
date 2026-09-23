@@ -722,7 +722,7 @@ class OrderIdempotencyIntegrationTest {
 
 🧠 기억할 것: **멱등성은 같은 요청을 알아보는 키, 같은 의미인지 확인하는 fingerprint, 최초 처리자를 정하는 유일 제약, 결과를 되돌려 주는 응답 기록이 함께 있어야 한다.**
 
-다음 확장 주제는 **Transactional Outbox와 이벤트 발행 일관성**이다. 주문 DB commit과 메시지 broker 발행 사이에서 한쪽만 성공하는 문제를 outbox 테이블, relay와 consumer 중복 처리로 연결한다.
+다음 확장 주제인 [Transactional Outbox와 이벤트 발행 일관성](../25_09_23_Transactional_Outbox_and_Event_Publishing/09_23_Transactional_Outbox_and_Event_Publishing.md)에서는 주문 DB commit과 메시지 broker 발행 사이에서 한쪽만 성공하는 문제를 outbox 테이블, relay와 consumer 중복 처리로 연결한다.
 
 ## 13. 복습 퀴즈
 

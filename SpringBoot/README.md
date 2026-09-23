@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 멱등성 키·요청 fingerprint·DB 유일 제약으로 timeout 뒤 재전송된 주문을 한 번만 처리하고, 최초 응답을 안전하게 재생하는 방법을 정리했다. 다음에는 DB 변경과 메시지 발행 사이의 불일치를 막는 Transactional Outbox를 학습한다.
+현재는 주문과 outbox 행을 같은 transaction에 저장하고, lease 기반 relay·재시도·consumer inbox로 broker 발행 실패와 중복 전달을 다루는 방법을 정리했다. 다음에는 여러 서비스에 걸친 업무 흐름과 보상 트랜잭션을 Saga로 학습한다.
 
 ## 현재 작성된 노트
 
@@ -33,6 +33,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 22 | 낙관적 잠금과 동시 수정 충돌 | 오래된 요청과 저장 경쟁을 어떻게 감지하고 사용자에게 충돌을 알리는가? | [`@Version`·409/412·충돌 테스트](./22_09_20_Optimistic_Locking/09_20_Optimistic_Locking.md) |
 | 23 | 비관적 잠금·조건부 UPDATE와 재고 차감 | 잠금 대기와 원자적 갱신 중 무엇을 선택하고 실패를 어떻게 검증하는가? | [행 잠금·영향 행 수·동시 실행 테스트](./23_09_21_Pessimistic_Locking_and_Atomic_Update/09_21_Pessimistic_Locking_and_Atomic_Update.md) |
 | 24 | 멱등성 키와 중복 요청 방지 | 같은 요청의 재전송을 어떻게 식별하고 업무 효과와 응답을 한 번만 확정하는가? | [요청 fingerprint·DB claim·응답 재생](./24_09_22_Idempotency_Key_and_Duplicate_Requests/09_22_Idempotency_Key_and_Duplicate_Requests.md) |
+| 25 | Transactional Outbox와 이벤트 발행 일관성 | 주문 DB commit과 broker 전달 사이의 실패·재시도·중복을 어떻게 복구하는가? | [Outbox·lease relay·consumer inbox](./25_09_23_Transactional_Outbox_and_Event_Publishing/09_23_Transactional_Outbox_and_Event_Publishing.md) |
 
 ## 권장 학습 순서
 
@@ -65,7 +66,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 22 | 낙관적 잠금과 동시 수정 충돌 | 버전 컬럼·충돌 감지·트랜잭션 경계와 응답 처리 이해 | 작성 완료 |
 | 23 | 비관적 잠금·조건부 UPDATE와 재고 차감 | 충돌이 잦은 작업의 대기·원자적 갱신·재시도 선택 기준 이해 | 작성 완료 |
 | 24 | 멱등성 키와 중복 요청 방지 | timeout·재시도에도 주문·차감이 한 번만 반영되는 요청 계약 이해 | 작성 완료 |
-| 25 | Transactional Outbox와 이벤트 발행 일관성 | DB commit과 메시지 발행 사이의 실패 구간·재발행·중복 소비 이해 | 예정 |
+| 25 | Transactional Outbox와 이벤트 발행 일관성 | DB commit과 메시지 발행 사이의 실패 구간·재발행·중복 소비 이해 | 작성 완료 |
+| 26 | Saga와 보상 트랜잭션 | 여러 서비스의 단계별 commit·실패·재시도를 장기 흐름으로 조정 | 예정 |
 
 ## 학습 원칙
 
