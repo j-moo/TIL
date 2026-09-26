@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 주문과 outbox 행을 같은 transaction에 저장하고, lease 기반 relay·재시도·consumer inbox로 broker 발행 실패와 중복 전달을 다루는 방법을 정리했다. 다음에는 여러 서비스에 걸친 업무 흐름과 보상 트랜잭션을 Saga로 학습한다.
+현재는 여러 서비스의 local transaction을 Saga로 연결하고, 기술 재시도와 업무 보상, 멱등 command·event, 진행 상태와 운영 복구를 정리했다. 다음에는 timeout·재시도·circuit breaker로 외부 의존성 장애를 격리하는 방법을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -34,6 +34,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 23 | 비관적 잠금·조건부 UPDATE와 재고 차감 | 잠금 대기와 원자적 갱신 중 무엇을 선택하고 실패를 어떻게 검증하는가? | [행 잠금·영향 행 수·동시 실행 테스트](./23_09_21_Pessimistic_Locking_and_Atomic_Update/09_21_Pessimistic_Locking_and_Atomic_Update.md) |
 | 24 | 멱등성 키와 중복 요청 방지 | 같은 요청의 재전송을 어떻게 식별하고 업무 효과와 응답을 한 번만 확정하는가? | [요청 fingerprint·DB claim·응답 재생](./24_09_22_Idempotency_Key_and_Duplicate_Requests/09_22_Idempotency_Key_and_Duplicate_Requests.md) |
 | 25 | Transactional Outbox와 이벤트 발행 일관성 | 주문 DB commit과 broker 전달 사이의 실패·재시도·중복을 어떻게 복구하는가? | [Outbox·lease relay·consumer inbox](./25_09_23_Transactional_Outbox_and_Event_Publishing/09_23_Transactional_Outbox_and_Event_Publishing.md) |
+| 26 | Saga와 보상 트랜잭션 | 여러 서비스의 단계별 성공·실패·재시도를 어떻게 하나의 업무 흐름으로 관리하는가? | [재시도·보상·상태 머신](./26_09_26_Saga_and_Compensating_Transactions/09_26_Saga_and_Compensating_Transactions.md) |
 
 ## 권장 학습 순서
 
@@ -67,7 +68,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 23 | 비관적 잠금·조건부 UPDATE와 재고 차감 | 충돌이 잦은 작업의 대기·원자적 갱신·재시도 선택 기준 이해 | 작성 완료 |
 | 24 | 멱등성 키와 중복 요청 방지 | timeout·재시도에도 주문·차감이 한 번만 반영되는 요청 계약 이해 | 작성 완료 |
 | 25 | Transactional Outbox와 이벤트 발행 일관성 | DB commit과 메시지 발행 사이의 실패 구간·재발행·중복 소비 이해 | 작성 완료 |
-| 26 | Saga와 보상 트랜잭션 | 여러 서비스의 단계별 commit·실패·재시도를 장기 흐름으로 조정 | 예정 |
+| 26 | Saga와 보상 트랜잭션 | 여러 서비스의 단계별 commit·실패·재시도를 장기 흐름으로 조정 | 작성 완료 |
+| 27 | timeout·재시도·circuit breaker | 느리거나 실패한 외부 의존성의 대기·재호출·격리 범위 관리 | 예정 |
 
 ## 학습 원칙
 

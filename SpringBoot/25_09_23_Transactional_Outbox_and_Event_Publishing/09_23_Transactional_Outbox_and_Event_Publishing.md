@@ -646,7 +646,7 @@ inbox transaction과 같은 DB에서 이뤄지는 작업만 함께 보호할 수
 
 🧠 기억할 것: **DB commit과 이벤트 발행의 틈에는 영속 outbox를 두고, 발행 뒤의 중복은 event ID와 consumer inbox로 다룬다.**
 
-다음으로는 Saga와 보상 트랜잭션을 정리해 여러 서비스에 걸친 장기 업무 흐름, timeout, 재시도와 되돌리기를 연결한다.
+다음 학습인 [Saga와 보상 트랜잭션](../26_09_26_Saga_and_Compensating_Transactions/09_26_Saga_and_Compensating_Transactions.md)에서는 여러 서비스에 걸친 장기 업무 흐름, timeout, 재시도와 보상 상태를 연결한다.
 
 ## 16. 복습 퀴즈
 
