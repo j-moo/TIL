@@ -435,7 +435,7 @@ Saga는 eventual consistency, 재시도, 보상, 운영 관찰을 수용할 수 
 
 🧠 기억할 것: **Saga는 여러 DB를 한 번에 rollback하는 기능이 아니라, 각 단계의 결과를 저장하고 재시도·보상으로 합의한 최종 업무 상태에 도달하는 workflow다.**
 
-다음 확장 주제는 **분산 시스템의 timeout·재시도·circuit breaker**다. Saga participant가 느리거나 장애일 때 retry budget·backoff·circuit breaker·bulkhead를 어떻게 조합할지 살펴본다.
+다음 확장 주제인 [분산 시스템의 timeout·재시도·circuit breaker](../27_09_28_Timeouts_Retries_and_Circuit_Breakers/09_28_Timeouts_Retries_and_Circuit_Breakers.md)에서 Saga participant가 느리거나 장애일 때 retry budget·backoff·격리 기준을 살펴본다.
 
 ## 15. 복습 퀴즈
 
