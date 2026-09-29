@@ -396,7 +396,7 @@ sleep으로 실제 시간을 오래 기다리는 테스트는 느리고 환경 �
 
 🧠 기억할 것: **timeout은 내 기다림을 끝내고, retry는 안전한 요청을 한정된 budget 안에서 다시 보내며, circuit breaker는 실패가 계속될 때 새 호출을 잠시 막는다. 셋은 목적이 다르므로 멱등성·deadline·동시성 정책과 함께 조합해야 한다.**
 
-다음 확장 주제는 **Bulkhead·rate limiter와 외부 호출 동시성 제어**다. breaker가 막지 못하는 동시 요청 수와 provider 요청 한도를 어떻게 제한할지 살펴본다.
+다음 노트인 [Bulkhead·Rate Limiter와 외부 호출 동시성 제어](../28_09_29_Bulkhead_and_Rate_Limiting/09_29_Bulkhead_and_Rate_Limiting.md)에서 breaker가 막지 못하는 동시 요청 수와 provider 요청 한도를 어떻게 제한할지 살펴본다.
 
 ## 14. 복습 퀴즈
 
