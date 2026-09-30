@@ -4,14 +4,14 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-09-29 기준 · 18개 학습 분야 · 학습 노트 219개 · Spring Boot 입문 노트 29개
+> 2026-09-30 기준 · 18개 학습 분야 · 학습 노트 220개 · Spring Boot 입문 노트 30개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [Bulkhead·Rate Limiter와 동시성 제어](./SpringBoot/28_09_29_Bulkhead_and_Rate_Limiting/09_29_Bulkhead_and_Rate_Limiting.md) — 동시 실행과 주기별 호출량, 공유 Bean·허가 반환·재시도 순서·다중 서버 한도를 상세 주석과 함께 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 외부 호출의 동시성·호출량 제한까지 정리했고, 다음은 Spring Cache와 Caffeine 로컬 캐시입니다.
+- **최신 강의노트**: [Spring Cache와 Caffeine 로컬 캐시](./SpringBoot/29_09_30_Spring_Cache_and_Caffeine/09_30_Spring_Cache_and_Caffeine.md) — 반복 조회·키 설계·만료·무효화, 프록시·commit·다중 서버의 최신성 경계와 테스트를 상세 주석으로 설명합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 로컬 캐시의 동작과 최신성 기준까지 정리했고, 다음은 Redis와 분산 캐시·캐시 일관성입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
@@ -44,7 +44,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 9월 29일까지 **107개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 9월 30일까지 **108개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -93,6 +93,7 @@
 | 2026.09.26 | Spring Boot | Saga choreography·orchestration, forward retry·보상, 멱등 participant와 수동 복구 상태 |
 | 2026.09.28 | Spring Boot | connect·read timeout과 업무 deadline, 멱등성 기반 재시도·backoff·jitter, circuit breaker·Bulkhead 경계 |
 | 2026.09.29 | Spring Boot | Bulkhead·Rate Limiter, 동시성·호출량·유한 queue, decorator 순서·허가 반환·다중 서버 집계 |
+| 2026.09.30 | Spring Boot | Spring Cache·Caffeine, hit/miss·키·쓰기 후 만료·무효화, 프록시·commit·다중 서버와 Ticker 테스트 |
 
 ## Learning Areas
 
@@ -113,18 +114,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience | 29 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시 | 30 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **219개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **220개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — Spring Cache·Caffeine**: 반복 조회를 줄이는 로컬 캐시와 만료·무효화·최신성 기준을 학습합니다.
+2. **다음 학습 — Redis·분산 캐시**: 여러 서버의 캐시 공유와 직렬화·만료·무효화·장애 시 일관성 기준을 학습합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.

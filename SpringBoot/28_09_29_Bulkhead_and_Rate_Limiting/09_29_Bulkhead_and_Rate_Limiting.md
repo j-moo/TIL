@@ -348,7 +348,7 @@ Rate Limiter 거절만 많으면 시간당 예산이 부족한지 살펴본다. 
 
 ### 5.2 이전·다음 학습과의 연결
 
-이전 timeout·retry·circuit breaker 노트에 호출 진입 한도를 더해 대기·재호출·동시 자원 사용을 연결했다. 다음에는 **Spring Cache와 Caffeine 로컬 캐시**를 학습해 반복 조회 자체를 줄이는 방법과 저장한 결과의 최신성 기준을 살펴본다.
+이전 timeout·retry·circuit breaker 노트에 호출 진입 한도를 더해 대기·재호출·동시 자원 사용을 연결했다. 다음에는 [Spring Cache와 Caffeine 로컬 캐시](../29_09_30_Spring_Cache_and_Caffeine/09_30_Spring_Cache_and_Caffeine.md)를 학습해 반복 조회 자체를 줄이는 방법과 저장한 결과의 최신성 기준을 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 

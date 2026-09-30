@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 timeout·재시도·circuit breaker에 이어 Bulkhead·Rate Limiter로 동시 호출과 주기별 요청량을 제한하고, 자원 반환·적용 순서·여러 서버의 합산 범위를 정리했다. 다음에는 Spring Cache와 Caffeine으로 반복 조회를 줄이는 로컬 캐시를 학습한다.
+현재는 Bulkhead·Rate Limiter에 이어 Spring Cache·Caffeine으로 반복 조회를 줄이고, 키·만료·무효화와 프록시·commit·여러 서버의 최신성 경계를 정리했다. 다음에는 Redis와 분산 캐시·캐시 일관성을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -37,6 +37,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 26 | Saga와 보상 트랜잭션 | 여러 서비스의 단계별 성공·실패·재시도를 어떻게 하나의 업무 흐름으로 관리하는가? | [재시도·보상·상태 머신](./26_09_26_Saga_and_Compensating_Transactions/09_26_Saga_and_Compensating_Transactions.md) |
 | 27 | timeout·재시도·circuit breaker | 안전한 재시도와 전체 deadline으로 외부 장애의 대기·전파를 어떻게 제한하는가? | [timeout·backoff·jitter·회로 차단](./27_09_28_Timeouts_Retries_and_Circuit_Breakers/09_28_Timeouts_Retries_and_Circuit_Breakers.md) |
 | 28 | Bulkhead·Rate Limiter와 동시성 제어 | 동시 실행 수와 시간당 호출 허가를 어떻게 구분하고 여러 서버에서 관리하는가? | [자리·허가·대기열과 호출 순서](./28_09_29_Bulkhead_and_Rate_Limiting/09_29_Bulkhead_and_Rate_Limiting.md) |
+| 29 | Spring Cache와 Caffeine 로컬 캐시 | 어떤 조회 결과를 얼마나 재사용하고 수정·동시 요청·여러 서버의 최신성을 어떻게 확인하는가? | [키·만료·무효화와 최신성 경계](./29_09_30_Spring_Cache_and_Caffeine/09_30_Spring_Cache_and_Caffeine.md) |
 
 ## 권장 학습 순서
 
@@ -73,7 +74,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 26 | Saga와 보상 트랜잭션 | 여러 서비스의 단계별 commit·실패·재시도를 장기 흐름으로 조정 | 작성 완료 |
 | 27 | timeout·재시도·circuit breaker | 느리거나 실패한 외부 의존성의 대기·재호출·격리 범위 관리 | 작성 완료 |
 | 28 | Bulkhead·Rate Limiter와 동시성 제어 | 동시 실행·호출량·대기열·재시도 순서와 로컬·전역 한도 구분 | 작성 완료 |
-| 29 | Spring Cache와 Caffeine 로컬 캐시 | 반복 조회의 캐시 적용·만료·무효화와 최신성 기준 이해 | 예정 |
+| 29 | Spring Cache와 Caffeine 로컬 캐시 | 반복 조회의 캐시 적용·만료·무효화와 최신성 기준 이해 | 작성 완료 |
+| 30 | Redis와 분산 캐시·캐시 일관성 | 여러 서버의 값 공유·직렬화·만료·무효화·장애 정책 이해 | 예정 |
 
 ## 학습 원칙
 
