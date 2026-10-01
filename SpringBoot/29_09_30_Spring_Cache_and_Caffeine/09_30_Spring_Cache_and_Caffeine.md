@@ -378,7 +378,7 @@ class CaffeineExpiryTest { // 실제 운영 캐시와 독립된 작은 테스트
 
 ### 5.2 이전·다음 학습과의 연결
 
-[Bulkhead·Rate Limiter](../28_09_29_Bulkhead_and_Rate_Limiting/09_29_Bulkhead_and_Rate_Limiting.md)는 실제 호출의 양을 제한했고, 이번 캐시는 재사용 가능한 호출을 생략했다. 다음에는 **Redis와 분산 캐시·캐시 일관성**을 학습해 여러 서버가 값을 공유할 때 직렬화·만료·무효화·장애 정책을 어떻게 정하는지 연결한다.
+[Bulkhead·Rate Limiter](../28_09_29_Bulkhead_and_Rate_Limiting/09_29_Bulkhead_and_Rate_Limiting.md)는 실제 호출의 양을 제한했고, 이번 캐시는 재사용 가능한 호출을 생략했다. 다음에는 [Redis와 분산 캐시·캐시 일관성](../30_10_01_Redis_and_Distributed_Cache/10_01_Redis_and_Distributed_Cache.md)을 학습해 여러 서버가 값을 공유할 때 직렬화·만료·무효화·장애 정책을 어떻게 정하는지 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 
