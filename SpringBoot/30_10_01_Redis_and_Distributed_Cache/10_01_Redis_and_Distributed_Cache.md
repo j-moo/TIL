@@ -389,7 +389,7 @@ Redis 공유 캐시는 보관 결과를 여러 서버가 재사용하게 하지�
 
 ### 5.2 이전·다음 학습과의 연결
 
-[Caffeine 노트](../29_09_30_Spring_Cache_and_Caffeine/09_30_Spring_Cache_and_Caffeine.md)의 로컬 최신성 문제를 공유 저장소로 확장하고, Outbox·멱등성·resilience의 실패 판단을 다시 연결했다. 다음에는 **Spring Boot 비동기 처리와 `@Async`·스레드 풀**을 학습해 별도 실행 흐름의 대기·예외·트랜잭션 경계를 구분한다.
+[Caffeine 노트](../29_09_30_Spring_Cache_and_Caffeine/09_30_Spring_Cache_and_Caffeine.md)의 로컬 최신성 문제를 공유 저장소로 확장하고, Outbox·멱등성·resilience의 실패 판단을 다시 연결했다. 다음에는 [Spring Boot 비동기 처리와 `@Async`·스레드 풀](../31_10_02_Async_and_Thread_Pools/10_02_Async_and_Thread_Pools.md)을 학습해 별도 실행 흐름의 대기·예외·트랜잭션 경계를 구분한다.
 
 ### 5.3 더 파볼 만한 주제
 

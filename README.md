@@ -4,14 +4,14 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-10-01 기준 · 18개 학습 분야 · 학습 노트 221개 · Spring Boot 입문 노트 31개
+> 2026-10-02 기준 · 18개 학습 분야 · 학습 노트 222개 · Spring Boot 입문 노트 32개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [Redis와 분산 캐시·캐시 일관성](./SpringBoot/30_10_01_Redis_and_Distributed_Cache/10_01_Redis_and_Distributed_Cache.md) — 공유 키·직렬화·TTL, commit 후 무효화·장애 우회·원본 보호와 공유 캐시 테스트를 상세 주석으로 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — Redis 공유 캐시와 실패·최신성 경계까지 정리했고, 다음은 비동기 처리와 `@Async`·스레드 풀입니다.
+- **최신 강의노트**: [비동기 처리와 `@Async`·스레드 풀](./SpringBoot/31_10_02_Async_and_Thread_Pools/10_02_Async_and_Thread_Pools.md) — 프록시·실행기 선택·대기열·제출 거절·Future 실패, 트랜잭션·종료 경계와 검증 예제를 상세 주석으로 설명합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 비동기 작업의 실행·대기·실패 경계까지 정리했고, 다음은 스케줄링과 `@Scheduled`·중복 실행 제어입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
@@ -44,7 +44,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 10월 1일까지 **109개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 10월 2일까지 **110개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -95,6 +95,7 @@
 | 2026.09.29 | Spring Boot | Bulkhead·Rate Limiter, 동시성·호출량·유한 queue, decorator 순서·허가 반환·다중 서버 집계 |
 | 2026.09.30 | Spring Boot | Spring Cache·Caffeine, hit/miss·키·쓰기 후 만료·무효화, 프록시·commit·다중 서버와 Ticker 테스트 |
 | 2026.10.01 | Spring Boot | Redis 공유 캐시·키 prefix·직렬화·TTL, commit 후 삭제·동시 miss·장애 정책과 공유 테스트 |
+| 2026.10.02 | Spring Boot | `@Async` 프록시·전용 실행기·대기열·제출 거절·Future 실패, 트랜잭션·종료 경계와 포화 테스트 |
 
 ## Learning Areas
 
@@ -115,18 +116,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·로컬/분산 캐시 | 31 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기 실행 | 32 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **221개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **222개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — 비동기 처리·스레드 풀**: `@Async`의 별도 실행 흐름과 대기열·예외·트랜잭션·종료 경계를 학습합니다.
+2. **다음 학습 — 스케줄링·중복 실행 제어**: `@Scheduled`의 실행 주기와 여러 서버에서의 중복 실행·실패 경계를 학습합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.
