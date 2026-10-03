@@ -351,7 +351,7 @@ class AsyncReportTest {
 
 ### 5.2 이전·다음 학습과의 연결
 
-[Redis 캐시 노트](../30_10_01_Redis_and_Distributed_Cache/10_01_Redis_and_Distributed_Cache.md)에서 최신성·장애 정책을 구분했다면 이번에는 실행 흐름과 작업 실패의 경계를 구분했다. 다음에는 **스케줄링과 `@Scheduled`·중복 실행 제어**를 학습한다. 작업을 언제 시작하는지와 여러 서버에서 같은 일을 중복 수행하지 않도록 관리하는 문제를 이번 실행기 지식과 연결한다.
+[Redis 캐시 노트](../30_10_01_Redis_and_Distributed_Cache/10_01_Redis_and_Distributed_Cache.md)에서 최신성·장애 정책을 구분했다면 이번에는 실행 흐름과 작업 실패의 경계를 구분했다. 다음에는 [스케줄링과 `@Scheduled`·중복 실행 제어](../32_10_03_Scheduling_and_Duplicate_Execution/10_03_Scheduling_and_Duplicate_Execution.md)를 학습한다. 작업을 언제 시작하는지와 여러 서버에서 같은 일을 중복 수행하지 않도록 관리하는 문제를 이번 실행기 지식과 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 
