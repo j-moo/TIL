@@ -475,7 +475,7 @@ class SchedulingRulesTest {
 
 ### 5.2 이전·다음 학습과의 연결
 
-[비동기 노트](../31_10_02_Async_and_Thread_Pools/10_02_Async_and_Thread_Pools.md)의 실행기·Future 지식에 호출 시점과 재시작 복구를 연결했다. 다음은 **Spring Batch와 대량 작업의 재시작·체크포인트**다. 스케줄러가 시작한 업무를 여러 단계로 나누고 어느 지점부터 다시 진행할지 저장하는 방법을 학습한다.
+[비동기 노트](../31_10_02_Async_and_Thread_Pools/10_02_Async_and_Thread_Pools.md)의 실행기·Future 지식에 호출 시점과 재시작 복구를 연결했다. 다음은 [Spring Batch와 대량 작업의 재시작·체크포인트](../33_10_04_Spring_Batch_and_Restartability/10_04_Spring_Batch_and_Restartability.md)다. 스케줄러가 시작한 업무를 여러 단계로 나누고 어느 지점부터 다시 진행할지 저장하는 방법을 학습한다.
 
 ### 5.3 더 파볼 만한 주제
 

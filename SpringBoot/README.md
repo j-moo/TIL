@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 스케줄링의 주기·시간대·완료 경계와 로컬 gate·공유 잠금·업무 키를 정리했다. 실패·재시작·종료 시의 결과 보호를 연결했고, 다음에는 Spring Batch와 대량 작업의 재시작·체크포인트를 학습한다.
+현재는 Spring Batch의 업무 식별·chunk 트랜잭션·체크포인트를 정리했다. 스케줄링의 시작 시점에서 작업 내부의 부분 성공·재시작으로 연결했고, 다음에는 Batch의 오류 처리·retry·skip과 결과 검증을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -41,6 +41,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 30 | Redis와 분산 캐시·캐시 일관성 | 공유 키·직렬화·TTL과 DB 변경·Redis 장애 사이의 실패 구간을 어떻게 관리하는가? | [공유 결과·commit·장애와 검증](./30_10_01_Redis_and_Distributed_Cache/10_01_Redis_and_Distributed_Cache.md) |
 | 31 | 비동기 처리와 `@Async`·스레드 풀 | 작업을 넘긴 뒤 대기·거절·실패·트랜잭션·종료를 어떻게 구분하는가? | [실행기·Future·실패 경계와 테스트](./31_10_02_Async_and_Thread_Pools/10_02_Async_and_Thread_Pools.md) |
 | 32 | 스케줄링과 `@Scheduled`·중복 실행 제어 | 주기·완료·여러 서버의 중복과 놓친 업무를 어떻게 관리하는가? | [예약·시간대·중복 결과와 복구](./32_10_03_Scheduling_and_Duplicate_Execution/10_03_Scheduling_and_Duplicate_Execution.md) |
+| 33 | Spring Batch와 대량 작업의 재시작·체크포인트 | 같은 업무와 실행 시도를 구분하고 어느 확정 지점부터 다시 진행하는가? | [업무 식별·chunk·진행 상태와 복구](./33_10_04_Spring_Batch_and_Restartability/10_04_Spring_Batch_and_Restartability.md) |
 
 ## 권장 학습 순서
 
@@ -81,7 +82,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 30 | Redis와 분산 캐시·캐시 일관성 | 여러 서버의 값 공유·직렬화·만료·무효화·장애 정책 이해 | 작성 완료 |
 | 31 | 비동기 처리와 `@Async`·스레드 풀 | 별도 실행 흐름의 대기열·예외·트랜잭션·종료 경계 이해 | 작성 완료 |
 | 32 | 스케줄링과 `@Scheduled`·중복 실행 제어 | 실행 주기·여러 서버의 중복 작업·실패와 종료 경계 이해 | 작성 완료 |
-| 33 | Spring Batch와 대량 작업의 재시작·체크포인트 | 단계·처리 단위·진행 상태와 실패 후 재시작 이해 | 예정 |
+| 33 | Spring Batch와 대량 작업의 재시작·체크포인트 | 단계·처리 단위·진행 상태와 실패 후 재시작 이해 | 작성 완료 |
+| 34 | Spring Batch 오류 처리·retry·skip과 결과 검증 | 일시 장애·잘못된 항목을 구분하고 재시도·허용 누락·최종 결과 검증 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -147,4 +149,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-10-03
+> 정리 기준일: 2026-10-04
