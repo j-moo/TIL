@@ -488,7 +488,7 @@ ORDER BY book_id;                       -- 비교할 때 결과 순서를 고정
 
 ### 5.2 이전·다음 학습과의 연결
 
-[스케줄링 노트](../32_10_03_Scheduling_and_Duplicate_Execution/10_03_Scheduling_and_Duplicate_Execution.md)의 시작 시점·중복 실행 문제를 작업 내부의 부분 성공과 복구로 확장했다. 다음에는 **Spring Batch의 오류 처리·retry·skip과 결과 검증**을 학습해, 일시 장애와 잘못된 항목을 구분하고 허용된 누락까지 관찰하는 방법을 연결한다.
+[스케줄링 노트](../32_10_03_Scheduling_and_Duplicate_Execution/10_03_Scheduling_and_Duplicate_Execution.md)의 시작 시점·중복 실행 문제를 작업 내부의 부분 성공과 복구로 확장했다. 다음에는 [Spring Batch의 오류 처리·retry·skip과 결과 검증](../34_10_05_Batch_Retry_Skip_and_Result_Validation/10_05_Batch_Retry_Skip_and_Result_Validation.md)을 학습해, 일시 장애와 잘못된 항목을 구분하고 허용된 누락까지 관찰하는 방법을 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 
