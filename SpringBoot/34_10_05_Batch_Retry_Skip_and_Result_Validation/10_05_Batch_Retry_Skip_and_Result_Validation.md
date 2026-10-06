@@ -463,7 +463,7 @@ retry는 회복 가능성이 있는 동작을 반복하고, skip은 업무가 �
 
 ### 5.2 이전·다음 학습과의 연결
 
-[재시작·체크포인트 노트](../33_10_04_Spring_Batch_and_Restartability/10_04_Spring_Batch_and_Restartability.md)의 실행 경계에 오류 분류와 허용 누락의 관찰을 연결했다. 다음에는 **Spring Batch DB Reader·안정적인 페이징과 입력 스냅샷**을 학습해, 파일이 아니라 바뀔 수 있는 DB 데이터를 읽을 때 처리 대상과 재개 위치를 어떻게 유지하는지 살펴본다.
+[재시작·체크포인트 노트](../33_10_04_Spring_Batch_and_Restartability/10_04_Spring_Batch_and_Restartability.md)의 실행 경계에 오류 분류와 허용 누락의 관찰을 연결했다. 다음에는 [Spring Batch DB Reader·안정적인 페이징과 입력 스냅샷](../35_10_06_Batch_DB_Readers_and_Input_Snapshots/10_06_Batch_DB_Readers_and_Input_Snapshots.md)을 학습해, 파일이 아니라 바뀔 수 있는 DB 데이터를 읽을 때 처리 대상과 재개 위치를 어떻게 유지하는지 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 
