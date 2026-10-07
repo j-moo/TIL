@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Spring Batch의 오류 처리·결과 검증에 이어 DB Reader·안정적인 페이징과 입력 스냅샷을 정리했다. 대상·값 보존·고유 정렬 키·입력 발행·재개 경계를 연결했다. 다음에는 Partitioning·작업 분할과 병렬 처리를 학습한다.
+현재는 안정적인 DB 입력에 이어 Spring Batch Partitioning·작업 분할과 병렬 처리를 정리했다. 입력 범위·실행별 Reader와 상태·자원 한도·부분 실패·재시작 경계를 연결했다. 다음에는 통합 테스트·실패 주입과 재시작 검증을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -44,6 +44,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 33 | Spring Batch와 대량 작업의 재시작·체크포인트 | 같은 업무와 실행 시도를 구분하고 어느 확정 지점부터 다시 진행하는가? | [업무 식별·chunk·진행 상태와 복구](./33_10_04_Spring_Batch_and_Restartability/10_04_Spring_Batch_and_Restartability.md) |
 | 34 | Spring Batch 오류 처리·retry·skip과 결과 검증 | 무엇을 재시도하고 무엇을 건너뛰며 완료된 결과의 누락을 어떻게 확인하는가? | [장애 분류·허용 누락·종료 상태와 검증](./34_10_05_Batch_Retry_Skip_and_Result_Validation/10_05_Batch_Retry_Skip_and_Result_Validation.md) |
 | 35 | Spring Batch DB Reader·안정적인 페이징과 입력 스냅샷 | 바뀌는 DB 입력의 대상·값·정렬·재개 위치를 어떻게 유지하는가? | [고유 키·입력 발행·체크포인트와 대조](./35_10_06_Batch_DB_Readers_and_Input_Snapshots/10_06_Batch_DB_Readers_and_Input_Snapshots.md) |
+| 36 | Spring Batch Partitioning·작업 분할과 병렬 처리 | 입력과 실행 상태를 어떻게 나누고 부분 실패 뒤 재시작하는가? | [범위·worker·자원 한도와 복구](./36_10_07_Batch_Partitioning_and_Parallel_Processing/10_07_Batch_Partitioning_and_Parallel_Processing.md) |
 
 ## 권장 학습 순서
 
@@ -87,7 +88,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 33 | Spring Batch와 대량 작업의 재시작·체크포인트 | 단계·처리 단위·진행 상태와 실패 후 재시작 이해 | 작성 완료 |
 | 34 | Spring Batch 오류 처리·retry·skip과 결과 검증 | 일시 장애·잘못된 항목을 구분하고 재시도·허용 누락·최종 결과 검증 이해 | 작성 완료 |
 | 35 | Spring Batch DB Reader·안정적인 페이징과 입력 스냅샷 | 처리 중 데이터 변경에도 정렬·읽기 범위·재시작의 누락과 중복 경계 이해 | 작성 완료 |
-| 36 | Spring Batch Partitioning·작업 분할과 병렬 처리 | 입력 범위·실행별 Reader·체크포인트·병렬 자원 제한 이해 | 예정 |
+| 36 | Spring Batch Partitioning·작업 분할과 병렬 처리 | 입력 범위·실행별 Reader·체크포인트·병렬 자원 제한 이해 | 작성 완료 |
+| 37 | Spring Batch 통합 테스트·실패 주입과 재시작 검증 | 실제 Job·DB의 확정·rollback·입력 보존·복구 경계 검증 | 예정 |
 
 ## 학습 원칙
 
@@ -153,4 +155,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-10-06
+> 정리 기준일: 2026-10-07

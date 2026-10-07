@@ -476,7 +476,7 @@ class SnapshotReaderTest {
 
 ### 5.2 이전·다음 학습과의 연결
 
-[retry·skip 노트](../34_10_05_Batch_Retry_Skip_and_Result_Validation/10_05_Batch_Retry_Skip_and_Result_Validation.md)의 결과 검증에 안정적인 DB 입력을 연결했다. 다음에는 **Spring Batch Partitioning·작업 분할과 병렬 처리**를 학습해, 고정된 입력 범위를 여러 작업으로 나눌 때 실행별 Reader·체크포인트·자원 제한을 어떻게 분리하는지 살펴본다.
+[retry·skip 노트](../34_10_05_Batch_Retry_Skip_and_Result_Validation/10_05_Batch_Retry_Skip_and_Result_Validation.md)의 결과 검증에 안정적인 DB 입력을 연결했다. 다음에는 [Spring Batch Partitioning·작업 분할과 병렬 처리](../36_10_07_Batch_Partitioning_and_Parallel_Processing/10_07_Batch_Partitioning_and_Parallel_Processing.md)를 학습해, 고정된 입력 범위를 여러 작업으로 나눌 때 실행별 Reader·체크포인트·자원 제한을 어떻게 분리하는지 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 
