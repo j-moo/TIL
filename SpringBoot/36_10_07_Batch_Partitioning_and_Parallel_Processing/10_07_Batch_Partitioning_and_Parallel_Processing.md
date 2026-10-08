@@ -433,7 +433,7 @@ Partitioning은 단순히 스레드를 늘리는 것이 아니라 입력과 실�
 
 ### 5.2 이전·다음 학습과의 연결
 
-[DB Reader·스냅샷 노트](../35_10_06_Batch_DB_Readers_and_Input_Snapshots/10_06_Batch_DB_Readers_and_Input_Snapshots.md)의 고정 입력을 독립 실행 구간으로 확장했다. 다음에는 **Spring Batch 통합 테스트·실패 주입과 재시작 검증**을 학습해, 지금까지의 상태·rollback·재개 가정을 실제 Job·DB 테스트로 확인하는 흐름을 정리한다.
+[DB Reader·스냅샷 노트](../35_10_06_Batch_DB_Readers_and_Input_Snapshots/10_06_Batch_DB_Readers_and_Input_Snapshots.md)의 고정 입력을 독립 실행 구간으로 확장했다. 다음에는 [Spring Batch 통합 테스트·실패 주입과 재시작 검증](../37_10_08_Batch_Integration_Testing_and_Restart_Verification/10_08_Batch_Integration_Testing_and_Restart_Verification.md)을 학습해, 지금까지의 상태·rollback·재개 가정을 실제 Job·DB 테스트로 확인하는 흐름을 정리한다.
 
 ### 5.3 더 파볼 만한 주제
 
