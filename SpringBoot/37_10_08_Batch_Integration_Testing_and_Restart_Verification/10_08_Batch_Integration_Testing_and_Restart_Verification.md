@@ -501,7 +501,7 @@ Java 프로젝트 루트의 PowerShell에서 다음 명령을 실행한다. **TI
 
 ### 5.2 이전·다음 학습과의 연결
 
-[Partitioning 노트](../36_10_07_Batch_Partitioning_and_Parallel_Processing/10_07_Batch_Partitioning_and_Parallel_Processing.md)의 복구 가정을 단일 JDBC 경계의 assertion과 병렬 시험 절차로 연결했다. 다음에는 **Spring Batch 운영·실행 제어와 장애 복구**를 학습해, 실행 상태·중지·중단된 프로세스의 확인·복구·관찰을 안전한 운영 절차로 묶는다.
+[Partitioning 노트](../36_10_07_Batch_Partitioning_and_Parallel_Processing/10_07_Batch_Partitioning_and_Parallel_Processing.md)의 복구 가정을 단일 JDBC 경계의 assertion과 병렬 시험 절차로 연결했다. 다음에는 [Spring Batch 운영·실행 제어와 장애 복구](../38_10_09_Batch_Operations_and_Failure_Recovery/10_09_Batch_Operations_and_Failure_Recovery.md)를 학습해, 실행 상태·중지·중단된 프로세스의 확인·복구·관찰을 안전한 운영 절차로 묶는다.
 
 ### 5.3 더 파볼 만한 주제
 
