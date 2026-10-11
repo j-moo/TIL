@@ -422,7 +422,7 @@ Job 이름·식별 파라미터·입력 버전·결과 식별 키·배포 버전
 
 ### 5.2 이전·다음 학습과의 연결
 
-[통합 테스트 노트](../37_10_08_Batch_Integration_Testing_and_Restart_Verification/10_08_Batch_Integration_Testing_and_Restart_Verification.md)의 실패·재시작 증거를 운영 판단과 이력 보존으로 연결했다. 다음에는 **Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step**을 학습해 처리·검증·후속 작업의 책임을 나누고 실패한 단계부터 재개하는 흐름을 다룬다.
+[통합 테스트 노트](../37_10_08_Batch_Integration_Testing_and_Restart_Verification/10_08_Batch_Integration_Testing_and_Restart_Verification.md)의 실패·재시작 증거를 운영 판단과 이력 보존으로 연결했다. 다음에는 [Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step](../39_10_11_Batch_Multi_Step_Flow_and_Result_Verification/10_11_Batch_Multi_Step_Flow_and_Result_Verification.md)을 학습해 처리·검증·후속 작업의 책임을 나누고 실패한 단계부터 재개하는 흐름을 다룬다.
 
 ### 5.3 더 파볼 만한 주제
 
