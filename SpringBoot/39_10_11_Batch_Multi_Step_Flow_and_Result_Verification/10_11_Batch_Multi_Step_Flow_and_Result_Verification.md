@@ -404,7 +404,7 @@ ExitStatus는 흐름을 고를 짧은 코드이지 결과 전체를 전달하는
 
 ### 5.2 이전·다음 학습과의 연결
 
-[운영·장애 복구 노트](../38_10_09_Batch_Operations_and_Failure_Recovery/10_09_Batch_Operations_and_Failure_Recovery.md)의 상태 확인을 Job 내부의 검증 경계로 연결했다. 다음에는 **Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리**를 학습해 검증 통계·재개 정보를 어느 범위에 언제 저장할지 다룬다.
+[운영·장애 복구 노트](../38_10_09_Batch_Operations_and_Failure_Recovery/10_09_Batch_Operations_and_Failure_Recovery.md)의 상태 확인을 Job 내부의 검증 경계로 연결했다. 다음에는 [Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리](../40_10_12_Batch_ExecutionContext_and_Step_Data_Handoff/10_12_Batch_ExecutionContext_and_Step_Data_Handoff.md)를 학습해 검증 통계·재개 정보를 어느 범위에 언제 저장할지 다룬다.
 
 ### 5.3 더 파볼 만한 주제
 

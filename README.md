@@ -4,14 +4,14 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-10-11 기준 · 18개 학습 분야 · 학습 노트 230개 · Spring Boot 입문 노트 40개
+> 2026-10-12 기준 · 18개 학습 분야 · 학습 노트 231개 · Spring Boot 입문 노트 41개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step](./SpringBoot/39_10_11_Batch_Multi_Step_Flow_and_Result_Verification/10_11_Batch_Multi_Step_Flow_and_Result_Verification.md) — 입력·결과 대조 SQL과 Tasklet, 종료 코드별 전이, 단계별 재시작 정책을 상세 주석과 테스트 예제로 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — Batch의 운영·장애 복구와 다단계 검증 흐름까지 정리했고, 다음은 ExecutionContext·단계 간 데이터 전달과 상태 관리입니다.
+- **최신 강의노트**: [Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리](./SpringBoot/40_10_12_Batch_ExecutionContext_and_Step_Data_Handoff/10_12_Batch_ExecutionContext_and_Step_Data_Handoff.md) — Step·Job 범위, 요약 생산·승격·소비, 저장 시점·타입·버전과 재시작 검증을 상세 주석과 테스트 예제로 설명합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — Batch의 다단계 흐름과 실행 데이터 전달·상태 관리까지 정리했고, 다음은 파일 출력·재시작과 안전한 결과 공개입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
@@ -44,7 +44,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 10월 11일까지 **118개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 10월 12일까지 **119개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -104,6 +104,7 @@
 | 2026.10.08 | Spring Boot | Batch JDBC 통합 테스트·SQL 뒤 실패·rollback, 같은 Instance 재시작·입력 보존·최종 값 대조와 병렬·프로세스 시험 구분 |
 | 2026.10.09 | Spring Boot | Batch 실행 조회·최신 시도 확인, stop·restart·recover·abandon, 실행 주체 격리·관찰·복구 시험과 이력 보존 |
 | 2026.10.11 | Spring Boot | Batch 다단계 Job·Tasklet 결과 대조, ExitStatus별 분기·종료 정책, 완료 Step의 재수행·재개 위치와 흐름 테스트 |
+| 2026.10.12 | Spring Boot | Batch ExecutionContext 범위·저장 경계, 요약 승격·strict·소비자 계약 검사, 변경 감지·직렬화·재시작과 새 프로세스 검증 |
 
 ## Learning Areas
 
@@ -124,18 +125,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch | 40 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch | 41 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **230개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **231개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — Spring Batch ExecutionContext·상태 관리**: Step·Job 범위의 데이터 전달, 진행 상태의 저장 시점과 재시작 호환성을 연결합니다.
+2. **다음 학습 — Spring Batch 파일 출력·결과 공개**: 파일 쓰기·재시작·검증·공개 시점과 DB 진행 상태의 경계를 연결합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.

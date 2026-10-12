@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Spring Batch의 운영·장애 복구에 이어 다단계 Job·조건부 흐름과 결과 검증 Step을 정리했다. 입력·결과 대조, 종료 코드별 전이, 단계별 재실행과 재개 위치를 연결했다. 다음에는 ExecutionContext·단계 간 데이터 전달과 상태 관리를 학습한다.
+현재는 Spring Batch의 다단계 흐름에 이어 ExecutionContext·단계 간 데이터 전달과 상태 관리를 정리했다. Step·Job 범위, 요약 승격과 소비자 검사, 저장·직렬화·재시작의 경계를 연결했다. 다음에는 파일 출력·재시작과 안전한 결과 공개를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -48,6 +48,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 37 | Spring Batch 통합 테스트·실패 주입과 재시작 검증 | 실제 SQL의 rollback과 같은 업무의 복구를 어떤 증거로 확인하는가? | [JDBC 이력·확정 결과·입력 보존과 대조](./37_10_08_Batch_Integration_Testing_and_Restart_Verification/10_08_Batch_Integration_Testing_and_Restart_Verification.md) |
 | 38 | Spring Batch 운영·실행 제어와 장애 복구 | 실행 이력과 실제 작업 주체를 확인하고 언제 중지·재시작·복구하는가? | [실행 조회·제어·격리·관찰과 보존](./38_10_09_Batch_Operations_and_Failure_Recovery/10_09_Batch_Operations_and_Failure_Recovery.md) |
 | 39 | Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step | 입력과 결과를 검증한 뒤 어떤 단계로 진행하며 실패 후 무엇을 다시 확인하는가? | [Tasklet·종료 코드·검증과 재개](./39_10_11_Batch_Multi_Step_Flow_and_Result_Verification/10_11_Batch_Multi_Step_Flow_and_Result_Verification.md) |
+| 40 | Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리 | 진행 상태·단계 간 요약을 어디에 언제 저장하고 재시작에서 어떻게 검사하는가? | [범위·승격·상태 계약과 복원](./40_10_12_Batch_ExecutionContext_and_Step_Data_Handoff/10_12_Batch_ExecutionContext_and_Step_Data_Handoff.md) |
 
 ## 권장 학습 순서
 
@@ -95,7 +96,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 37 | Spring Batch 통합 테스트·실패 주입과 재시작 검증 | 실제 Job·DB의 확정·rollback·입력 보존·복구 경계 검증 | 작성 완료 |
 | 38 | Spring Batch 운영·실행 제어와 장애 복구 | 실행 조회·중지·중단된 프로세스 확인·복구·관찰의 안전한 절차 이해 | 작성 완료 |
 | 39 | Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step | 처리·검증·후속 작업의 단계 분리와 실패 단계의 재개 이해 | 작성 완료 |
-| 40 | Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리 | Step·Job 범위와 진행 정보의 저장 시점·재시작 호환성 이해 | 예정 |
+| 40 | Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리 | Step·Job 범위와 진행 정보의 저장 시점·재시작 호환성 이해 | 작성 완료 |
+| 41 | Spring Batch 파일 출력·재시작과 안전한 결과 공개 | DB 진행 상태·파일 쓰기·검증·공개 시점의 실패 경계 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -161,4 +163,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-10-11
+> 정리 기준일: 2026-10-12
