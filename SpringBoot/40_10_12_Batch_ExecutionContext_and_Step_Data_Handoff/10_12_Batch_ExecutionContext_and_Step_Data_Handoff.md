@@ -505,7 +505,7 @@ ExecutionContext는 실행 상태의 저장 위치이지만 put 한 번이 commi
 
 ### 5.2 이전·다음 학습과의 연결
 
-[다단계 Job 노트](../39_10_11_Batch_Multi_Step_Flow_and_Result_Verification/10_11_Batch_Multi_Step_Flow_and_Result_Verification.md)의 흐름 선택과 별도로 작은 실행 데이터를 전달하는 방법을 연결했다. 다음에는 **Spring Batch 파일 출력·재시작과 안전한 결과 공개**를 학습해 DB 진행 상태와 파일 쓰기·검증·공개 시점의 경계를 다룬다.
+[다단계 Job 노트](../39_10_11_Batch_Multi_Step_Flow_and_Result_Verification/10_11_Batch_Multi_Step_Flow_and_Result_Verification.md)의 흐름 선택과 별도로 작은 실행 데이터를 전달하는 방법을 연결했다. 다음에는 [Spring Batch 파일 출력·재시작과 안전한 결과 공개](../41_10_15_Batch_File_Output_and_Safe_Publication/10_15_Batch_File_Output_and_Safe_Publication.md)를 학습해 DB 진행 상태와 파일 쓰기·검증·공개 시점의 경계를 다룬다.
 
 ### 5.3 더 파볼 만한 주제
 
