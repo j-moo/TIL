@@ -445,7 +445,7 @@ Java 프로젝트 루트에서 사용 중인 Wrapper 하나를 선택한다. TIL
 
 ### 5.2 이전·다음 학습과의 연결
 
-[ExecutionContext 노트](../40_10_12_Batch_ExecutionContext_and_Step_Data_Handoff/10_12_Batch_ExecutionContext_and_Step_Data_Handoff.md)의 상태 저장을 실제 파일 위치·입력·검증 결과와 연결했다. 다음에는 **Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구**를 학습해 로컬 rename으로 해결할 수 없는 원격 저장소 경계를 다룬다.
+[ExecutionContext 노트](../40_10_12_Batch_ExecutionContext_and_Step_Data_Handoff/10_12_Batch_ExecutionContext_and_Step_Data_Handoff.md)의 상태 저장을 실제 파일 위치·입력·검증 결과와 연결했다. 다음에는 [Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구](../42_10_20_Batch_Object_Storage_and_Idempotent_Publication/10_20_Batch_Object_Storage_and_Idempotent_Publication.md)를 학습해 로컬 rename으로 해결할 수 없는 원격 저장소 경계를 다룬다.
 
 ### 5.3 더 파볼 만한 주제
 

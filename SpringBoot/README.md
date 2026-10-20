@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 Spring Batch의 상태 관리에 이어 파일 출력·재시작과 안전한 결과 공개를 정리했다. 비공개 CSV, Writer 재개 위치, 닫힌 파일 검증과 공개 이력의 실패 경계를 연결했다. 다음에는 객체 스토리지 업로드·멱등 공개와 정합성 복구를 학습한다.
+현재는 Spring Batch의 파일 출력에 이어 객체 스토리지 업로드·멱등 공개와 정합성 복구를 정리했다. 고정 업무 키, 조건부 PUT, 체크섬·버전 대조와 DB 공개 확정의 실패 경계를 연결했다. 다음에는 파일 다운로드 API·스트리밍과 접근 제어를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -50,6 +50,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 39 | Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step | 입력과 결과를 검증한 뒤 어떤 단계로 진행하며 실패 후 무엇을 다시 확인하는가? | [Tasklet·종료 코드·검증과 재개](./39_10_11_Batch_Multi_Step_Flow_and_Result_Verification/10_11_Batch_Multi_Step_Flow_and_Result_Verification.md) |
 | 40 | Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리 | 진행 상태·단계 간 요약을 어디에 언제 저장하고 재시작에서 어떻게 검사하는가? | [범위·승격·상태 계약과 복원](./40_10_12_Batch_ExecutionContext_and_Step_Data_Handoff/10_12_Batch_ExecutionContext_and_Step_Data_Handoff.md) |
 | 41 | Spring Batch 파일 출력·재시작과 안전한 결과 공개 | 파일·DB 상태를 어떻게 함께 복구하고 검증한 산출물만 공개하는가? | [CSV·Writer 상태·검증과 공개 이력](./41_10_15_Batch_File_Output_and_Safe_Publication/10_15_Batch_File_Output_and_Safe_Publication.md) |
+| 42 | Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구 | 응답 유실·중복 업로드·DB 확정 실패에도 검증한 버전을 어떻게 제공하는가? | [조건부 PUT·체크섬·버전과 공개 복구](./42_10_20_Batch_Object_Storage_and_Idempotent_Publication/10_20_Batch_Object_Storage_and_Idempotent_Publication.md) |
 
 ## 권장 학습 순서
 
@@ -99,7 +100,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 39 | Spring Batch 다단계 Job·조건부 흐름과 결과 검증 Step | 처리·검증·후속 작업의 단계 분리와 실패 단계의 재개 이해 | 작성 완료 |
 | 40 | Spring Batch ExecutionContext·단계 간 데이터 전달과 상태 관리 | Step·Job 범위와 진행 정보의 저장 시점·재시작 호환성 이해 | 작성 완료 |
 | 41 | Spring Batch 파일 출력·재시작과 안전한 결과 공개 | DB 진행 상태·파일 쓰기·검증·공개 시점의 실패 경계 이해 | 작성 완료 |
-| 42 | Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구 | 원격 업로드·검증·공개 이력·재시도의 실패 구간 대조 | 예정 |
+| 42 | Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구 | 원격 업로드·검증·공개 이력·재시도의 실패 구간 대조 | 작성 완료 |
+| 43 | 파일 다운로드 API·스트리밍과 접근 제어 | READY 산출물의 권한·고정 버전·HTTP 응답·자원 정리와 실패 경계 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -165,4 +167,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-10-15
+> 정리 기준일: 2026-10-20
