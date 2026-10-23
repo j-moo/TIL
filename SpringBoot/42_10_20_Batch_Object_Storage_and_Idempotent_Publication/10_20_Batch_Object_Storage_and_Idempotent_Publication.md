@@ -528,7 +528,7 @@ class S3ExportUploaderTest {
 
 ### 5.2 이전·다음 학습과의 연결
 
-[이전 파일 출력 노트](../41_10_15_Batch_File_Output_and_Safe_Publication/10_15_Batch_File_Output_and_Safe_Publication.md)의 로컬 검증 근거를 원격 체크섬·버전·공개 이력으로 이어 붙였다. 다음에는 **파일 다운로드 API·스트리밍과 접근 제어**를 학습해 READY 산출물을 실제 HTTP 응답으로 제공할 때의 권한·자원 정리·실패 경계를 연결한다.
+[이전 파일 출력 노트](../41_10_15_Batch_File_Output_and_Safe_Publication/10_15_Batch_File_Output_and_Safe_Publication.md)의 로컬 검증 근거를 원격 체크섬·버전·공개 이력으로 이어 붙였다. 다음에는 [파일 다운로드 API·스트리밍과 접근 제어](../43_10_23_File_Download_Streaming_and_Access_Control/10_23_File_Download_Streaming_and_Access_Control.md)를 학습해 READY 산출물을 실제 HTTP 응답으로 제공할 때의 권한·자원 정리·실패 경계를 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 
