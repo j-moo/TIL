@@ -481,7 +481,7 @@ MockMvc의 비동기 요청은 시작 결과를 받은 뒤 완료를 기다리�
 
 ### 5.2 이전·다음 학습과의 연결
 
-[객체 스토리지 노트](../42_10_20_Batch_Object_Storage_and_Idempotent_Publication/10_20_Batch_Object_Storage_and_Idempotent_Publication.md)의 검증 버전을 실제 HTTP 제공 경로에 연결했다. 다음에는 **HTTP Range·조건부 요청과 파일 이어받기**를 학습해 부분 응답·표현 식별자·변경된 파일의 재개 조건을 구분한다.
+[객체 스토리지 노트](../42_10_20_Batch_Object_Storage_and_Idempotent_Publication/10_20_Batch_Object_Storage_and_Idempotent_Publication.md)의 검증 버전을 실제 HTTP 제공 경로에 연결했다. 다음에는 [HTTP Range·조건부 요청과 파일 이어받기](../44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md)를 학습해 부분 응답·표현 식별자·변경된 파일의 재개 조건을 구분한다.
 
 ### 5.3 더 파볼 만한 주제
 

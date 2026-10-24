@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 객체 스토리지의 검증 버전을 파일 다운로드 API에 연결했다. 소유자·READY·제공 기간·고정 버전, HTTP 헤더·스트리밍 자원 정리·중도 실패와 사전 서명 URL의 권한을 정리했다. 다음에는 HTTP Range·조건부 요청과 파일 이어받기를 학습한다.
+현재는 파일 다운로드에 HTTP Range·조건부 요청과 이어받기를 연결했다. 바이트 구간·ETag·조건 평가 순서·고정 버전의 부분 조회와 클라이언트 재개 판단을 정리했다. 다음에는 파일 업로드 API·multipart 요청과 입력 검증을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -52,6 +52,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 41 | Spring Batch 파일 출력·재시작과 안전한 결과 공개 | 파일·DB 상태를 어떻게 함께 복구하고 검증한 산출물만 공개하는가? | [CSV·Writer 상태·검증과 공개 이력](./41_10_15_Batch_File_Output_and_Safe_Publication/10_15_Batch_File_Output_and_Safe_Publication.md) |
 | 42 | Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구 | 응답 유실·중복 업로드·DB 확정 실패에도 검증한 버전을 어떻게 제공하는가? | [조건부 PUT·체크섬·버전과 공개 복구](./42_10_20_Batch_Object_Storage_and_Idempotent_Publication/10_20_Batch_Object_Storage_and_Idempotent_Publication.md) |
 | 43 | 파일 다운로드 API·스트리밍과 접근 제어 | 누가 어떤 검증 버전을 받으며 전송 실패 시 누가 연결을 정리하는가? | [권한·헤더·close/abort와 서명 URL](./43_10_23_File_Download_Streaming_and_Access_Control/10_23_File_Download_Streaming_and_Access_Control.md) |
+| 44 | HTTP Range·조건부 요청과 파일 이어받기 | 같은 표현의 올바른 구간만 이어 받고 상태별로 어떻게 저장·재개하는가? | [206·ETag·If-Range와 재개 조건](./44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md) |
 
 ## 권장 학습 순서
 
@@ -103,7 +104,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 41 | Spring Batch 파일 출력·재시작과 안전한 결과 공개 | DB 진행 상태·파일 쓰기·검증·공개 시점의 실패 경계 이해 | 작성 완료 |
 | 42 | Spring Batch 객체 스토리지 업로드·멱등 공개와 정합성 복구 | 원격 업로드·검증·공개 이력·재시도의 실패 구간 대조 | 작성 완료 |
 | 43 | 파일 다운로드 API·스트리밍과 접근 제어 | READY 산출물의 권한·고정 버전·HTTP 응답·자원 정리와 실패 경계 이해 | 작성 완료 |
-| 44 | HTTP Range·조건부 요청과 파일 이어받기 | 부분 응답·표현 식별자·재개 조건·권한과 캐시 경계 이해 | 예정 |
+| 44 | HTTP Range·조건부 요청과 파일 이어받기 | 부분 응답·표현 식별자·재개 조건·권한과 캐시 경계 이해 | 작성 완료 |
+| 45 | 파일 업로드 API·multipart 요청과 입력 검증 | 사용자 파일의 크기·이름·내용 검증과 비공개 저장 경계 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -169,4 +171,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-10-23
+> 정리 기준일: 2026-10-24
