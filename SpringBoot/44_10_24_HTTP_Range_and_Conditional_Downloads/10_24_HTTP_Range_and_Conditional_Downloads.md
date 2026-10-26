@@ -603,7 +603,7 @@ class DownloadRequestPlannerTest {
 
 ### 5.2 이전·다음 학습과의 연결
 
-[파일 다운로드 노트](../43_10_23_File_Download_Streaming_and_Access_Control/10_23_File_Download_Streaming_and_Access_Control.md)의 전체 스트리밍에 부분 응답·조건 평가·본문 없는 조회를 추가했다. 다음에는 **파일 업로드 API·multipart 요청과 입력 검증**을 학습해 사용자가 보내는 파일의 크기·이름·내용을 검증하고 비공개 저장으로 연결한다.
+[파일 다운로드 노트](../43_10_23_File_Download_Streaming_and_Access_Control/10_23_File_Download_Streaming_and_Access_Control.md)의 전체 스트리밍에 부분 응답·조건 평가·본문 없는 조회를 추가했다. 다음 [파일 업로드 API·multipart 요청과 입력 검증](../45_10_26_File_Upload_Multipart_and_Validation/10_26_File_Upload_Multipart_and_Validation.md)에서는 사용자가 보내는 파일의 크기·이름·내용을 검증하고 비공개 저장으로 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 
