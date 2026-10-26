@@ -4,13 +4,13 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-10-24 기준 · 18개 학습 분야 · 학습 노트 235개 · Spring Boot 입문 노트 45개
+> 2026-10-26 기준 · 18개 학습 분야 · 학습 노트 237개 · Spring Boot 입문 노트 45개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [HTTP Range·조건부 요청과 파일 이어받기](./SpringBoot/44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md) — 바이트 구간·ETag·If-Range·206/304/416, 고정 버전의 부분 전송과 재개 판단을 상세 주석·테스트 예제로 설명합니다.
+- **최신 풀이노트**: [10월 25일 코딩 테스트 복습](./problem_review/README.md) — 8방향 연결 묶음의 정사각형 판정과 시간 제한 참가권 교환을 상세 주석·실행 코드·독립 비교 테스트로 정리했습니다.
 - **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 다운로드의 권한·스트리밍부터 조건부 부분 응답과 이어받기까지 연결했고, 다음은 파일 업로드 API·multipart 요청과 입력 검증입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
@@ -18,6 +18,8 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
+| 코딩 테스트 풀이 복습 | 반복형 DFS·연결 요소·정사각형 판정, 시간 구간·대기·heapq 다익스트라와 요청 1회 사용 검증 | [풀이 목록](./problem_review/README.md) |
+| HTTP Range·조건부 다운로드 | 바이트 구간·ETag·If-Range·206/304/416, 고정 버전 부분 전송과 이어받기 | [바로가기](./SpringBoot/44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md) |
 | Spring Boot 입문 시리즈 | IoC·DI, MVC·REST, JDBC·JPA, 트랜잭션·테스트·보안·운영, 외부 HTTP 연동·조회 최적화·마이그레이션·동시성 제어 | [로드맵](./SpringBoot/README.md) |
 | React 입문 시리즈 | TypeScript 기반 컴포넌트·라우팅·상태 관리·CRUD·Firebase 인증 경로·테스트·오류 복구 | [로드맵](./React/README.md) |
 | Firebase 웹 시리즈 | SDK 설정, 데이터·파일 저장소, Authentication, 계정 수명주기, App Check, Security Rules, Emulator 테스트와 커서 페이지네이션 | [로드맵](./Firebase/README.md) |
@@ -44,7 +46,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 10월 24일까지 **123개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 10월 26일까지 **125개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -109,6 +111,7 @@
 | 2026.10.20 | Spring Boot | Batch 객체 스토리지·조건부 PUT·SHA-256·버전 대조, 응답 유실·DB 공개 확정 실패와 멱등 복구 |
 | 2026.10.23 | Spring Boot | 파일 다운로드·소유자와 READY·고정 버전, HTTP 헤더·스트리밍 close/abort·전송 실패와 사전 서명 URL |
 | 2026.10.24 | Spring Boot | HTTP Range·206/416·ETag·조건부 요청, 고정 버전 부분 전송·HEAD와 클라이언트 이어받기 검증 |
+| 2026.10.25 풀이·10.26 정리 | Algorithm | 8방향 연결 묶음·정사각형 판정, 시간 제한 참가권 교환·가장 이른 도달 시각과 다익스트라·독립 구현 비교 |
 
 ## Learning Areas
 
@@ -116,7 +119,7 @@
 | --- | --- | ---: |
 | [Python](./Python) | 문법, 함수, 자료구조, 객체지향, API·JSON, 데이터 분석, Windows·Conda 개발환경 | 12 |
 | [Algorithm](./Algorithm) | 배열, 문자열, 스택, 큐, 트리와 문제 해결 전략 | 16 |
-| [Problem Review](./problem_review) | 알고리즘 문제 풀이와 접근 과정 복기 | 23 |
+| [Problem Review](./problem_review) | 알고리즘 문제 풀이·접근 과정 복기, 격자 연결 요소와 시간 제한 교환·실행 검증 | 25 |
 | [Web](./Web) | HTML, CSS, 레이아웃, Bootstrap, 반응형 웹, 접근성, 브라우저 보안, UX/UI 설계 | 7 |
 | [JavaScript](./Javascript) | 문법, DOM, 이벤트, 객체·다차원 배열, 불변성과 비동기 요청 제어 | 11 |
 | [TypeScript](./TypeScript) | 정적 타입 검사, 함수·객체, 제네릭, 고급 타입, 클래스, 모듈, 선언 파일, 오류 읽기 | 8 |
@@ -133,7 +136,7 @@
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **235개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **237개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
