@@ -722,7 +722,7 @@ multipart 바인딩, 입력 규칙 검증, 비공개 저장, 공개 승인은 �
 
 ### 5.2 이전·다음 학습과의 연결
 
-[조건부 다운로드](../44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md)의 검증된 파일 제공 경로 앞에 사용자 입력의 수신·검증 경계를 추가했다. 다음에는 **파일 업로드 상태 관리·격리 검사와 만료 정리**를 학습해 이번 저장 계약을 DB 이력·검사 작업자·실패 복구와 연결한다.
+[조건부 다운로드](../44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md)의 검증된 파일 제공 경로 앞에 사용자 입력의 수신·검증 경계를 추가했다. 다음에는 [파일 업로드 상태 관리·격리 검사와 만료 정리](../46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md)를 학습해 이번 저장 계약을 DB 이력·검사 작업자·실패 복구와 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 

@@ -4,20 +4,21 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-10-26 기준 · 18개 학습 분야 · 학습 노트 238개 · Spring Boot 입문 노트 46개
+> 2026-10-28 기준 · 18개 학습 분야 · 학습 노트 239개 · Spring Boot 입문 노트 47개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [파일 업로드 API·multipart 요청과 입력 검증](./SpringBoot/45_10_26_File_Upload_Multipart_and_Validation/10_26_File_Upload_Multipart_and_Validation.md) — JSON·파일 part, 크기·이름·UTF-8 내용 검증, 비공개 저장과 오류·테스트 경계를 상세 주석으로 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 다운로드부터 업로드 요청·검증·비공개 저장 경계까지 연결했고, 다음은 파일 업로드 상태 관리·격리 검사와 만료 정리입니다.
+- **최신 강의노트**: [파일 업로드 상태 관리·격리 검사와 만료 정리](./SpringBoot/46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md) — 접수·검사·승인·만료·삭제를 연결하고, lease·조건부 갱신·늦은 결과와 고아 객체 복구를 상세 주석으로 설명합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 업로드 이후의 검사·제공·정리 경계까지 연결했고, 다음은 사전 서명 URL 기반 직접 업로드·완료 검증입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
+| 업로드 상태 관리·격리 검사 | 상태 머신·고정 버전·lease와 시도 token, 조건부 승인·만료 차단·정리와 실패 복구 | [바로가기](./SpringBoot/46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md) |
 | 파일 업로드 API | multipart·RequestPart·DTO와 파일 검증, 제한 읽기·비공개 저장·CSRF와 실제 서버 검증 범위 | [바로가기](./SpringBoot/45_10_26_File_Upload_Multipart_and_Validation/10_26_File_Upload_Multipart_and_Validation.md) |
 | 코딩 테스트 풀이 복습 | 반복형 DFS·연결 요소·정사각형 판정, 시간 구간·대기·heapq 다익스트라와 요청 1회 사용 검증 | [풀이 목록](./problem_review/README.md) |
 | HTTP Range·조건부 다운로드 | 바이트 구간·ETag·If-Range·206/304/416, 고정 버전 부분 전송과 이어받기 | [바로가기](./SpringBoot/44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md) |
@@ -47,7 +48,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 10월 26일까지 **126개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 10월 28일까지 **127개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -114,6 +115,7 @@
 | 2026.10.24 | Spring Boot | HTTP Range·206/416·ETag·조건부 요청, 고정 버전 부분 전송·HEAD와 클라이언트 이어받기 검증 |
 | 2026.10.25 풀이·10.26 정리 | Algorithm | 8방향 연결 묶음·정사각형 판정, 시간 제한 참가권 교환·가장 이른 도달 시각과 다익스트라·독립 구현 비교 |
 | 2026.10.26 | Spring Boot | 파일 업로드·multipart와 JSON part, 크기·이름·UTF-8 검증·비공개 저장 경계·CSRF와 MockMvc/실제 서버 검증 구분 |
+| 2026.10.28 | Spring Boot | 업로드 상태·격리 검사·고정 버전, lease·token·조건부 승인, 만료와 실제 삭제·미완료 객체 복구 |
 
 ## Learning Areas
 
@@ -134,18 +136,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch·다운로드·업로드 | 46 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch·다운로드·업로드와 격리·정리 | 47 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **238개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **239개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — 파일 업로드 상태 관리·격리 검사와 만료 정리**: 접수 이력·검사 결과·공개 승인·미완료 파일 복구와 보존 기한을 연결합니다.
+2. **다음 학습 — 사전 서명 URL 기반 직접 업로드·완료 검증**: 브라우저에서 저장소로 직접 보내는 요청의 권한·제약과 실제 저장 결과·검사 대기 전환을 연결합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.
