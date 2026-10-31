@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 업로드 입력 검증에 이어 접수·격리 검사·공개 승인·만료·삭제의 상태 관리를 정리했다. 고정 버전·lease·조건부 UPDATE로 중복과 늦은 결과를 다루고, 미완료 저장·실제 삭제의 실패 복구까지 연결했다. 다음에는 사전 서명 URL 기반 직접 업로드·완료 검증을 학습한다.
+현재는 사전 서명 URL로 브라우저에서 직접 전송한 파일을 서버의 완료 검증·격리 검사 흐름으로 연결했다. 서명 헤더·CORS·조건부 PUT과 고정 버전의 크기·내용 대조를 설명하고, 중복 완료·응답 유실·늦은 업로드의 복구 경계를 구분했다. 다음에는 대용량 파일·S3 Multipart Upload와 중단·재개를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -55,6 +55,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 44 | HTTP Range·조건부 요청과 파일 이어받기 | 같은 표현의 올바른 구간만 이어 받고 상태별로 어떻게 저장·재개하는가? | [206·ETag·If-Range와 재개 조건](./44_10_24_HTTP_Range_and_Conditional_Downloads/10_24_HTTP_Range_and_Conditional_Downloads.md) |
 | 45 | 파일 업로드 API·multipart 요청과 입력 검증 | 파일과 JSON을 어떻게 받고 어떤 바이트만 비공개 저장으로 넘기는가? | [RequestPart·크기·내용 검증과 저장 경계](./45_10_26_File_Upload_Multipart_and_Validation/10_26_File_Upload_Multipart_and_Validation.md) |
 | 46 | 파일 업로드 상태 관리·격리 검사와 만료 정리 | 검사·만료·삭제가 경쟁해도 어떤 버전을 누가 사용할 수 있는가? | [상태·lease·조건부 승인과 정리 복구](./46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md) |
+| 47 | 사전 서명 URL 기반 직접 업로드·완료 검증 | 브라우저 전송 성공을 어떤 버전·바이트의 검사 대기 상태로 확정하는가? | [서명 PUT·CORS·버전 검증과 완료 복구](./47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md) |
 
 ## 권장 학습 순서
 
@@ -109,7 +110,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 44 | HTTP Range·조건부 요청과 파일 이어받기 | 부분 응답·표현 식별자·재개 조건·권한과 캐시 경계 이해 | 작성 완료 |
 | 45 | 파일 업로드 API·multipart 요청과 입력 검증 | 사용자 파일의 크기·이름·내용 검증과 비공개 저장 경계 이해 | 작성 완료 |
 | 46 | 파일 업로드 상태 관리·격리 검사와 만료 정리 | 접수 이력·검사 결과·공개 승인·미완료 파일 복구와 보존 기한 이해 | 작성 완료 |
-| 47 | 사전 서명 URL 기반 직접 업로드·완료 검증 | 직접 전송 권한·요청 제약·실제 저장 대조와 검사 대기 전환 이해 | 예정 |
+| 47 | 사전 서명 URL 기반 직접 업로드·완료 검증 | 직접 전송 권한·요청 제약·실제 저장 대조와 검사 대기 전환 이해 | 작성 완료 |
+| 48 | 대용량 파일·S3 Multipart Upload와 중단·재개 | 조각별 전송·재시도·완료·중단과 최종 객체 검증의 경계 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -175,4 +177,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-10-28
+> 정리 기준일: 2026-10-31

@@ -599,7 +599,7 @@ DB와 저장소를 연결한 뒤에는 아래 시험이 추가로 필요하다. 
 
 ### 5.2 이전·다음 학습과의 연결
 
-[업로드 입력 검증](../45_10_26_File_Upload_Multipart_and_Validation/10_26_File_Upload_Multipart_and_Validation.md)의 비공개 저장 계약을 검사 작업·다운로드 승인·만료 복구로 연결했다. 다음에는 **사전 서명 URL 기반 직접 업로드·완료 검증**을 학습해 바이트가 애플리케이션을 거치지 않을 때에도 같은 신뢰 경계를 유지하는 방법을 살펴본다.
+[업로드 입력 검증](../45_10_26_File_Upload_Multipart_and_Validation/10_26_File_Upload_Multipart_and_Validation.md)의 비공개 저장 계약을 검사 작업·다운로드 승인·만료 복구로 연결했다. 다음에는 [사전 서명 URL 기반 직접 업로드·완료 검증](../47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md)을 학습해 바이트가 애플리케이션을 거치지 않을 때에도 같은 신뢰 경계를 유지하는 방법을 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 
