@@ -612,7 +612,7 @@ git diff --check
 
 ### 5.2 이전·다음 학습과의 연결
 
-[업로드 수명주기 노트](../46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md)의 RECEIVING 앞뒤에 브라우저 직접 전송과 완료 검증을 연결했다. 다음에는 **대용량 파일·S3 Multipart Upload와 중단·재개**를 학습해 여러 part의 전송 결과·조립·복합 체크섬·미완료 정리를 다룬다.
+[업로드 수명주기 노트](../46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md)의 RECEIVING 앞뒤에 브라우저 직접 전송과 완료 검증을 연결했다. 다음 [대용량 파일·S3 Multipart Upload와 중단·재개](../48_11_01_S3_Multipart_Upload_and_Resume/11_01_S3_Multipart_Upload_and_Resume.md)에서는 여러 part의 전송 결과·조립·복합 체크섬·미완료 정리를 다룬다.
 
 ### 5.3 더 파볼 만한 주제
 
