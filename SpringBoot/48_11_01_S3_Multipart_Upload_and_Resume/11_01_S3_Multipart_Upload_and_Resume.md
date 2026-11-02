@@ -733,7 +733,7 @@ class MultipartRulesTest {
 
 ### 5.2 이전·다음 학습과의 연결
 
-[단일 PUT 직접 업로드](../47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md)의 서명·완료 검증을 part 단위로 확장하고 [격리·정리](../46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md)로 연결했다. 다음에는 **업로드 통합 테스트·실패 주입과 정합성 검증**을 학습해 DB·S3·브라우저 경계의 미실행 시나리오를 실제 증거로 나누는 방법을 정리한다.
+[단일 PUT 직접 업로드](../47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md)의 서명·완료 검증을 part 단위로 확장하고 [격리·정리](../46_10_28_Upload_Lifecycle_Quarantine_and_Cleanup/10_28_Upload_Lifecycle_Quarantine_and_Cleanup.md)로 연결했다. 다음에는 [업로드 통합 테스트·실패 주입과 정합성 검증](../49_11_02_Upload_Integration_Testing_and_Consistency/11_02_Upload_Integration_Testing_and_Consistency.md)을 학습해 DB·S3·브라우저 경계의 미실행 시나리오를 실제 증거로 나누는 방법을 정리한다.
 
 ### 5.3 더 파볼 만한 주제
 
