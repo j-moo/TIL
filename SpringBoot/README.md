@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 업로드의 실패 위치·응답 유실·동시 완료·취소와 복구를 시험하는 방법을 정리했다. 기존 TypeScript 전송 함수의 메모리 실패 주입 검사와 PostgreSQL JDBC 실험 예제를 제공하고, 실제 서비스·S3·브라우저의 별도 검증 범위를 구분했다. 다음에는 비동기 작업 상태 조회·폴링과 SSE를 학습한다.
+현재는 비동기 작업 결과를 화면에 전달하는 상태 조회·폴링과 SSE를 정리했다. revision 기반 최신성, 순차 요청·취소, SseEmitter·재연결·조회 권한·구독 정리와 실제 검증 범위를 구분했다. 다음에는 SSE 이벤트 이력·재생과 재동기화를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -58,6 +58,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 47 | 사전 서명 URL 기반 직접 업로드·완료 검증 | 브라우저 전송 성공을 어떤 버전·바이트의 검사 대기 상태로 확정하는가? | [서명 PUT·CORS·버전 검증과 완료 복구](./47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md) |
 | 48 | 대용량 파일·S3 Multipart Upload와 중단·재개 | 어떤 part를 어떤 시도에 조립하며 실패·취소·재개를 어떻게 대조하는가? | [분할·manifest·고정 버전과 정리](./48_11_01_S3_Multipart_Upload_and_Resume/11_01_S3_Multipart_Upload_and_Resume.md) |
 | 49 | 업로드 통합 테스트·실패 주입과 정합성 검증 | 어느 경계에서 어떤 효과가 남았으며 복구를 무슨 증거로 판단하는가? | [응답 유실·JDBC 경쟁·rollback과 시험 경계](./49_11_02_Upload_Integration_Testing_and_Consistency/11_02_Upload_Integration_Testing_and_Consistency.md) |
+| 50 | 비동기 작업 상태 조회·폴링과 SSE | 누가 어떤 상태를 조회하며 늦은 응답·재연결·화면 종료를 어떻게 다루는가? | [revision·순차 폴링·SSE와 구독 정리](./50_11_03_Async_Status_Polling_and_SSE/11_03_Async_Status_Polling_and_SSE.md) |
 
 ## 권장 학습 순서
 
@@ -115,7 +116,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 47 | 사전 서명 URL 기반 직접 업로드·완료 검증 | 직접 전송 권한·요청 제약·실제 저장 대조와 검사 대기 전환 이해 | 작성 완료 |
 | 48 | 대용량 파일·S3 Multipart Upload와 중단·재개 | 조각별 전송·재시도·완료·중단과 최종 객체 검증의 경계 이해 | 작성 완료 |
 | 49 | 업로드 통합 테스트·실패 주입과 정합성 검증 | DB·S3·브라우저 경계의 응답 유실·중단 경쟁·복구 증거 구분 | 작성 완료 |
-| 50 | 비동기 작업 상태 조회·폴링과 SSE | 검사 대기·진행·완료·실패의 조회·알림·재연결과 사용자 권한 이해 | 예정 |
+| 50 | 비동기 작업 상태 조회·폴링과 SSE | 검사 대기·진행·완료·실패의 조회·알림·재연결과 사용자 권한 이해 | 작성 완료 |
+| 51 | SSE 이벤트 이력·재생과 재동기화 | 영속 cursor·보존 기한·중복 처리·누락 복구와 자원별 권한 이해 | 예정 |
 
 ## 학습 원칙
 
@@ -181,4 +183,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-11-02
+> 정리 기준일: 2026-11-03

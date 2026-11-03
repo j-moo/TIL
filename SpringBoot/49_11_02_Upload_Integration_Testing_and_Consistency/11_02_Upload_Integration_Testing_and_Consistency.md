@@ -530,7 +530,7 @@ Java 21 컴파일러·Gradle·Docker·psql은 PATH에서 확인되지 않아 위
 
 ### 5.2 이전·다음 학습과의 연결
 
-[직접 업로드](../47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md)와 [Multipart Upload](../48_11_01_S3_Multipart_Upload_and_Resume/11_01_S3_Multipart_Upload_and_Resume.md)의 미실행 시나리오를 시험 범위·실패 위치·관찰 증거로 나누었다. 다음에는 **비동기 작업 상태 조회·폴링과 SSE**를 학습해 검사 대기·진행·완료·실패를 사용자 화면에 전달하는 흐름으로 연결한다.
+[직접 업로드](../47_10_31_Presigned_Direct_Upload_and_Completion_Verification/10_31_Presigned_Direct_Upload_and_Completion_Verification.md)와 [Multipart Upload](../48_11_01_S3_Multipart_Upload_and_Resume/11_01_S3_Multipart_Upload_and_Resume.md)의 미실행 시나리오를 시험 범위·실패 위치·관찰 증거로 나누었다. 다음 [비동기 작업 상태 조회·폴링과 SSE](../50_11_03_Async_Status_Polling_and_SSE/11_03_Async_Status_Polling_and_SSE.md)에서는 검사 대기·진행·완료·실패를 사용자 화면에 전달하는 흐름으로 연결한다.
 
 ### 5.3 더 파볼 만한 주제
 
