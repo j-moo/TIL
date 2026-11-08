@@ -521,7 +521,7 @@ MockMvc 비동기 시험에는 await할 완료 조건과 asyncDispatch가 필요
 
 ### 5.2 이전·다음 학습과의 연결
 
-[업로드 실패 주입](../49_11_02_Upload_Integration_Testing_and_Consistency/11_02_Upload_Integration_Testing_and_Consistency.md)에서 구분한 서버 효과·응답 유실을 화면의 상태 관찰에 연결했다. 다음에는 **SSE 이벤트 이력·재생과 재동기화**를 학습해 현재 스냅샷만으로 부족한 경우의 영속 cursor·보존 기한·중복 처리 경계를 다룬다.
+[업로드 실패 주입](../49_11_02_Upload_Integration_Testing_and_Consistency/11_02_Upload_Integration_Testing_and_Consistency.md)에서 구분한 서버 효과·응답 유실을 화면의 상태 관찰에 연결했다. 다음 [SSE 이벤트 이력·재생과 재동기화](../51_11_08_SSE_Event_Replay_and_Resynchronization/11_08_SSE_Event_Replay_and_Resynchronization.md)에서는 현재 스냅샷만으로 부족한 경우의 영속 커서·보존 경계·누락 복구를 다룬다.
 
 ### 5.3 더 파볼 만한 주제
 

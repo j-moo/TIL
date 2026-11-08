@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 비동기 작업 결과를 화면에 전달하는 상태 조회·폴링과 SSE를 정리했다. revision 기반 최신성, 순차 요청·취소, SseEmitter·재연결·조회 권한·구독 정리와 실제 검증 범위를 구분했다. 다음에는 SSE 이벤트 이력·재생과 재동기화를 학습한다.
+현재는 업로드 상태 스냅샷에서 SSE 이벤트 이력 재생으로 범위를 확장했다. 자원별 커서, 상태와 이력의 동시 저장, 보존 경계 밖의 재동기화를 정리했다. 다음에는 여러 업로드를 한 연결로 관찰할 때의 권한과 커서를 학습한다.
 
 ## 현재 작성된 노트
 
@@ -59,6 +59,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 48 | 대용량 파일·S3 Multipart Upload와 중단·재개 | 어떤 part를 어떤 시도에 조립하며 실패·취소·재개를 어떻게 대조하는가? | [분할·manifest·고정 버전과 정리](./48_11_01_S3_Multipart_Upload_and_Resume/11_01_S3_Multipart_Upload_and_Resume.md) |
 | 49 | 업로드 통합 테스트·실패 주입과 정합성 검증 | 어느 경계에서 어떤 효과가 남았으며 복구를 무슨 증거로 판단하는가? | [응답 유실·JDBC 경쟁·rollback과 시험 경계](./49_11_02_Upload_Integration_Testing_and_Consistency/11_02_Upload_Integration_Testing_and_Consistency.md) |
 | 50 | 비동기 작업 상태 조회·폴링과 SSE | 누가 어떤 상태를 조회하며 늦은 응답·재연결·화면 종료를 어떻게 다루는가? | [revision·순차 폴링·SSE와 구독 정리](./50_11_03_Async_Status_Polling_and_SSE/11_03_Async_Status_Polling_and_SSE.md) |
+| 51 | SSE 이벤트 이력·재생과 재동기화 | 끊긴 위치 이후부터 언제 재생하고, 언제 현재 상태로 다시 시작하는가? | [Last-Event-ID·보존 경계·reset](./51_11_08_SSE_Event_Replay_and_Resynchronization/11_08_SSE_Event_Replay_and_Resynchronization.md) |
 
 ## 권장 학습 순서
 
@@ -117,7 +118,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 48 | 대용량 파일·S3 Multipart Upload와 중단·재개 | 조각별 전송·재시도·완료·중단과 최종 객체 검증의 경계 이해 | 작성 완료 |
 | 49 | 업로드 통합 테스트·실패 주입과 정합성 검증 | DB·S3·브라우저 경계의 응답 유실·중단 경쟁·복구 증거 구분 | 작성 완료 |
 | 50 | 비동기 작업 상태 조회·폴링과 SSE | 검사 대기·진행·완료·실패의 조회·알림·재연결과 사용자 권한 이해 | 작성 완료 |
-| 51 | SSE 이벤트 이력·재생과 재동기화 | 영속 cursor·보존 기한·중복 처리·누락 복구와 자원별 권한 이해 | 예정 |
+| 51 | SSE 이벤트 이력·재생과 재동기화 | 영속 커서·보존 경계·중복 처리·누락 복구와 자원별 권한 이해 | 작성 완료 |
+| 52 | SSE 연결 다중화·자원별 권한과 공유 커서 | 한 연결에서 여러 업로드를 구분하고 접근 범위·재개 위치·복구 경계 판단 | 예정 |
 
 ## 학습 원칙
 
@@ -183,4 +185,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-11-03
+> 정리 기준일: 2026-11-08
