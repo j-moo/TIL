@@ -292,7 +292,7 @@ SSE 연결을 복구하는 일과 이력을 복구하는 일은 다르다. 재�
 
 ### 5.2 이전·다음 학습과의 연결
 
-[상태 조회·폴링과 SSE](../50_11_03_Async_Status_Polling_and_SSE/11_03_Async_Status_Polling_and_SSE.md)의 revision을 업로드별 이력 위치로 확장했다. 다음에는 여러 업로드의 상태를 한 화면에서 볼 때 **SSE 연결 다중화·자원별 권한·공유 스트림의 커서**를 어떻게 설계할지 살펴본다.
+[상태 조회·폴링과 SSE](../50_11_03_Async_Status_Polling_and_SSE/11_03_Async_Status_Polling_and_SSE.md)의 revision을 업로드별 이력 위치로 확장했다. 다음 [SSE 연결 다중화·자원별 권한과 공유 커서](../52_11_09_SSE_Multiplexing_and_Scoped_Cursors/11_09_SSE_Multiplexing_and_Scoped_Cursors.md)에서는 여러 업로드를 한 연결에서 관찰할 때의 범위와 재개 위치를 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 
