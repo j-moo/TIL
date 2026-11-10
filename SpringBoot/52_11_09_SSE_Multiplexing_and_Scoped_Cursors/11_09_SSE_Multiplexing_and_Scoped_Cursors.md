@@ -271,7 +271,7 @@ Node.js 24.18.0에서 **14개 테스트 통과**를 확인했다. 초기 순서,
 
 ### 5.2 이전·다음 학습과의 연결
 
-[SSE 이벤트 이력·재생과 재동기화](../51_11_08_SSE_Event_Replay_and_Resynchronization/11_08_SSE_Event_Replay_and_Resynchronization.md)의 단일 자원 커서를 여러 자원으로 확장했다. 다음에는 **SSE 통합 테스트·권한 철회와 프록시 검증**으로 실제 연결에서 재생·종료가 의도대로 작동하는지 확인한다.
+[SSE 이벤트 이력·재생과 재동기화](../51_11_08_SSE_Event_Replay_and_Resynchronization/11_08_SSE_Event_Replay_and_Resynchronization.md)의 단일 자원 커서를 여러 자원으로 확장했다. 다음 [SSE 통합 테스트·권한 철회와 프록시 검증](../53_11_10_SSE_Integration_Testing_and_Proxy_Verification/11_10_SSE_Integration_Testing_and_Proxy_Verification.md)에서는 실제 연결에서 재생·종료가 의도대로 작동하는지 확인한다.
 
 ### 5.3 더 파볼 만한 주제
 
