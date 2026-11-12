@@ -202,7 +202,7 @@ SSE의 정상 동작은 연결이 열린 것 하나로 판정할 수 없다. 재
 
 ### 5.2 이전·다음 학습과의 연결
 
-[SSE 연결 다중화](../52_11_09_SSE_Multiplexing_and_Scoped_Cursors/11_09_SSE_Multiplexing_and_Scoped_Cursors.md)에서 설계한 공유 커서를 실제 로컬 HTTP 시험에 연결했다. 다음에는 **SSE 운영 관측성·메트릭과 장애 진단**을 다뤄, 재연결 증가나 첫 이벤트 지연을 배포 환경에서 어떻게 추적할지 살펴본다.
+[SSE 연결 다중화](../52_11_09_SSE_Multiplexing_and_Scoped_Cursors/11_09_SSE_Multiplexing_and_Scoped_Cursors.md)에서 설계한 공유 커서를 실제 로컬 HTTP 시험에 연결했다. 다음 [SSE 운영 관측성·메트릭과 장애 진단](../54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md)에서는 재연결 증가나 첫 이벤트 지연을 배포 환경에서 어떻게 추적할지 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 
