@@ -4,20 +4,21 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-11-12 기준 · 18개 학습 분야 · 학습 노트 247개 · Spring Boot 입문 노트 55개
+> 2026-11-13 기준 · 18개 학습 분야 · 학습 노트 248개 · Spring Boot 입문 노트 56개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [SSE 운영 관측성·메트릭과 장애 진단](./SpringBoot/54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md) — 활성 연결·종료 사유·첫 전송 지연과 화면 반영을 각각 측정하는 방법을 설명합니다.
-- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — SSE 운영 지표와 화면 점검을 정리했고, 다음은 재연결 폭주·부하 제한과 점진적 종료입니다.
+- **최신 강의노트**: [SSE 재연결 폭주·부하 제한과 점진적 종료](./SpringBoot/55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md) — 재시도 시점을 분산하고, 배포 중 구독을 정리해 마지막 적용 위치에서 이어 읽는 방법을 설명합니다.
+- **현재 학습 중**: [Spring Boot 로드맵](./SpringBoot/README.md) — 재연결과 배포 종료의 제어 지점을 정리했고, 다음은 SSE 용량 계획과 부하 테스트입니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
 ## Recently Updated
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
+| SSE 재연결과 점진적 종료 | 백오프·지터·재시도 예산, 연결 슬롯·재생 한도와 커서 보존 | [바로가기](./SpringBoot/55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md) |
 | SSE 운영 관측성 | Micrometer·PromQL, 활성 연결·종료 이유·첫 전송과 화면 반영 진단 | [바로가기](./SpringBoot/54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md) |
 | SSE 통합 테스트 | 실제 HTTP 재연결, 불완전 프레임·권한 철회·구독 정리와 프록시 버퍼링 | [바로가기](./SpringBoot/53_11_10_SSE_Integration_Testing_and_Proxy_Verification/11_10_SSE_Integration_Testing_and_Proxy_Verification.md) |
 | SSE 연결 다중화 | 고정 관찰 범위·벡터 커서·슬롯별 재생과 reset·자원별 권한 | [바로가기](./SpringBoot/52_11_09_SSE_Multiplexing_and_Scoped_Cursors/11_09_SSE_Multiplexing_and_Scoped_Cursors.md) |
@@ -56,7 +57,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 11월 12일까지 **135개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 11월 13일까지 **136개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -132,6 +133,7 @@
 | 2026.11.09 | Spring Boot·JavaScript | SSE 연결 다중화, 고정 구독 범위·벡터 커서·자원별 재생과 권한 철회 |
 | 2026.11.10 | Spring Boot·JavaScript | SSE 통합 테스트, 실제 로컬 HTTP 재연결·권한 철회·연결 정리와 프록시 버퍼링 비교 |
 | 2026.11.12 | Spring Boot·Prometheus | SSE 운영 지표, 연결 수명·종료 사유·첫 전송과 화면 반영 진단 |
+| 2026.11.13 | Spring Boot·JavaScript | SSE 재시도 정책·지터·시간 예산, 연결 슬롯과 배포 중 점진적 종료 |
 
 ## Learning Areas
 
@@ -152,18 +154,18 @@
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
-| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch·업로드·다운로드·실패 검증·폴링·SSE 재생·통합 검증·관측성 | 55 |
+| [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch·업로드·다운로드·실패 검증·폴링·SSE 재생·관측성·점진적 종료 | 56 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **247개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **248개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 현재는 **프론트엔드에서 사용하는 API를 서버·DB의 동작 원리까지 연결해 이해하는 것**에 집중합니다.
 
 1. **Spring Boot·외부 연동·운영**: 내부 요청부터 외부 HTTP 호출까지 실패 경계를 나누고, timeout·응답 계약·관찰 범위를 테스트합니다.
-2. **다음 학습 — SSE 재연결 폭주와 점진적 종료**: 서버 재시작과 장애 복구 때 연결 부하를 분산하고 재생 위치를 보존하는 방법을 살펴봅니다.
+2. **다음 학습 — SSE 용량 계획과 부하 테스트**: 평상시 연결과 재연결 시 이력 재생 부하를 나눠 필요한 여유를 추정합니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
 5. **학습 기록의 재현성**: 설명용 코드와 실행 가능한 코드를 구분하고, 문서 링크·집계·유지보수 도구를 검사합니다.

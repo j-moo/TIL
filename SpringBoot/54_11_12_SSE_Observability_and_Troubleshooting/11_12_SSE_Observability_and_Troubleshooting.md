@@ -254,7 +254,7 @@ Node.js 24.18.0에서 **9개 테스트 통과**를 확인했다. 다른 상태�
 
 ### 5.2 이전·다음 학습과의 연결
 
-[SSE 통합 테스트](../53_11_10_SSE_Integration_Testing_and_Proxy_Verification/11_10_SSE_Integration_Testing_and_Proxy_Verification.md)에서 분리한 재연결·전송·정리 증거를 운영 지표로 옮겼다. 다음에는 **SSE 재연결 폭주·부하 제한과 점진적 종료**를 다뤄 재시작과 장애 복구 동안 부하를 분산하는 방법을 살펴본다.
+[SSE 통합 테스트](../53_11_10_SSE_Integration_Testing_and_Proxy_Verification/11_10_SSE_Integration_Testing_and_Proxy_Verification.md)에서 분리한 재연결·전송·정리 증거를 운영 지표로 옮겼다. 다음 [SSE 재연결 폭주·부하 제한과 점진적 종료](../55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md)에서는 재시작과 장애 복구 동안 부하를 분산하는 방법을 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 

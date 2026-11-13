@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 SSE 활성 연결·종료 사유·첫 전송을 계측하고, 화면 반영을 별도 합성 점검으로 확인하는 기준을 정리했다. 다음에는 재연결 폭주를 완화하고 배포 중 연결을 점진적으로 종료하는 방법을 학습한다.
+현재는 SSE 재시도 분산과 연결·재생 한도, 배포 중 점진적 종료를 정리했다. 다음에는 평상시 연결과 복구 트래픽의 비용을 나눠 필요한 용량을 추정한다.
 
 ## 현재 작성된 노트
 
@@ -63,6 +63,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 52 | SSE 연결 다중화·자원별 권한과 공유 커서 | 한 자원의 이벤트를 보낼 때 다른 자원의 재생 위치를 어떻게 보존하는가? | [고정 관찰 범위·벡터 커서·부분 reset](./52_11_09_SSE_Multiplexing_and_Scoped_Cursors/11_09_SSE_Multiplexing_and_Scoped_Cursors.md) |
 | 53 | SSE 통합 테스트·권한 철회와 프록시 검증 | 헤더·이벤트 도착·권한 차단·서버 정리를 어떤 증거로 확인하는가? | [실제 로컬 HTTP·Spring 시험·프록시 비교](./53_11_10_SSE_Integration_Testing_and_Proxy_Verification/11_10_SSE_Integration_Testing_and_Proxy_Verification.md) |
 | 54 | SSE 운영 관측성·메트릭과 장애 진단 | 서버의 첫 전송과 화면 반영을 어떻게 따로 측정하고 진단하는가? | [Micrometer·PromQL·화면 합성 점검](./54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md) |
+| 55 | SSE 재연결 폭주·부하 제한과 점진적 종료 | 배포 중 연결이 동시에 몰리지 않게 하면서 재개 위치를 어떻게 보존하는가? | [재시도 예산·활성 슬롯·드레이닝](./55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md) |
 
 ## 권장 학습 순서
 
@@ -125,7 +126,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 52 | SSE 연결 다중화·자원별 권한과 공유 커서 | 한 연결에서 여러 업로드를 구분하고 접근 범위·재개 위치·복구 경계 판단 | 작성 완료 |
 | 53 | SSE 통합 테스트·권한 철회와 프록시 검증 | 실제 연결의 재연결·재생·전송 지연·종료를 관찰하고 정리 검증 | 작성 완료 |
 | 54 | SSE 운영 관측성·메트릭과 장애 진단 | 활성 연결·종료 사유·첫 전송과 화면 반영 지연을 측정하고 원인 경계 구분 | 작성 완료 |
-| 55 | SSE 재연결 폭주·부하 제한과 점진적 종료 | 재시도 분산과 연결 제한, 재개 위치를 유지하는 배포 종료 이해 | 예정 |
+| 55 | SSE 재연결 폭주·부하 제한과 점진적 종료 | 재시도 분산과 연결 제한, 재개 위치를 유지하는 배포 종료 이해 | 작성 완료 |
+| 56 | SSE 용량 계획과 부하 테스트 | 정상 연결과 복구 시 재생 부하를 나눠 여유 용량·합격 기준 판단 | 예정 |
 
 ## 학습 원칙
 
@@ -191,4 +193,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-11-12
+> 정리 기준일: 2026-11-13
