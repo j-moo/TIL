@@ -209,7 +209,7 @@ Node.js 24.18.0에서 **10개 테스트 통과**를 확인했다. 이 결과는 
 
 ### 5.2 이전·다음 학습과의 연결
 
-[SSE 운영 관측성](../54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md)의 연결·종료·지연 지표를 배포 중의 판단 근거로 사용했다. 다음에는 **SSE 용량 계획과 부하 테스트**에서 정상 연결과 복구 트래픽을 나눠 필요한 여유를 추정한다.
+[SSE 운영 관측성](../54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md)의 연결·종료·지연 지표를 배포 중의 판단 근거로 사용했다. 다음 [SSE 용량 계획과 부하 테스트](../56_11_17_SSE_Capacity_Planning_and_Load_Testing/11_17_SSE_Capacity_Planning_and_Load_Testing.md)에서는 정상 연결과 복구 트래픽을 나눠 필요한 여유를 추정한다.
 
 ### 5.3 더 파볼 만한 주제
 
