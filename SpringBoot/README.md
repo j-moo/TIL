@@ -2,7 +2,7 @@
 
 Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → Spring 핵심 → 웹 API → 검증·설정 → 데이터 접근 → 테스트·보안 → 운영** 순서로 학습하도록 구성한다.
 
-현재는 평상시 SSE 연결과 복구 시 재생 부하를 나누어 용량을 추정하고 시험하는 기준을 정리했다. 다음에는 스트림 장애에도 화면을 유지하는 SSE·폴링 전환을 학습한다.
+현재는 SSE 장애 시 순차 폴링으로 전환하고 최신 상태를 확인해 복귀하는 기준을 정리했다. 다음에는 변경 없는 폴링 응답을 조건부 GET으로 줄이는 방법을 학습한다.
 
 ## 현재 작성된 노트
 
@@ -65,6 +65,7 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 54 | SSE 운영 관측성·메트릭과 장애 진단 | 서버의 첫 전송과 화면 반영을 어떻게 따로 측정하고 진단하는가? | [Micrometer·PromQL·화면 합성 점검](./54_11_12_SSE_Observability_and_Troubleshooting/11_12_SSE_Observability_and_Troubleshooting.md) |
 | 55 | SSE 재연결 폭주·부하 제한과 점진적 종료 | 배포 중 연결이 동시에 몰리지 않게 하면서 재개 위치를 어떻게 보존하는가? | [재시도 예산·활성 슬롯·드레이닝](./55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md) |
 | 56 | SSE 용량 계획과 부하 테스트 | 활성 연결은 수용할 수 있지만 복구 시 DB가 부족한 상황을 어떻게 구분하는가? | [평균 슬롯·재생 예산·합격 기준](./56_11_17_SSE_Capacity_Planning_and_Load_Testing/11_17_SSE_Capacity_Planning_and_Load_Testing.md) |
+| 57 | SSE·폴링 전환과 장애 시 상태 복구 | 늦은 응답을 막고 검증된 상태를 기준으로 SSE에 어떻게 복귀하는가? | [관찰 세대·revision·복귀 마감](./57_11_18_SSE_Polling_Failover_and_State_Recovery/11_18_SSE_Polling_Failover_and_State_Recovery.md) |
 
 ## 권장 학습 순서
 
@@ -129,7 +130,8 @@ Spring Boot를 처음 배우는 사람이 **사전지식 → 실행 구조 → S
 | 54 | SSE 운영 관측성·메트릭과 장애 진단 | 활성 연결·종료 사유·첫 전송과 화면 반영 지연을 측정하고 원인 경계 구분 | 작성 완료 |
 | 55 | SSE 재연결 폭주·부하 제한과 점진적 종료 | 재시도 분산과 연결 제한, 재개 위치를 유지하는 배포 종료 이해 | 작성 완료 |
 | 56 | SSE 용량 계획과 부하 테스트 | 정상 연결과 복구 시 재생 부하를 나눠 여유 용량·합격 기준 판단 | 작성 완료 |
-| 57 | SSE·폴링 전환과 장애 시 상태 복구 | 반복 실패 시 상태 조회로 전환하고 새 스트림의 기준점과 복귀 조건 결정 | 예정 |
+| 57 | SSE·폴링 전환과 장애 시 상태 복구 | 반복 실패 시 상태 조회로 전환하고 새 스트림의 기준점과 복귀 조건 결정 | 작성 완료 |
+| 58 | 상태 폴링의 조건부 GET·ETag와 304 | 인증이 필요한 상태 응답에서 본문 재전송과 마지막 확인값을 관리 | 예정 |
 
 ## 학습 원칙
 
@@ -195,4 +197,4 @@ Controller, Service, Repository를 모두 만든 뒤 한꺼번에 확인하지 �
 5. 웹 요청은 [Spring Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)에서 확인한다.
 6. 기능별 작은 예제는 [Spring Getting Started Guides](https://spring.io/guides)로 실습한다.
 
-> 정리 기준일: 2026-11-17
+> 정리 기준일: 2026-11-18

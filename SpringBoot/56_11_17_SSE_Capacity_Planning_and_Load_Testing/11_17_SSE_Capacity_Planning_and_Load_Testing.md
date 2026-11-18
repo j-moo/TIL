@@ -160,7 +160,7 @@ Node.js 24.18.0에서 **10개 테스트 통과**를 확인했다. 슬롯 여유�
 
 ### 5.2 이전·다음 학습과의 연결
 
-[SSE 점진적 종료](../55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md)의 재연결 분산을 평균 조회량과 시험 기준으로 옮겼다. 다음에는 **SSE·폴링 전환과 장애 시 상태 복구**를 다뤄 연결이나 재생이 계속 실패해도 화면을 어떻게 갱신할지 비교한다.
+[SSE 점진적 종료](../55_11_13_SSE_Reconnect_Storms_and_Graceful_Drain/11_13_SSE_Reconnect_Storms_and_Graceful_Drain.md)의 재연결 분산을 평균 조회량과 시험 기준으로 옮겼다. 다음 [SSE·폴링 전환과 장애 시 상태 복구](../57_11_18_SSE_Polling_Failover_and_State_Recovery/11_18_SSE_Polling_Failover_and_State_Recovery.md)에서는 연결 실패가 계속될 때 화면을 어떻게 갱신할지 살펴본다.
 
 ### 5.3 더 파볼 만한 주제
 
