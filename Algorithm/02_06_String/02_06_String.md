@@ -135,6 +135,9 @@ UTF-16 big-endian BOM은 `FE FF`, little-endian BOM은 `FF FE`다.
 UTF-8은 한 코드 단위 안의 바이트 순서가 인코딩 규칙으로 고정되어 있으므로 endian 선택이 없다.
 UTF-8 BOM `EF BB BF`가 존재하기는 하지만 바이트 순서 표시가 목적은 아니며, 환경에 따라 불필요한 문자처럼 처리될 수 있다.
 ⚠️ 주의: endian은 문자 순서를 뒤집는 개념이 아니다. 하나의 다중 바이트 값을 구성하는 바이트의 배치 순서다.
+
+같은 원리를 텍스트가 아닌 센서 값에 적용하는 예는 [BLE GATT로 온도 바이트 읽기](../../IoT/01_11_19_BLE_GATT_and_Sensor_Data/11_19_BLE_GATT_and_Sensor_Data.md)에서 이어진다.
+
 ### 3.5 UTF-8, UTF-16, UTF-32
 
 UTF는 Unicode Transformation Format의 약자다.
