@@ -4,13 +4,13 @@
 
 단순한 개념 요약보다 **왜 필요한지, 어떻게 동작하는지, 실제 코드에서 무엇을 주의해야 하는지**를 함께 남기는 것을 목표로 합니다.
 
-> 2026-11-19 기준 · 19개 학습 분야 · 학습 노트 251개
+> 2026-11-21 기준 · 19개 학습 분야 · 학습 노트 252개
 >
 > 개발 경험과 프로젝트 소개는 [GitHub 프로필](https://github.com/j-moo)에서 확인할 수 있습니다.
 
 ## Start Here
 
-- **최신 강의노트**: [BLE GATT로 센서 값 읽기](./IoT/01_11_19_BLE_GATT_and_Sensor_Data/11_19_BLE_GATT_and_Sensor_Data.md) — 센서가 제공하는 값을 찾아 읽고, 알림으로 받은 바이트를 측정값으로 바꾸는 과정을 따라갑니다.
+- **최신 강의노트**: [BLE 재연결과 최신값 확인](./IoT/02_11_21_BLE_Reconnection_and_State_Recovery/11_21_BLE_Reconnection_and_State_Recovery.md) — 연결 뒤 구독을 복구하고, 다시 확인한 온도가 늦은 응답으로 덮이지 않도록 합니다.
 - **분야별로 이어 읽기**: [IoT 로드맵](./IoT/README.md)은 센서 측정값 수신부터, [Spring Boot 로드맵](./SpringBoot/README.md)은 서버와 데이터 접근의 기초부터 시작합니다.
 - **기초부터 복습**: [Java](./Java/README.md) · [TypeScript](./TypeScript/README.md) · [React](./React/README.md) — 각 로드맵의 핵심 질문을 기준으로 필요한 노트를 찾습니다.
 
@@ -18,6 +18,7 @@
 
 | 주제 | 핵심 내용 | 노트 |
 | --- | --- | --- |
+| BLE 재연결 | 구독 복구, 연결 세대로 이전 콜백 구분, 초기 Read와 알림의 화면 갱신 순서 | [바로가기](./IoT/02_11_21_BLE_Reconnection_and_State_Recovery/11_21_BLE_Reconnection_and_State_Recovery.md) |
 | BLE 센서 데이터 | GATT 서비스·특성 발견, 읽기와 알림의 차이, 바이트 순서와 단위 해석 | [바로가기](./IoT/01_11_19_BLE_GATT_and_Sensor_Data/11_19_BLE_GATT_and_Sensor_Data.md) |
 | SSE·폴링 전환 | 관찰 세대·revision·권한 오류·복귀 마감과 상태/이력 구분 | [바로가기](./SpringBoot/57_11_18_SSE_Polling_Failover_and_State_Recovery/11_18_SSE_Polling_Failover_and_State_Recovery.md) |
 | SSE 용량 계획 | 평균 활성 구독·재배치 여유·DB 재생 비용·부하 시험 합격 기준 | [바로가기](./SpringBoot/56_11_17_SSE_Capacity_Planning_and_Load_Testing/11_17_SSE_Capacity_Planning_and_Load_Testing.md) |
@@ -60,7 +61,7 @@
 
 ## Learning Timeline
 
-2026년 7월 3일을 기준점으로, 11월 19일까지 **139개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
+2026년 7월 3일을 기준점으로, 11월 21일까지 **140개의 노트**를 추가했습니다. 아래는 이 기간의 학습 흐름이며 프로필 갱신 날짜와는 별도로 관리합니다.
 
 | 기간 | 학습 축 | 주요 내용 |
 | --- | --- | --- |
@@ -140,6 +141,7 @@
 | 2026.11.17 | Spring Boot·JavaScript | SSE 평균 활성 연결·배포 여유·재생 조회량과 부하 시험 합격 기준 |
 | 2026.11.18 | Spring Boot·JavaScript | SSE에서 폴링으로 전환, 관찰 세대와 revision 비교, 상태 확인 후 스트림 복귀 |
 | 2026.11.19 | IoT | BLE에서 센서 특성 찾기, 한 번 읽기와 알림 구독, 바이트열을 측정값으로 해석하는 방법 |
+| 2026.11.21 | IoT | BLE 재연결과 구독 복구, 이전 콜백 차단, Read와 Notify로 현재 연결의 값 확인 |
 
 ## Learning Areas
 
@@ -159,19 +161,19 @@
 | [FastAPI](./FastAPI) | API 기초, 모델 서빙, API Gateway, 멀티모달 연동 | 1 |
 | [AI](./ai) | 머신러닝, LLM, RAG, Fine-tuning, 모델 활용과 AI 코딩 도구 협업 | 17 |
 | [Data Engineering](./DataEngineering) | HDFS 분산 저장, 장애 허용성과 MapReduce 배치 처리 | 1 |
-| [IoT](./IoT) | 저전력 블루투스(BLE), GATT 서비스·특성, 센서 데이터 수신·해석 | 1 |
+| [IoT](./IoT) | 저전력 블루투스(BLE), GATT 서비스·특성, 센서 데이터 해석과 재연결 | 2 |
 | [Java](./Java) | Java 문법, 객체지향, 컬렉션, 제네릭, 예외 처리와 함수형 프로그래밍 | 17 |
 | [Spring Boot](./SpringBoot) | IoC·DI, MVC·REST, JDBC·JPA·트랜잭션·테스트·보안·운영, 외부 HTTP·조회·마이그레이션·동시성·메시지·resilience·캐시·비동기·스케줄링·Batch·업로드·다운로드·실패 검증·SSE 재생·관측성·용량 계획·폴링 전환 | 58 |
 | [Git](./Git) | 버전 관리, 원격 저장소와 GitHub Actions CI | 3 |
 | [Markdown](./markdown) | Markdown 문법과 문서 작성 연습 | 2 |
 
-현재 총 **251개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
+현재 총 **252개의 학습 노트**를 관리하고 있습니다. README·작성 프롬프트·점검 보고서는 학습 노트 수에서 제외합니다.
 
 ## Current Focus
 
 프로젝트에서 접하는 기술을 공부할 때는 **다른 예제에도 적용할 수 있는 원리와 검증 방법**을 TIL에 남깁니다. 프로젝트별 작업 이력은 별도로 관리합니다.
 
-1. **IoT·센서 통신**: BLE 특성에서 받은 바이트를 해석하고, 다음에는 연결이 끊긴 뒤 재구독과 최신값 확인을 살펴봅니다.
+1. **IoT·센서 통신**: BLE로 받은 데이터를 해석하고 재연결 뒤 화면 상태를 확인합니다. 다음 후보는 센서 측정 순번과 재부팅 경계입니다.
 2. **Spring Boot·외부 연동·운영**: 이 분야의 다음 후보는 상태 폴링의 조건부 GET·ETag와 304입니다. 표현이 바뀌지 않았을 때 본문 전송을 줄이고 마지막 확인값을 관리하는 방법을 다룹니다.
 3. **Java 기반 강화**: 객체지향·컬렉션·제네릭을 복습하고 Entity의 동일성·동등성 문제로 연결합니다.
 4. **React·TypeScript·Firebase 복습**: 타입 계약, 비동기 상태, 인증·인가, 접근성·오류 복구를 실제 사용자 흐름으로 설명합니다.
